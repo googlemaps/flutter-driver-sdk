@@ -1,0 +1,41 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: 'Setup Flutter dependency overrides'
+description: 'Adds SSH key and updates Flutter dependency overrides'
+inputs:
+  NAV_SDK_DEPLOY_KEY:
+    description: 'SSH private key for accessing private repositories'
+    required: true
+  NAV_SDK_DEPENDENCY_OVERRIDE:
+    description: 'Dependency overrides for Navigation SDK flutter dependency'
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - name: Add SSH Key
+      if: inputs.NAV_SDK_DEPLOY_KEY != ''
+      shell: bash
+      run: |
+        mkdir -p ~/.ssh/
+        echo "${{ inputs.NAV_SDK_DEPLOY_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+    - name: Update Flutter Dependency Overrides
+      if: inputs.NAV_SDK_DEPENDENCY_OVERRIDE != ''
+      shell: bash
+      run: |
+        ./.github/actions/scripts/override_google_maps_navigation_dependency.sh . ${{ inputs.NAV_SDK_DEPENDENCY_OVERRIDE }}
+        ./.github/actions/scripts/override_google_maps_navigation_dependency.sh ./example ${{ inputs.NAV_SDK_DEPENDENCY_OVERRIDE }}
