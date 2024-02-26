@@ -1,0 +1,67 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+version: '3'
+services:
+  lmfs-backend:
+    build:
+      context: .
+      dockerfile: ./LMFS/Dockerfile
+      args:
+        PROJECT_ID: ${PROJECT_ID}
+        SERVER_SERVICE_ACCOUNT_EMAIL: ${SERVER_SERVICE_ACCOUNT_EMAIL}
+        DRIVER_SERVICE_ACCOUNT_EMAIL: ${DRIVER_SERVICE_ACCOUNT_EMAIL}
+        CONSUMER_SERVICE_ACCOUNT_EMAIL: ${CONSUMER_SERVICE_ACCOUNT_EMAIL}
+        FLEET_READER_SERVICE_ACCOUNT_EMAIL: ${FLEET_READER_SERVICE_ACCOUNT_EMAIL}
+        JS_API_KEY: ${JS_API_KEY}
+        HOST: http://localhost:8091
+        GIT_HASH: dff5045208bb687337ca2e27e2060ff0b2c7826e
+    command: ["./gradlew", "appengineRun", "--stacktrace"]
+    ports:
+      - "8091:8080"
+    volumes:
+      - ${GCLOUD_CONFIG_DIR}:/root/.config/gcloud
+
+  odrd-backend:
+    build:
+      context: .
+      dockerfile: ./ODRD/Dockerfile
+      args:
+        PROJECT_ID: ${PROJECT_ID}
+        SERVER_SERVICE_ACCOUNT_EMAIL: ${SERVER_SERVICE_ACCOUNT_EMAIL}
+        DRIVER_SERVICE_ACCOUNT_EMAIL: ${DRIVER_SERVICE_ACCOUNT_EMAIL}
+        CONSUMER_SERVICE_ACCOUNT_EMAIL: ${CONSUMER_SERVICE_ACCOUNT_EMAIL}
+        GIT_HASH: 9ae34af34a0abc51e1139ce2a4fc7e0d30f368b2
+    command: ["./gradlew", "appengineRun", "--stacktrace"]
+    ports:
+      - "8092:8080"
+    volumes:
+      - ${GCLOUD_CONFIG_DIR}:/root/.config/gcloud
+
+  fleetengine-auth:
+    build:
+      context: .
+      dockerfile: ./FleetEngineAuth/Dockerfile
+      args:
+        PROJECT_ID: ${PROJECT_ID}
+        SERVER_SERVICE_ACCOUNT_EMAIL: ${SERVER_SERVICE_ACCOUNT_EMAIL}
+        DRIVER_SERVICE_ACCOUNT_EMAIL: ${DRIVER_SERVICE_ACCOUNT_EMAIL}
+        CONSUMER_SERVICE_ACCOUNT_EMAIL: ${CONSUMER_SERVICE_ACCOUNT_EMAIL}
+        FLEET_READER_SERVICE_ACCOUNT_EMAIL: ${FLEET_READER_SERVICE_ACCOUNT_EMAIL}
+        FLEET_ENGINE_AUTH_VERSION: 1.11.0
+    profiles:
+      - fleetengine-auth
+    command: ["./gradlew", "run"]
+    volumes:
+      - ${GCLOUD_CONFIG_DIR}:/root/.config/gcloud
