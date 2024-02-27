@@ -17,5 +17,5 @@ jobs:
         with:
           token: ${{ secrets.SYNCED_GITHUB_TOKEN_REPO }}
           release-type: dart
-          package-name: "@googlemaps/flutter-navigation-sdk"
+          package-name: "@googlemaps/flutter-driver-sdk"
           bump-minor-pre-major: true
