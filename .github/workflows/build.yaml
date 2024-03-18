@@ -25,7 +25,7 @@ jobs:
     runs-on: 
       labels: ubuntu-latest-8core
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
       - name: Override nav sdk dependencies
         uses: ./.github/actions/dependency-override
         with:
@@ -51,7 +51,7 @@ jobs:
     runs-on: 
       labels: ubuntu-latest-8core
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
       - name: Override nav sdk dependencies
         uses: ./.github/actions/dependency-override
         with:
@@ -82,7 +82,7 @@ jobs:
         working_directory:
           ['example']
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
       - name: Override nav sdk dependencies
         uses: ./.github/actions/dependency-override
         with:
@@ -117,7 +117,7 @@ jobs:
     env:
       MAPS_API_KEY: ${{ secrets.ACTIONS_API_KEY }}
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
       - name: Override nav sdk dependencies
         uses: ./.github/actions/dependency-override
         with:
@@ -146,7 +146,7 @@ jobs:
     env:
       MAPS_API_KEY: ${{ secrets.ACTIONS_API_KEY }}
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
       - name: Override nav sdk dependencies
         uses: ./.github/actions/dependency-override
         with:
