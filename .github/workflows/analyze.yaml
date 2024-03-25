@@ -30,7 +30,7 @@ jobs:
         with:
           NAV_SDK_DEPLOY_KEY: ${{ secrets.NAV_SDK_GIT_REPO_DEPLOY_KEY }}
           NAV_SDK_DEPENDENCY_OVERRIDE: ${{ secrets.NAV_SDK_OVERRIDE }}
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+      - uses: subosito/flutter-action@1c5eb12d812966ca84680edc38353a0851c8fd56
         with:
           channel: 'stable'
           cache: true
@@ -73,7 +73,7 @@ jobs:
         with:
           NAV_SDK_DEPLOY_KEY: ${{ secrets.NAV_SDK_GIT_REPO_DEPLOY_KEY }}
           NAV_SDK_DEPENDENCY_OVERRIDE: ${{ secrets.NAV_SDK_OVERRIDE }}
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+      - uses: subosito/flutter-action@1c5eb12d812966ca84680edc38353a0851c8fd56
         with:
           channel: 'stable'
           cache: true
