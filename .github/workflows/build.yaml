@@ -36,7 +36,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
           cache: 'gradle'
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+      - uses: subosito/flutter-action@3d804929922b667a63a229bc59037807f969e885
         with:
           channel: 'stable'
           cache: true
@@ -62,7 +62,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
           cache: 'gradle'
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+      - uses: subosito/flutter-action@3d804929922b667a63a229bc59037807f969e885
         with:
           flutter-version: '3.16.x'
           channel: 'stable'
@@ -94,7 +94,7 @@ jobs:
           key: ${{ runner.os }}-pods-${{ hashFiles('**/*.podspec') }}
           restore-keys: |
             ${{ runner.os }}-pods-
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+      - uses: subosito/flutter-action@3d804929922b667a63a229bc59037807f969e885
         with:
           flutter-version: '3.16.x'
           channel: 'stable'
@@ -128,7 +128,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
           cache: 'gradle'
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+      - uses: subosito/flutter-action@3d804929922b667a63a229bc59037807f969e885
         with:
           channel: 'stable'
           cache: true
@@ -152,7 +152,7 @@ jobs:
         with:
           NAV_SDK_DEPLOY_KEY: ${{ secrets.NAV_SDK_GIT_REPO_DEPLOY_KEY }}
           NAV_SDK_DEPENDENCY_OVERRIDE: ${{ secrets.NAV_SDK_OVERRIDE }}
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+      - uses: subosito/flutter-action@3d804929922b667a63a229bc59037807f969e885
         with:
           channel: 'stable'
           cache: true
