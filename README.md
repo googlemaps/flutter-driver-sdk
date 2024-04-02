@@ -13,7 +13,7 @@ This repository contains a Flutter plugin that allows users to use the [Google M
 | **Support** | SDK 23+ | iOS 14.0+ |
 
 * A Flutter project
-* A Google Cloud project with the [Navigation SDK enabled](https://developers.google.com/maps/documentation/navigation/android-sdk/set-up-project), the [Maps SDK for iOS enabled](https://developers.google.com/maps/documentation/navigation/ios-sdk/config) and the [Local Rides and Deliveries API enabled](https://console.developers.google.com/apis/library/fleetengine.googleapis.com)
+* A Google Cloud project with the [Navigation SDK enabled](https://developers.google.com/maps/documentation/navigation/android-sdk/set-up-project), the [Maps SDK for iOS enabled](https://developers.google.com/maps/documentation/navigation/ios-sdk/config) and the [Local Rides and Deliveries API enabled](https://console.developers.google.com/apis/library/fleetengine.googleapis.com). To access our mobility packages, contact sales as informed in this [document](https://developers.google.com/maps/documentation/transportation-logistics/mobility)
 * A Google Maps API key from the project above
 * Project ID for the project above
 * If targeting Android, [Google Play Services](https://developers.google.com/android/guides/overview) installed and enabled
@@ -25,16 +25,7 @@ This repository contains a Flutter plugin that allows users to use the [Google M
 
 ## Installation
 
-1. This repository is currently private. You will need to add the package dependency using [Git with SSH](https://docs.flutter.dev/packages-and-plugins/using-packages#dependencies-on-unpublished-packages) in the app's `pubspec.yaml` file. See [Connecting to GitHub with SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) for instructions on how to provide SSH keys.
-
-```
-  dependencies:
-    google_maps_driver:
-      git:
-        url: git@github.com:googlemaps/flutter-driver-sdk.git
-```
-
-2. Follow the instructions at the `google_maps_navigation` plugin Readme to add your API key to the appropriate files in your Flutter project.
+Follow the instructions at the `google_maps_navigation` plugin Readme to add your API key to the appropriate files in your Flutter project.
    
    [Google Maps Navigation Installation](https://github.com/googlemaps/flutter-navigation-sdk/blob/main/README.md#installation)
 
