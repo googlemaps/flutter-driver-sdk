@@ -14,7 +14,7 @@
 
 name: google_maps_driver
 description: A Google Maps Driver plugin
-version: 0.1.0-beta
+version: 0.1.1-beta
 publish_to: none
 
 environment:
@@ -24,7 +24,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_maps_navigation: 0.2.0-beta
+  google_maps_navigation: 0.2.2-beta
 
 dev_dependencies:
   build_runner: ^2.4.6
