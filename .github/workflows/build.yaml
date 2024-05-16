@@ -19,13 +19,17 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test-dart:
     timeout-minutes: 45
-    runs-on: 
+    runs-on:
       labels: ubuntu-latest-8core
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b
       - name: Override nav sdk dependencies
         uses: ./.github/actions/dependency-override
         with:
@@ -33,25 +37,26 @@ jobs:
           NAV_SDK_DEPENDENCY_OVERRIDE: ${{ secrets.NAV_SDK_OVERRIDE }}
       - uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'gradle'
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+          distribution: "temurin"
+          java-version: "17"
+          cache: "gradle"
+      - uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
-          channel: 'stable'
+          flutter-version: "3.19.x"
+          channel: "stable"
           cache: true
       - uses: bluefireteam/melos-action@720a109b686f61979b4f9f0d14f582ab1637647e
         with:
-          melos-version: '3.0.1'
-      - name: 'Run flutter test'
+          melos-version: "3.0.1"
+      - name: "Run flutter test"
         run: melos run test:dart
 
   test-android:
     timeout-minutes: 45
-    runs-on: 
+    runs-on:
       labels: ubuntu-latest-8core
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b
       - name: Override nav sdk dependencies
         uses: ./.github/actions/dependency-override
         with:
@@ -59,30 +64,29 @@ jobs:
           NAV_SDK_DEPENDENCY_OVERRIDE: ${{ secrets.NAV_SDK_OVERRIDE }}
       - uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'gradle'
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+          distribution: "temurin"
+          java-version: "17"
+          cache: "gradle"
+      - uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
-          flutter-version: '3.16.x'
-          channel: 'stable'
+          flutter-version: "3.19.x"
+          channel: "stable"
           cache: true
       - uses: bluefireteam/melos-action@720a109b686f61979b4f9f0d14f582ab1637647e
         with:
-          melos-version: '3.0.1'
-      - name: 'Run Android native unit tests'
+          melos-version: "3.0.1"
+      - name: "Run Android native unit tests"
         run: melos run test:android
 
   test-ios:
     timeout-minutes: 45
-    runs-on: 
+    runs-on:
       labels: macos-latest-xlarge
     strategy:
       matrix:
-        working_directory:
-          ['example']
+        working_directory: ["example"]
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b
       - name: Override nav sdk dependencies
         uses: ./.github/actions/dependency-override
         with:
@@ -90,34 +94,34 @@ jobs:
           NAV_SDK_DEPENDENCY_OVERRIDE: ${{ secrets.NAV_SDK_OVERRIDE }}
       - uses: actions/cache@v4
         with:
-          path: '**/Pods'
+          path: "**/Pods"
           key: ${{ runner.os }}-pods-${{ hashFiles('**/*.podspec') }}
           restore-keys: |
             ${{ runner.os }}-pods-
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+      - uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
-          flutter-version: '3.16.x'
-          channel: 'stable'
+          flutter-version: "3.19.x"
+          channel: "stable"
           cache: true
       - uses: bluefireteam/melos-action@720a109b686f61979b4f9f0d14f582ab1637647e
         with:
-          melos-version: '3.0.1'
+          melos-version: "3.0.1"
       - name: Generate necessary files with flutter build
         working-directory: ${{ matrix.working_directory }}
-        run: flutter build ios --config-only         
-      - name: 'Run iOS native unit tests'
+        run: flutter build ios --config-only
+      - name: "Run iOS native unit tests"
         run: DEVICE='iPhone 14 Pro' melos run test:ios
 
   build-android:
-    needs: [test-dart,test-android,test-ios]
+    needs: [test-dart, test-android, test-ios]
     if: contains(github.base_ref, 'main')
     timeout-minutes: 45
-    runs-on: 
+    runs-on:
       labels: ubuntu-latest-8core
     env:
       MAPS_API_KEY: ${{ secrets.ACTIONS_API_KEY }}
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b
       - name: Override nav sdk dependencies
         uses: ./.github/actions/dependency-override
         with:
@@ -125,46 +129,48 @@ jobs:
           NAV_SDK_DEPENDENCY_OVERRIDE: ${{ secrets.NAV_SDK_OVERRIDE }}
       - uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'gradle'
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+          distribution: "temurin"
+          java-version: "17"
+          cache: "gradle"
+      - uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
-          channel: 'stable'
+          flutter-version: "3.19.x"
+          channel: "stable"
           cache: true
       - uses: bluefireteam/melos-action@720a109b686f61979b4f9f0d14f582ab1637647e
         with:
-          melos-version: '3.0.1'
-      - name: 'Run build for Android'
+          melos-version: "3.0.1"
+      - name: "Run build for Android"
         run: melos run flutter-build-android
 
   build-ios:
-    needs: [test-dart,test-android,test-ios]
+    needs: [test-dart, test-android, test-ios]
     if: contains(github.base_ref, 'main')
     timeout-minutes: 90
     runs-on: macos-latest-xlarge
     env:
       MAPS_API_KEY: ${{ secrets.ACTIONS_API_KEY }}
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b
       - name: Override nav sdk dependencies
         uses: ./.github/actions/dependency-override
         with:
           NAV_SDK_DEPLOY_KEY: ${{ secrets.NAV_SDK_GIT_REPO_DEPLOY_KEY }}
           NAV_SDK_DEPENDENCY_OVERRIDE: ${{ secrets.NAV_SDK_OVERRIDE }}
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+      - uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
-          channel: 'stable'
+          flutter-version: "3.19.x"
+          channel: "stable"
           cache: true
           architecture: x64
       - uses: bluefireteam/melos-action@720a109b686f61979b4f9f0d14f582ab1637647e
         with:
-          melos-version: '3.0.1'
+          melos-version: "3.0.1"
       - uses: actions/cache@v4
         with:
-          path: '**/Pods'
+          path: "**/Pods"
           key: ${{ runner.os }}-pods-${{ hashFiles('**/*.podspec') }}
           restore-keys: |
             ${{ runner.os }}-pods-
-      - name: 'Run build for iOS'
+      - name: "Run build for iOS"
         run: melos run flutter-build-ios
