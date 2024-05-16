@@ -15,7 +15,7 @@ A Google Maps Driver Flutter plugin.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'GoogleRidesharingDriver'
+  s.dependency 'GoogleRidesharingDriver', '~> 3.2.0'
   s.dependency 'google_maps_navigation'
   s.platform = :ios, '14.0'
   s.static_framework = true
