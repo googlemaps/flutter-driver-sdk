@@ -33,3 +33,6 @@ jobs:
           release-type: dart
           package-name: "@googlemaps/flutter-driver-sdk"
           bump-minor-pre-major: true
+          bump-patch-for-minor-pre-major: true
+          prerelease: true
+          prerelease-type: beta

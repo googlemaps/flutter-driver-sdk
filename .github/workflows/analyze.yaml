@@ -19,44 +19,50 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   flutter-analyze:
     timeout-minutes: 45
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b
       - name: Override nav sdk dependencies
         uses: ./.github/actions/dependency-override
         with:
           NAV_SDK_DEPLOY_KEY: ${{ secrets.NAV_SDK_GIT_REPO_DEPLOY_KEY }}
           NAV_SDK_DEPENDENCY_OVERRIDE: ${{ secrets.NAV_SDK_OVERRIDE }}
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+      - uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
-          channel: 'stable'
+          flutter-version: "3.19.x"
+          channel: "stable"
           cache: true
       - uses: bluefireteam/melos-action@720a109b686f61979b4f9f0d14f582ab1637647e
         with:
-          melos-version: '3.0.1'
-      - name: 'Run Flutter Analyze'
+          melos-version: "3.0.1"
+      - name: "Run Flutter Analyze"
         run: melos run flutter-analyze
 
   format:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b
       - uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: "temurin"
+          java-version: "17"
       - name: Restore Cache
         uses: actions/cache/restore@v4
         id: cache
         with:
           path: /home/linuxbrew/.linuxbrew
-          key: ${{ runner.os }}-linuxbrew-
+          key: ${{ runner.os }}-linuxbrew
       - uses: Homebrew/actions/setup-homebrew@master
-      - name: 'Install swiftformat v0.53'
+      - name: "Install swiftformat v0.53"
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
           curl -O https://raw.githubusercontent.com/Homebrew/homebrew-core/86f85aaa82beba49f8a5aabf3a22508c9249f188/Formula/s/swiftformat.rb
@@ -64,30 +70,31 @@ jobs:
           brew bundle --force
       - name: Save Cache
         uses: actions/cache/save@v4
-        if: endsWith(steps.cache.outputs.cache-matched-key,hashFiles('Brewfile.lock.json')) == false
+        if: steps.cache.outputs.cache-hit != 'true'
         with:
           path: /home/linuxbrew/.linuxbrew
-          key: ${{ runner.os }}-linuxbrew-${{ hashFiles('Brewfile.lock.json') }}
+          key: ${{ runner.os }}-linuxbrew
       - name: Override nav sdk dependencies
         uses: ./.github/actions/dependency-override
         with:
           NAV_SDK_DEPLOY_KEY: ${{ secrets.NAV_SDK_GIT_REPO_DEPLOY_KEY }}
           NAV_SDK_DEPENDENCY_OVERRIDE: ${{ secrets.NAV_SDK_OVERRIDE }}
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+      - uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
-          channel: 'stable'
+          flutter-version: "3.19.x"
+          channel: "stable"
           cache: true
       - uses: bluefireteam/melos-action@720a109b686f61979b4f9f0d14f582ab1637647e
         with:
-          melos-version: '3.0.1'
-      - name: 'Formatter version'
+          melos-version: "3.0.1"
+      - name: "Formatter version"
         run: |
           swiftformat --version
-      - name: 'Run format'
+      - name: "Run format"
         if: ${{ success() || failure() }}
         run: |
           melos run format
-      - name: 'Validate formatting'
+      - name: "Validate formatting"
         if: ${{ success() || failure() }}
         run: |
           ./.github/workflows/scripts/validate-formatting.sh
