@@ -26,4 +26,5 @@ A Google Maps Driver Flutter plugin.
   s.xcconfig = {
     'LD_RUNPATH_SEARCH_PATHS' => '$(inherited) /usr/lib/swift',
   }
+  s.resource_bundles = {'google_maps_driver_privacy_info' => ['Resources/PrivacyInfo.xcprivacy']}
 end
