@@ -14,12 +14,12 @@
 
 name: google_maps_driver
 description: A Google Maps Driver plugin
-version: 0.1.1-beta
+version: 0.1.2-beta
 publish_to: none
 
 environment:
-  sdk: ">=3.1.0 <4.0.0"
-  flutter: ">=3.3.0"
+  sdk: ^3.4.0
+  flutter: ">=3.22.1"
 
 dependencies:
   flutter:
