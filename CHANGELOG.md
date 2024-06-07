@@ -1,3 +1,10 @@
+## 0.2.0-beta
+
+This is the beta release of the Google Maps Driver package for Flutter. It is an early look at the package and is intended for testing and feedback collection. The functionalities and APIs in this version are subject to change.
+
+** BREAKING CHANGES: **
+- Move using publicly available google_navigation_flutter library 
+
 ## 0.1.2-beta
 
 This is the beta release of the Google Maps Driver package for Flutter. It is an early look at the package and is intended for testing and feedback collection. The functionalities and APIs in this version are subject to change.

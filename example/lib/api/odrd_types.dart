@@ -18,7 +18,7 @@
 // Documentation to for these models can be found under following links:
 // https://github.com/googlemaps/java-on-demand-rides-deliveries-stub-provider?tab=readme-ov-file#endpoints
 
-import 'package:google_maps_navigation/google_maps_navigation.dart';
+import 'package:google_navigation_flutter/google_navigation_flutter.dart';
 
 import 'shared_types.dart';
 

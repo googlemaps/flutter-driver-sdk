@@ -19,7 +19,7 @@
 // https://github.com/googlemaps/last-mile-fleet-solution-samples/tree/main/backend#delivery-configuration-file
 
 import 'package:google_maps_driver/google_maps_driver.dart';
-import 'package:google_maps_navigation/google_maps_navigation.dart';
+import 'package:google_navigation_flutter/google_navigation_flutter.dart';
 
 import 'shared_types.dart';
 

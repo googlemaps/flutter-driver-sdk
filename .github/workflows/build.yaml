@@ -30,11 +30,6 @@ jobs:
       labels: ubuntu-latest
     steps:
       - uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b
-      - name: Override nav sdk dependencies
-        uses: ./.github/actions/dependency-override
-        with:
-          NAV_SDK_DEPLOY_KEY: ${{ secrets.NAV_SDK_GIT_REPO_DEPLOY_KEY }}
-          NAV_SDK_DEPENDENCY_OVERRIDE: ${{ secrets.NAV_SDK_OVERRIDE }}
       - uses: actions/setup-java@v4
         with:
           distribution: "temurin"
@@ -57,11 +52,6 @@ jobs:
       labels: ubuntu-latest
     steps:
       - uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b
-      - name: Override nav sdk dependencies
-        uses: ./.github/actions/dependency-override
-        with:
-          NAV_SDK_DEPLOY_KEY: ${{ secrets.NAV_SDK_GIT_REPO_DEPLOY_KEY }}
-          NAV_SDK_DEPENDENCY_OVERRIDE: ${{ secrets.NAV_SDK_OVERRIDE }}
       - uses: actions/setup-java@v4
         with:
           distribution: "temurin"
@@ -87,11 +77,6 @@ jobs:
         working_directory: ["example"]
     steps:
       - uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b
-      - name: Override nav sdk dependencies
-        uses: ./.github/actions/dependency-override
-        with:
-          NAV_SDK_DEPLOY_KEY: ${{ secrets.NAV_SDK_GIT_REPO_DEPLOY_KEY }}
-          NAV_SDK_DEPENDENCY_OVERRIDE: ${{ secrets.NAV_SDK_OVERRIDE }}
       - uses: actions/cache@v4
         with:
           path: "**/Pods"
@@ -122,11 +107,6 @@ jobs:
       MAPS_API_KEY: ${{ secrets.ACTIONS_API_KEY }}
     steps:
       - uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b
-      - name: Override nav sdk dependencies
-        uses: ./.github/actions/dependency-override
-        with:
-          NAV_SDK_DEPLOY_KEY: ${{ secrets.NAV_SDK_GIT_REPO_DEPLOY_KEY }}
-          NAV_SDK_DEPENDENCY_OVERRIDE: ${{ secrets.NAV_SDK_OVERRIDE }}
       - uses: actions/setup-java@v4
         with:
           distribution: "temurin"
@@ -152,11 +132,6 @@ jobs:
       MAPS_API_KEY: ${{ secrets.ACTIONS_API_KEY }}
     steps:
       - uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b
-      - name: Override nav sdk dependencies
-        uses: ./.github/actions/dependency-override
-        with:
-          NAV_SDK_DEPLOY_KEY: ${{ secrets.NAV_SDK_GIT_REPO_DEPLOY_KEY }}
-          NAV_SDK_DEPENDENCY_OVERRIDE: ${{ secrets.NAV_SDK_OVERRIDE }}
       - uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
           flutter-version: "3.22.x"

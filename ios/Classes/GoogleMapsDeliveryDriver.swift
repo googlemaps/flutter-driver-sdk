@@ -14,7 +14,7 @@
 
 import Flutter
 import Foundation
-import google_maps_navigation
+import google_navigation_flutter
 import GoogleRidesharingDriver
 
 // Keep in sync with GoogleMapsNavigationSessionManager.kt

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import Flutter
-import google_maps_navigation
+import google_navigation_flutter
 import GoogleRidesharingDriver
 
 class GoogleMapsBaseDriver {

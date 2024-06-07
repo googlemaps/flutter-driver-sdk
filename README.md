@@ -34,7 +34,7 @@ This repository contains a Flutter plugin that allows users to use the [Google M
         url: git@github.com:googlemaps/flutter-driver-sdk.git
 ```
 
-2. Follow the instructions at the `google_maps_navigation` plugin Readme to add your API key to the appropriate files in your Flutter project.
+2. Follow the instructions at the `google_navigation_flutter` plugin Readme to add your API key to the appropriate files in your Flutter project.
    
    [Google Maps Navigation Installation](https://github.com/googlemaps/flutter-navigation-sdk/blob/main/README.md#installation)
 
@@ -47,7 +47,7 @@ Before initializing the delivery or the ridesharing driver, you must initialize 
 ```dart
 import 'package:flutter/material.dart';
 import 'package:google_maps_driver/google_maps_driver.dart';
-import 'package:google_maps_navigation/google_maps_navigation.dart';
+import 'package:google_navigation_flutter/google_navigation_flutter.dart';
 
 class DeliveryDriverSample extends StatefulWidget {
   const DeliveryDriverSample({super.key});
@@ -121,7 +121,7 @@ See the [example](./example) directory for a complete delivery driver sample app
 ```dart
 import 'package:flutter/material.dart';
 import 'package:google_maps_driver/google_maps_driver.dart';
-import 'package:google_maps_navigation/google_maps_navigation.dart';
+import 'package:google_navigation_flutter/google_navigation_flutter.dart';
 
 class RidesharingDriverSample extends StatefulWidget {
   const RidesharingDriverSample({super.key});

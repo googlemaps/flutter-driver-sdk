@@ -45,8 +45,3 @@ patrol:
     package_name: com.google.maps.flutter.driver_example
   ios:
     bundle_id: com.google.maps.flutter.driverExample
-
-# This dependency override can be removed once the google_maps_navigation package is published.
-dependency_overrides:
-  google_maps_navigation:
-    git: git@github.com:googlemaps/flutter-navigation-sdk.git

@@ -32,7 +32,7 @@ object Convert {
   /**
    * Converts Pigeon [LatLngDto] to Google Maps [LatLng].
    *
-   * This function has been duplicated from google_maps_navigation package. Keep in sync.
+   * This function has been duplicated from google_navigation_flutter package. Keep in sync.
    *
    * @param point Pigeon [LatLngDto].
    * @return Google Maps [LatLng].
@@ -44,7 +44,7 @@ object Convert {
   /**
    * Converts Google Maps [LatLng] to Pigeon [LatLngDto].
    *
-   * This function has been duplicated from google_maps_navigation package. Keep in sync.
+   * This function has been duplicated from google_navigation_flutter package. Keep in sync.
    *
    * @param point Google Maps [LatLng].
    * @return Pigeon [LatLngDto].
@@ -56,7 +56,7 @@ object Convert {
   /**
    * Converts pigeon [NavigationWaypointDto] to Google Navigation [Waypoint].
    *
-   * This function has been duplicated from google_maps_navigation package. Keep in sync.
+   * This function has been duplicated from google_navigation_flutter package. Keep in sync.
    *
    * @param waypoint pigeon [NavigationWaypointDto].
    * @return Google Navigation [Waypoint].
@@ -82,7 +82,7 @@ object Convert {
   /**
    * Converts Google Navigation [Waypoint] to pigeon [NavigationWaypointDto].
    *
-   * This function has been duplicated from google_maps_navigation package. Keep in sync.
+   * This function has been duplicated from google_navigation_flutter package. Keep in sync.
    *
    * @param waypoint Google Navigation [Waypoint].
    * @return pigeon [NavigationWaypointDto].
