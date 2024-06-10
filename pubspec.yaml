@@ -14,7 +14,7 @@
 
 name: google_maps_driver
 description: A Google Maps Driver plugin
-version: 0.2.0-beta
+version: 1.0.0-beta+-beta
 publish_to: none
 
 environment:
