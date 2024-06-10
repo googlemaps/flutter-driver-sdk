@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:google_maps_navigation/google_maps_navigation.dart';
+import 'package:google_navigation_flutter/google_navigation_flutter.dart';
 import '../method_channel.dart';
 
 // These conversion functions have been duplicated between
-// google_maps_navigation and google_maps_driver packages.
+// google_navigation_flutter and google_maps_driver packages.
 //
 // Keep in sync.
 

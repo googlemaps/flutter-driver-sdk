@@ -19,7 +19,7 @@ import GoogleRidesharingDriver
 
 enum Convert {
   // This conversion functions has been duplicated from
-  // google_maps_navigation. Keep in sync.
+  // google_navigation_flutter. Keep in sync.
   static func convertLatLngFromDto(point: LatLngDto) -> CLLocationCoordinate2D {
     CLLocationCoordinate2D(
       latitude: point.latitude,
@@ -28,13 +28,13 @@ enum Convert {
   }
 
   // This conversion functions has been duplicated from
-  // google_maps_navigation. Keep in sync.
+  // google_navigation_flutter. Keep in sync.
   static func convertLatLngToDto(point: CLLocationCoordinate2D) -> LatLngDto {
     LatLngDto(latitude: point.latitude, longitude: point.longitude)
   }
 
   // This conversion functions has been duplicated from
-  // google_maps_navigation. Keep in sync.
+  // google_navigation_flutter. Keep in sync.
   static func convertNavigationWayPointToDto(_ gmsNavigationWaypoint: GMSNavigationWaypoint?)
     -> NavigationWaypointDto? {
     guard let gmsNavigationWaypoint else { return nil }
@@ -51,7 +51,7 @@ enum Convert {
   }
 
   // This conversion functions has been duplicated from
-  // google_maps_navigation. Keep in sync.
+  // google_navigation_flutter. Keep in sync.
   static func convertNavigationWayPointFromDto(_ waypoint: NavigationWaypointDto?)
     -> GMSNavigationWaypoint? {
     guard let waypoint else { return nil }
@@ -88,7 +88,7 @@ enum Convert {
   }
 
   // This conversion functions has been duplicated from
-  // google_maps_navigation. Keep in sync.
+  // google_navigation_flutter. Keep in sync.
   static func convertWaypoints(_ waypoints: [NavigationWaypointDto?])
     -> [GMSNavigationWaypoint] {
     waypoints

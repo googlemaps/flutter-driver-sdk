@@ -14,7 +14,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:google_maps_navigation/google_maps_navigation.dart';
+import 'package:google_navigation_flutter/google_navigation_flutter.dart';
 import '../google_maps_driver.dart';
 import 'method_channel/convert/statuslistener.dart';
 import 'method_channel/method_channel.dart';

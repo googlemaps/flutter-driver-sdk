@@ -14,7 +14,7 @@
 
 import 'dart:io' show Platform;
 
-import 'package:google_maps_navigation/google_maps_navigation.dart';
+import 'package:google_navigation_flutter/google_navigation_flutter.dart';
 
 import 'helpers.dart';
 import 'odrd_api.dart';
