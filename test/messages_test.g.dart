@@ -22,7 +22,7 @@ import 'package:flutter/foundation.dart' show ReadBuffer, WriteBuffer;
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:google_maps_driver/src/method_channel/messages.g.dart';
+import 'package:google_driver_flutter/src/method_channel/messages.g.dart';
 
 class _TestCommonDriverApiCodec extends StandardMessageCodec {
   const _TestCommonDriverApiCodec();
@@ -82,7 +82,7 @@ abstract class TestCommonDriverApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.initialize',
+          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -93,22 +93,22 @@ abstract class TestCommonDriverApi {
             .setMockDecodedMessageHandler<Object?>(__pigeon_channel,
                 (Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.initialize was null.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final DriverApiTypeDto? arg_type =
               args[0] == null ? null : DriverApiTypeDto.values[args[0]! as int];
           assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.initialize was null, expected non-null DriverApiTypeDto.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize was null, expected non-null DriverApiTypeDto.');
           final String? arg_providerId = (args[1] as String?);
           assert(arg_providerId != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.initialize was null, expected non-null String.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize was null, expected non-null String.');
           final String? arg_vehicleId = (args[2] as String?);
           assert(arg_vehicleId != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.initialize was null, expected non-null String.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize was null, expected non-null String.');
           final bool? arg_abnormalTerminationReportingEnabled =
               (args[3] as bool?);
           assert(arg_abnormalTerminationReportingEnabled != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.initialize was null, expected non-null bool.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize was null, expected non-null bool.');
           try {
             api.initialize(arg_type!, arg_providerId!, arg_vehicleId!,
                 arg_abnormalTerminationReportingEnabled!);
@@ -125,7 +125,7 @@ abstract class TestCommonDriverApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.isInitialized',
+          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isInitialized',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -136,12 +136,12 @@ abstract class TestCommonDriverApi {
             .setMockDecodedMessageHandler<Object?>(__pigeon_channel,
                 (Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.isInitialized was null.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isInitialized was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final DriverApiTypeDto? arg_type =
               args[0] == null ? null : DriverApiTypeDto.values[args[0]! as int];
           assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.isInitialized was null, expected non-null DriverApiTypeDto.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isInitialized was null, expected non-null DriverApiTypeDto.');
           try {
             final bool output = api.isInitialized(arg_type!);
             return <Object?>[output];
@@ -157,7 +157,7 @@ abstract class TestCommonDriverApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getProviderId',
+          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getProviderId',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -168,12 +168,12 @@ abstract class TestCommonDriverApi {
             .setMockDecodedMessageHandler<Object?>(__pigeon_channel,
                 (Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getProviderId was null.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getProviderId was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final DriverApiTypeDto? arg_type =
               args[0] == null ? null : DriverApiTypeDto.values[args[0]! as int];
           assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getProviderId was null, expected non-null DriverApiTypeDto.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getProviderId was null, expected non-null DriverApiTypeDto.');
           try {
             final String output = api.getProviderId(arg_type!);
             return <Object?>[output];
@@ -189,7 +189,7 @@ abstract class TestCommonDriverApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getVehicleId',
+          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getVehicleId',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -200,12 +200,12 @@ abstract class TestCommonDriverApi {
             .setMockDecodedMessageHandler<Object?>(__pigeon_channel,
                 (Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getVehicleId was null.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getVehicleId was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final DriverApiTypeDto? arg_type =
               args[0] == null ? null : DriverApiTypeDto.values[args[0]! as int];
           assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getVehicleId was null, expected non-null DriverApiTypeDto.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getVehicleId was null, expected non-null DriverApiTypeDto.');
           try {
             final String output = api.getVehicleId(arg_type!);
             return <Object?>[output];
@@ -221,7 +221,7 @@ abstract class TestCommonDriverApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.isLocationTrackingEnabled',
+          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isLocationTrackingEnabled',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -232,12 +232,12 @@ abstract class TestCommonDriverApi {
             .setMockDecodedMessageHandler<Object?>(__pigeon_channel,
                 (Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.isLocationTrackingEnabled was null.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isLocationTrackingEnabled was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final DriverApiTypeDto? arg_type =
               args[0] == null ? null : DriverApiTypeDto.values[args[0]! as int];
           assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.isLocationTrackingEnabled was null, expected non-null DriverApiTypeDto.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isLocationTrackingEnabled was null, expected non-null DriverApiTypeDto.');
           try {
             final bool output = api.isLocationTrackingEnabled(arg_type!);
             return <Object?>[output];
@@ -253,7 +253,7 @@ abstract class TestCommonDriverApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setLocationTrackingEnabled',
+          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationTrackingEnabled',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -264,15 +264,15 @@ abstract class TestCommonDriverApi {
             .setMockDecodedMessageHandler<Object?>(__pigeon_channel,
                 (Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setLocationTrackingEnabled was null.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationTrackingEnabled was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final DriverApiTypeDto? arg_type =
               args[0] == null ? null : DriverApiTypeDto.values[args[0]! as int];
           assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setLocationTrackingEnabled was null, expected non-null DriverApiTypeDto.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationTrackingEnabled was null, expected non-null DriverApiTypeDto.');
           final bool? arg_enabled = (args[1] as bool?);
           assert(arg_enabled != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setLocationTrackingEnabled was null, expected non-null bool.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationTrackingEnabled was null, expected non-null bool.');
           try {
             api.setLocationTrackingEnabled(arg_type!, arg_enabled!);
             return wrapResponse(empty: true);
@@ -288,7 +288,7 @@ abstract class TestCommonDriverApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getLocationReportingIntervalMillis',
+          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getLocationReportingIntervalMillis',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -299,12 +299,12 @@ abstract class TestCommonDriverApi {
             .setMockDecodedMessageHandler<Object?>(__pigeon_channel,
                 (Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getLocationReportingIntervalMillis was null.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getLocationReportingIntervalMillis was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final DriverApiTypeDto? arg_type =
               args[0] == null ? null : DriverApiTypeDto.values[args[0]! as int];
           assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getLocationReportingIntervalMillis was null, expected non-null DriverApiTypeDto.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getLocationReportingIntervalMillis was null, expected non-null DriverApiTypeDto.');
           try {
             final int output =
                 api.getLocationReportingIntervalMillis(arg_type!);
@@ -321,7 +321,7 @@ abstract class TestCommonDriverApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setLocationReportingIntervalMillis',
+          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -332,15 +332,15 @@ abstract class TestCommonDriverApi {
             .setMockDecodedMessageHandler<Object?>(__pigeon_channel,
                 (Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setLocationReportingIntervalMillis was null.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final DriverApiTypeDto? arg_type =
               args[0] == null ? null : DriverApiTypeDto.values[args[0]! as int];
           assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setLocationReportingIntervalMillis was null, expected non-null DriverApiTypeDto.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis was null, expected non-null DriverApiTypeDto.');
           final int? arg_milliseconds = (args[1] as int?);
           assert(arg_milliseconds != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setLocationReportingIntervalMillis was null, expected non-null int.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis was null, expected non-null int.');
           try {
             api.setLocationReportingIntervalMillis(
                 arg_type!, arg_milliseconds!);
@@ -355,11 +355,11 @@ abstract class TestCommonDriverApi {
       }
     }
     {
-      final BasicMessageChannel<Object?> __pigeon_channel =
-          BasicMessageChannel<Object?>(
-              'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.dispose',
-              pigeonChannelCodec,
-              binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
+              Object?>(
+          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.dispose',
+          pigeonChannelCodec,
+          binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(__pigeon_channel, null);
@@ -368,12 +368,12 @@ abstract class TestCommonDriverApi {
             .setMockDecodedMessageHandler<Object?>(__pigeon_channel,
                 (Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.dispose was null.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.dispose was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final DriverApiTypeDto? arg_type =
               args[0] == null ? null : DriverApiTypeDto.values[args[0]! as int];
           assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.dispose was null, expected non-null DriverApiTypeDto.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.dispose was null, expected non-null DriverApiTypeDto.');
           try {
             api.dispose(arg_type!);
             return wrapResponse(empty: true);
@@ -389,7 +389,7 @@ abstract class TestCommonDriverApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getDriverSdkVersion',
+          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getDriverSdkVersion',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -400,12 +400,12 @@ abstract class TestCommonDriverApi {
             .setMockDecodedMessageHandler<Object?>(__pigeon_channel,
                 (Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getDriverSdkVersion was null.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getDriverSdkVersion was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final DriverApiTypeDto? arg_type =
               args[0] == null ? null : DriverApiTypeDto.values[args[0]! as int];
           assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getDriverSdkVersion was null, expected non-null DriverApiTypeDto.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getDriverSdkVersion was null, expected non-null DriverApiTypeDto.');
           try {
             final String output = api.getDriverSdkVersion(arg_type!);
             return <Object?>[output];
@@ -421,7 +421,7 @@ abstract class TestCommonDriverApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setSupplementalLocation',
+          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setSupplementalLocation',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -432,15 +432,15 @@ abstract class TestCommonDriverApi {
             .setMockDecodedMessageHandler<Object?>(__pigeon_channel,
                 (Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setSupplementalLocation was null.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setSupplementalLocation was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final DriverApiTypeDto? arg_type =
               args[0] == null ? null : DriverApiTypeDto.values[args[0]! as int];
           assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setSupplementalLocation was null, expected non-null DriverApiTypeDto.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setSupplementalLocation was null, expected non-null DriverApiTypeDto.');
           final LocationDto? arg_location = (args[1] as LocationDto?);
           assert(arg_location != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setSupplementalLocation was null, expected non-null LocationDto.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setSupplementalLocation was null, expected non-null LocationDto.');
           try {
             api.setSupplementalLocation(arg_type!, arg_location!);
             return wrapResponse(empty: true);
@@ -522,7 +522,7 @@ abstract class TestDeliveryDriverApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.arrivedAtStop',
+          'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.arrivedAtStop',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -547,7 +547,7 @@ abstract class TestDeliveryDriverApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.completedStop',
+          'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.completedStop',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -572,7 +572,7 @@ abstract class TestDeliveryDriverApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.enrouteToNextStop',
+          'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.enrouteToNextStop',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -597,7 +597,7 @@ abstract class TestDeliveryDriverApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.getRemainingVehicleStops',
+          'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.getRemainingVehicleStops',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -623,7 +623,7 @@ abstract class TestDeliveryDriverApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.setVehicleStops',
+          'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.setVehicleStops',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -634,12 +634,12 @@ abstract class TestDeliveryDriverApi {
             .setMockDecodedMessageHandler<Object?>(__pigeon_channel,
                 (Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.setVehicleStops was null.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.setVehicleStops was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final List<VehicleStopDto?>? arg_stops =
               (args[0] as List<Object?>?)?.cast<VehicleStopDto?>();
           assert(arg_stops != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.setVehicleStops was null, expected non-null List<VehicleStopDto?>.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.setVehicleStops was null, expected non-null List<VehicleStopDto?>.');
           try {
             final List<VehicleStopDto?> output =
                 await api.setVehicleStops(arg_stops!);
@@ -656,7 +656,7 @@ abstract class TestDeliveryDriverApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.getDeliveryVehicle',
+          'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.getDeliveryVehicle',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -694,7 +694,7 @@ abstract class TestRidesharingDriverApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.RidesharingDriverApi.setVehicleState',
+          'dev.flutter.pigeon.google_driver_flutter.RidesharingDriverApi.setVehicleState',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -705,12 +705,12 @@ abstract class TestRidesharingDriverApi {
             .setMockDecodedMessageHandler<Object?>(__pigeon_channel,
                 (Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.RidesharingDriverApi.setVehicleState was null.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.RidesharingDriverApi.setVehicleState was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final VehicleStateDto? arg_state =
               args[0] == null ? null : VehicleStateDto.values[args[0]! as int];
           assert(arg_state != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.RidesharingDriverApi.setVehicleState was null, expected non-null VehicleStateDto.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.RidesharingDriverApi.setVehicleState was null, expected non-null VehicleStateDto.');
           try {
             api.setVehicleState(arg_state!);
             return wrapResponse(empty: true);

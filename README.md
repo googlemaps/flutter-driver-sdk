@@ -29,7 +29,7 @@ This repository contains a Flutter plugin that allows users to use the [Google M
 
 ```
   dependencies:
-    google_maps_driver:
+    google_driver_flutter:
       git:
         url: git@github.com:googlemaps/flutter-driver-sdk.git
 ```
@@ -46,7 +46,7 @@ Before initializing the delivery or the ridesharing driver, you must initialize 
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:google_maps_driver/google_maps_driver.dart';
+import 'package:google_driver_flutter/google_driver_flutter.dart';
 import 'package:google_navigation_flutter/google_navigation_flutter.dart';
 
 class DeliveryDriverSample extends StatefulWidget {
@@ -120,7 +120,7 @@ See the [example](./example) directory for a complete delivery driver sample app
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:google_maps_driver/google_maps_driver.dart';
+import 'package:google_driver_flutter/google_driver_flutter.dart';
 import 'package:google_navigation_flutter/google_navigation_flutter.dart';
 
 class RidesharingDriverSample extends StatefulWidget {

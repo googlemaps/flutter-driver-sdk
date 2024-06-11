@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import '../../../google_maps_driver.dart';
+import '../../../google_driver_flutter.dart';
 import '../method_channel.dart';
 
 /// [DeliveryVehicleDto] convert extension.

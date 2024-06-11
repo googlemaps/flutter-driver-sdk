@@ -32,7 +32,7 @@ String getProjectId() {
   return _projectId;
 }
 
-String _clientId = 'google_maps_driver_demo_${generateRandomString(4)}';
+String _clientId = 'google_driver_flutter_demo_${generateRandomString(4)}';
 
 /// Returns the client ID.
 String getClientId() {

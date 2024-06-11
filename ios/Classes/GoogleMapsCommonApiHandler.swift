@@ -14,7 +14,7 @@
 
 //
 //  GoogleMapsCommonApiHandler.swift
-//  google_maps_driver
+//  google_driver_flutter
 //
 //  Created by Joonas Kerttula on 18.1.2024.
 //

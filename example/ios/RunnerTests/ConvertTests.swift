@@ -18,7 +18,7 @@ import GoogleRidesharingDriver
 import UIKit
 import XCTest
 
-@testable import google_maps_driver
+@testable import google_driver_flutter
 
 class ConvertTests: XCTestCase {
   func testConvertLatLngFromDto() {

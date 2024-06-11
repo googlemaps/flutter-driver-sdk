@@ -12,4 +12,4 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-rootProject.name = 'google_maps_driver'
+rootProject.name = 'google_driver_flutter'

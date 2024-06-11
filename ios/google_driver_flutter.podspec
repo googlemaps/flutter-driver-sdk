@@ -1,9 +1,9 @@
 #
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
-# Run `pod lib lint google_maps_driver.podspec` to validate before publishing.
+# Run `pod lib lint google_driver_flutter.podspec` to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'google_maps_driver'
+  s.name             = 'google_driver_flutter'
   s.version          = '0.0.1'
   s.summary          = 'A Google Maps Driver Flutter plugin.'
   s.description      = <<-DESC
@@ -26,5 +26,5 @@ A Google Maps Driver Flutter plugin.
   s.xcconfig = {
     'LD_RUNPATH_SEARCH_PATHS' => '$(inherited) /usr/lib/swift',
   }
-  s.resource_bundles = {'google_maps_driver_privacy_info' => ['Resources/PrivacyInfo.xcprivacy']}
+  s.resource_bundles = {'google_driver_flutter_privacy_info' => ['Resources/PrivacyInfo.xcprivacy']}
 end

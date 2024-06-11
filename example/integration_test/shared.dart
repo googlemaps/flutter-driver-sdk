@@ -25,7 +25,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_maps_driver/google_maps_driver.dart';
+import 'package:google_driver_flutter/google_driver_flutter.dart';
 import 'package:google_navigation_flutter/google_navigation_flutter.dart';
 import 'package:patrol/patrol.dart';
 import 'package:permission_handler/permission_handler.dart';

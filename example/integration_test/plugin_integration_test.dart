@@ -14,9 +14,9 @@
 
 import 'dart:async';
 import 'dart:io';
-import 'package:google_maps_driver/google_maps_driver.dart';
-import 'package:google_maps_driver_example/api/lmfs.dart';
-import 'package:google_maps_driver_example/api/odrd.dart';
+import 'package:google_driver_flutter/google_driver_flutter.dart';
+import 'package:google_driver_flutter_example/api/lmfs.dart';
+import 'package:google_driver_flutter_example/api/odrd.dart';
 import 'shared.dart';
 
 enum TokenBehavior { throwsException, emptyToken, invalidToken, validToken }
