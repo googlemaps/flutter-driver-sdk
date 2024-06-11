@@ -23,7 +23,7 @@
 /// This library provides support for two types of drivers:
 ///  - [Delivery Driver](../topics/Delivery%20Driver-topic.html) (LMFS)
 ///  - [RideSharing Driver](../topics/RideSharing%20Driver-topic.html) (ODRD)
-library google_maps_driver;
+library google_driver_flutter;
 
-export 'src/google_maps_driver.dart';
+export 'src/google_driver_flutter.dart';
 export 'src/types/types.dart';

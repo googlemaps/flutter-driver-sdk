@@ -400,7 +400,7 @@ class CommonDriverApi {
   Future<void> initialize(DriverApiTypeDto type, String providerId,
       String vehicleId, bool abnormalTerminationReportingEnabled) async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.initialize';
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -429,7 +429,7 @@ class CommonDriverApi {
 
   Future<bool> isInitialized(DriverApiTypeDto type) async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.isInitialized';
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isInitialized';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -458,7 +458,7 @@ class CommonDriverApi {
 
   Future<String> getProviderId(DriverApiTypeDto type) async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getProviderId';
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getProviderId';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -487,7 +487,7 @@ class CommonDriverApi {
 
   Future<String> getVehicleId(DriverApiTypeDto type) async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getVehicleId';
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getVehicleId';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -516,7 +516,7 @@ class CommonDriverApi {
 
   Future<bool> isLocationTrackingEnabled(DriverApiTypeDto type) async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.isLocationTrackingEnabled';
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isLocationTrackingEnabled';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -546,7 +546,7 @@ class CommonDriverApi {
   Future<void> setLocationTrackingEnabled(
       DriverApiTypeDto type, bool enabled) async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setLocationTrackingEnabled';
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationTrackingEnabled';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -570,7 +570,7 @@ class CommonDriverApi {
 
   Future<int> getLocationReportingIntervalMillis(DriverApiTypeDto type) async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getLocationReportingIntervalMillis';
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getLocationReportingIntervalMillis';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -600,7 +600,7 @@ class CommonDriverApi {
   Future<void> setLocationReportingIntervalMillis(
       DriverApiTypeDto type, int milliseconds) async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setLocationReportingIntervalMillis';
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -624,7 +624,7 @@ class CommonDriverApi {
 
   Future<void> dispose(DriverApiTypeDto type) async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.dispose';
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.dispose';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -648,7 +648,7 @@ class CommonDriverApi {
 
   Future<String> getDriverSdkVersion(DriverApiTypeDto type) async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getDriverSdkVersion';
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getDriverSdkVersion';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -678,7 +678,7 @@ class CommonDriverApi {
   Future<void> setSupplementalLocation(
       DriverApiTypeDto type, LocationDto location) async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setSupplementalLocation';
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setSupplementalLocation';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -757,7 +757,7 @@ class DeliveryDriverApi {
 
   Future<List<VehicleStopDto?>> arrivedAtStop() async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.arrivedAtStop';
+        'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.arrivedAtStop';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -786,7 +786,7 @@ class DeliveryDriverApi {
 
   Future<List<VehicleStopDto?>> completedStop() async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.completedStop';
+        'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.completedStop';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -815,7 +815,7 @@ class DeliveryDriverApi {
 
   Future<List<VehicleStopDto?>> enrouteToNextStop() async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.enrouteToNextStop';
+        'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.enrouteToNextStop';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -844,7 +844,7 @@ class DeliveryDriverApi {
 
   Future<List<VehicleStopDto?>> getRemainingVehicleStops() async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.getRemainingVehicleStops';
+        'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.getRemainingVehicleStops';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -874,7 +874,7 @@ class DeliveryDriverApi {
   Future<List<VehicleStopDto?>> setVehicleStops(
       List<VehicleStopDto?> stops) async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.setVehicleStops';
+        'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.setVehicleStops';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -903,7 +903,7 @@ class DeliveryDriverApi {
 
   Future<DeliveryVehicleDto> getDeliveryVehicle() async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.getDeliveryVehicle';
+        'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.getDeliveryVehicle';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -944,7 +944,7 @@ class RidesharingDriverApi {
 
   Future<void> setVehicleState(VehicleStateDto state) async {
     const String __pigeon_channelName =
-        'dev.flutter.pigeon.google_maps_driver.RidesharingDriverApi.setVehicleState';
+        'dev.flutter.pigeon.google_driver_flutter.RidesharingDriverApi.setVehicleState';
     final BasicMessageChannel<Object?> __pigeon_channel =
         BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -978,7 +978,7 @@ abstract class AuthTokenEventApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.AuthTokenEventApi.getToken',
+          'dev.flutter.pigeon.google_driver_flutter.AuthTokenEventApi.getToken',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -986,7 +986,7 @@ abstract class AuthTokenEventApi {
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.AuthTokenEventApi.getToken was null.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.AuthTokenEventApi.getToken was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final String? arg_taskId = (args[0] as String?);
           final String? arg_vehicleId = (args[1] as String?);
@@ -1057,7 +1057,7 @@ abstract class VehicleReporterListenerApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.VehicleReporterListenerApi.onDidSucceed',
+          'dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidSucceed',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -1065,12 +1065,12 @@ abstract class VehicleReporterListenerApi {
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.VehicleReporterListenerApi.onDidSucceed was null.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidSucceed was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final VehicleUpdateDto? arg_vehicleUpdate =
               (args[0] as VehicleUpdateDto?);
           assert(arg_vehicleUpdate != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.VehicleReporterListenerApi.onDidSucceed was null, expected non-null VehicleUpdateDto.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidSucceed was null, expected non-null VehicleUpdateDto.');
           try {
             api.onDidSucceed(arg_vehicleUpdate!);
             return wrapResponse(empty: true);
@@ -1086,7 +1086,7 @@ abstract class VehicleReporterListenerApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.VehicleReporterListenerApi.onDidFail',
+          'dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -1094,18 +1094,18 @@ abstract class VehicleReporterListenerApi {
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.VehicleReporterListenerApi.onDidFail was null.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final VehicleUpdateDto? arg_vehicleUpdate =
               (args[0] as VehicleUpdateDto?);
           assert(arg_vehicleUpdate != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.VehicleReporterListenerApi.onDidFail was null, expected non-null VehicleUpdateDto.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail was null, expected non-null VehicleUpdateDto.');
           final String? arg_errorCode = (args[1] as String?);
           assert(arg_errorCode != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.VehicleReporterListenerApi.onDidFail was null, expected non-null String.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail was null, expected non-null String.');
           final String? arg_errorMessage = (args[2] as String?);
           assert(arg_errorMessage != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.VehicleReporterListenerApi.onDidFail was null, expected non-null String.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail was null, expected non-null String.');
           try {
             api.onDidFail(
                 arg_vehicleUpdate!, arg_errorCode!, arg_errorMessage!);
@@ -1134,7 +1134,7 @@ abstract class DriverStatusListenerApi {
     {
       final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<
               Object?>(
-          'dev.flutter.pigeon.google_maps_driver.DriverStatusListenerApi.onStatusUpdate',
+          'dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate',
           pigeonChannelCodec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -1142,21 +1142,21 @@ abstract class DriverStatusListenerApi {
       } else {
         __pigeon_channel.setMessageHandler((Object? message) async {
           assert(message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.DriverStatusListenerApi.onStatusUpdate was null.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final DriverStatusLevelDto? arg_level = args[0] == null
               ? null
               : DriverStatusLevelDto.values[args[0]! as int];
           assert(arg_level != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.DriverStatusListenerApi.onStatusUpdate was null, expected non-null DriverStatusLevelDto.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate was null, expected non-null DriverStatusLevelDto.');
           final DriverStatusCodeDto? arg_code = args[1] == null
               ? null
               : DriverStatusCodeDto.values[args[1]! as int];
           assert(arg_code != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.DriverStatusListenerApi.onStatusUpdate was null, expected non-null DriverStatusCodeDto.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate was null, expected non-null DriverStatusCodeDto.');
           final String? arg_message = (args[2] as String?);
           assert(arg_message != null,
-              'Argument for dev.flutter.pigeon.google_maps_driver.DriverStatusListenerApi.onStatusUpdate was null, expected non-null String.');
+              'Argument for dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate was null, expected non-null String.');
           final String? arg_errorCode = (args[3] as String?);
           final String? arg_errorMessage = (args[4] as String?);
           try {

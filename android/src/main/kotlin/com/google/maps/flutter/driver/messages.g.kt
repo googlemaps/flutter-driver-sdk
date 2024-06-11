@@ -425,7 +425,7 @@ interface CommonDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.initialize",
+            "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize",
             codec
           )
         if (api != null) {
@@ -457,7 +457,7 @@ interface CommonDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.isInitialized",
+            "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isInitialized",
             codec
           )
         if (api != null) {
@@ -480,7 +480,7 @@ interface CommonDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getProviderId",
+            "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getProviderId",
             codec
           )
         if (api != null) {
@@ -503,7 +503,7 @@ interface CommonDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getVehicleId",
+            "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getVehicleId",
             codec
           )
         if (api != null) {
@@ -526,7 +526,7 @@ interface CommonDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.isLocationTrackingEnabled",
+            "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isLocationTrackingEnabled",
             codec
           )
         if (api != null) {
@@ -549,7 +549,7 @@ interface CommonDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setLocationTrackingEnabled",
+            "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationTrackingEnabled",
             codec
           )
         if (api != null) {
@@ -574,7 +574,7 @@ interface CommonDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getLocationReportingIntervalMillis",
+            "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getLocationReportingIntervalMillis",
             codec
           )
         if (api != null) {
@@ -597,7 +597,7 @@ interface CommonDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setLocationReportingIntervalMillis",
+            "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis",
             codec
           )
         if (api != null) {
@@ -622,7 +622,7 @@ interface CommonDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.dispose",
+            "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.dispose",
             codec
           )
         if (api != null) {
@@ -646,7 +646,7 @@ interface CommonDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getDriverSdkVersion",
+            "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getDriverSdkVersion",
             codec
           )
         if (api != null) {
@@ -669,7 +669,7 @@ interface CommonDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setSupplementalLocation",
+            "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setSupplementalLocation",
             codec
           )
         if (api != null) {
@@ -770,7 +770,7 @@ interface DeliveryDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.arrivedAtStop",
+            "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.arrivedAtStop",
             codec
           )
         if (api != null) {
@@ -793,7 +793,7 @@ interface DeliveryDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.completedStop",
+            "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.completedStop",
             codec
           )
         if (api != null) {
@@ -816,7 +816,7 @@ interface DeliveryDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.enrouteToNextStop",
+            "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.enrouteToNextStop",
             codec
           )
         if (api != null) {
@@ -839,7 +839,7 @@ interface DeliveryDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.getRemainingVehicleStops",
+            "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.getRemainingVehicleStops",
             codec
           )
         if (api != null) {
@@ -862,7 +862,7 @@ interface DeliveryDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.setVehicleStops",
+            "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.setVehicleStops",
             codec
           )
         if (api != null) {
@@ -887,7 +887,7 @@ interface DeliveryDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.getDeliveryVehicle",
+            "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.getDeliveryVehicle",
             codec
           )
         if (api != null) {
@@ -926,7 +926,7 @@ interface RidesharingDriverApi {
         val channel =
           BasicMessageChannel<Any?>(
             binaryMessenger,
-            "dev.flutter.pigeon.google_maps_driver.RidesharingDriverApi.setVehicleState",
+            "dev.flutter.pigeon.google_driver_flutter.RidesharingDriverApi.setVehicleState",
             codec
           )
         if (api != null) {
@@ -958,7 +958,7 @@ class AuthTokenEventApi(private val binaryMessenger: BinaryMessenger) {
   }
 
   fun getToken(taskIdArg: String?, vehicleIdArg: String?, callback: (Result<String>) -> Unit) {
-    val channelName = "dev.flutter.pigeon.google_maps_driver.AuthTokenEventApi.getToken"
+    val channelName = "dev.flutter.pigeon.google_driver_flutter.AuthTokenEventApi.getToken"
     val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
     channel.send(listOf(taskIdArg, vehicleIdArg)) {
       if (it is List<*>) {
@@ -1038,7 +1038,7 @@ class VehicleReporterListenerApi(private val binaryMessenger: BinaryMessenger) {
 
   fun onDidSucceed(vehicleUpdateArg: VehicleUpdateDto, callback: (Result<Unit>) -> Unit) {
     val channelName =
-      "dev.flutter.pigeon.google_maps_driver.VehicleReporterListenerApi.onDidSucceed"
+      "dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidSucceed"
     val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
     channel.send(listOf(vehicleUpdateArg)) {
       if (it is List<*>) {
@@ -1059,7 +1059,8 @@ class VehicleReporterListenerApi(private val binaryMessenger: BinaryMessenger) {
     errorMessageArg: String,
     callback: (Result<Unit>) -> Unit
   ) {
-    val channelName = "dev.flutter.pigeon.google_maps_driver.VehicleReporterListenerApi.onDidFail"
+    val channelName =
+      "dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail"
     val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
     channel.send(listOf(vehicleUpdateArg, errorCodeArg, errorMessageArg)) {
       if (it is List<*>) {
@@ -1090,7 +1091,8 @@ class DriverStatusListenerApi(private val binaryMessenger: BinaryMessenger) {
     errorMessageArg: String?,
     callback: (Result<Unit>) -> Unit
   ) {
-    val channelName = "dev.flutter.pigeon.google_maps_driver.DriverStatusListenerApi.onStatusUpdate"
+    val channelName =
+      "dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate"
     val channel = BasicMessageChannel<Any?>(binaryMessenger, channelName, codec)
     channel.send(listOf(levelArg.raw, codeArg.raw, messageArg, errorCodeArg, errorMessageArg)) {
       if (it is List<*>) {

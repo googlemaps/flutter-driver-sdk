@@ -1,6 +1,6 @@
-# google_maps_driver_example
+# google_driver_flutter_example
 
-Demonstrates how to use the google_maps_driver plugin.
+Demonstrates how to use the google_driver_flutter plugin.
 
 ## Starting example app backend services
 

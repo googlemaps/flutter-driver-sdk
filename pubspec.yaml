@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: google_maps_driver
+name: google_driver_flutter
 description: A Google Maps Driver plugin
-version: 0.2.0-beta
+version: 0.3.0-beta
 publish_to: none
 
 environment:

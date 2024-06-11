@@ -14,7 +14,7 @@
 
 import 'dart:async';
 
-import 'package:google_maps_driver/google_maps_driver.dart';
+import 'package:google_driver_flutter/google_driver_flutter.dart';
 import 'package:google_navigation_flutter/google_navigation_flutter.dart';
 
 /// Cleans up the driver and navigation SDKs.

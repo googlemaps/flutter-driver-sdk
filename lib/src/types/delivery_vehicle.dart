@@ -14,7 +14,7 @@
 
 import 'package:flutter/foundation.dart';
 
-import '../../google_maps_driver.dart';
+import '../../google_driver_flutter.dart';
 
 ///  DeliveryVehicle represents a vehicle used to perform single tracked
 ///  actions, known as Tasks.

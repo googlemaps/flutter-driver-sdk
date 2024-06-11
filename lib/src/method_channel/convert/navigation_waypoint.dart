@@ -16,7 +16,7 @@ import 'package:google_navigation_flutter/google_navigation_flutter.dart';
 import '../method_channel.dart';
 
 // These conversion functions have been duplicated between
-// google_navigation_flutter and google_maps_driver packages.
+// google_navigation_flutter and google_driver_flutter packages.
 //
 // Keep in sync.
 

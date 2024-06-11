@@ -411,7 +411,7 @@ enum CommonDriverApiSetup {
   /// Sets up an instance of `CommonDriverApi` to handle messages through the `binaryMessenger`.
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: CommonDriverApi?) {
     let initializeChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.initialize",
+      name: "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -438,7 +438,7 @@ enum CommonDriverApiSetup {
       initializeChannel.setMessageHandler(nil)
     }
     let isInitializedChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.isInitialized",
+      name: "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isInitialized",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -457,7 +457,7 @@ enum CommonDriverApiSetup {
       isInitializedChannel.setMessageHandler(nil)
     }
     let getProviderIdChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getProviderId",
+      name: "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getProviderId",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -476,7 +476,7 @@ enum CommonDriverApiSetup {
       getProviderIdChannel.setMessageHandler(nil)
     }
     let getVehicleIdChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getVehicleId",
+      name: "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getVehicleId",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -495,7 +495,7 @@ enum CommonDriverApiSetup {
       getVehicleIdChannel.setMessageHandler(nil)
     }
     let isLocationTrackingEnabledChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.isLocationTrackingEnabled",
+      name: "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isLocationTrackingEnabled",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -514,7 +514,7 @@ enum CommonDriverApiSetup {
       isLocationTrackingEnabledChannel.setMessageHandler(nil)
     }
     let setLocationTrackingEnabledChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setLocationTrackingEnabled",
+      name: "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationTrackingEnabled",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -534,7 +534,7 @@ enum CommonDriverApiSetup {
       setLocationTrackingEnabledChannel.setMessageHandler(nil)
     }
     let getLocationReportingIntervalMillisChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getLocationReportingIntervalMillis",
+      name: "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getLocationReportingIntervalMillis",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -553,7 +553,7 @@ enum CommonDriverApiSetup {
       getLocationReportingIntervalMillisChannel.setMessageHandler(nil)
     }
     let setLocationReportingIntervalMillisChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setLocationReportingIntervalMillis",
+      name: "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -573,7 +573,7 @@ enum CommonDriverApiSetup {
       setLocationReportingIntervalMillisChannel.setMessageHandler(nil)
     }
     let disposeChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.dispose",
+      name: "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.dispose",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -592,7 +592,7 @@ enum CommonDriverApiSetup {
       disposeChannel.setMessageHandler(nil)
     }
     let getDriverSdkVersionChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.getDriverSdkVersion",
+      name: "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getDriverSdkVersion",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -611,7 +611,7 @@ enum CommonDriverApiSetup {
       getDriverSdkVersionChannel.setMessageHandler(nil)
     }
     let setSupplementalLocationChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.CommonDriverApi.setSupplementalLocation",
+      name: "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setSupplementalLocation",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -707,7 +707,7 @@ enum DeliveryDriverApiSetup {
   /// Sets up an instance of `DeliveryDriverApi` to handle messages through the `binaryMessenger`.
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: DeliveryDriverApi?) {
     let arrivedAtStopChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.arrivedAtStop",
+      name: "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.arrivedAtStop",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -726,7 +726,7 @@ enum DeliveryDriverApiSetup {
       arrivedAtStopChannel.setMessageHandler(nil)
     }
     let completedStopChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.completedStop",
+      name: "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.completedStop",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -745,7 +745,7 @@ enum DeliveryDriverApiSetup {
       completedStopChannel.setMessageHandler(nil)
     }
     let enrouteToNextStopChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.enrouteToNextStop",
+      name: "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.enrouteToNextStop",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -764,7 +764,7 @@ enum DeliveryDriverApiSetup {
       enrouteToNextStopChannel.setMessageHandler(nil)
     }
     let getRemainingVehicleStopsChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.getRemainingVehicleStops",
+      name: "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.getRemainingVehicleStops",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -783,7 +783,7 @@ enum DeliveryDriverApiSetup {
       getRemainingVehicleStopsChannel.setMessageHandler(nil)
     }
     let setVehicleStopsChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.setVehicleStops",
+      name: "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.setVehicleStops",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -804,7 +804,7 @@ enum DeliveryDriverApiSetup {
       setVehicleStopsChannel.setMessageHandler(nil)
     }
     let getDeliveryVehicleChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.DeliveryDriverApi.getDeliveryVehicle",
+      name: "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.getDeliveryVehicle",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -837,7 +837,7 @@ enum RidesharingDriverApiSetup {
   /// `binaryMessenger`.
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: RidesharingDriverApi?) {
     let setVehicleStateChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_maps_driver.RidesharingDriverApi.setVehicleState",
+      name: "dev.flutter.pigeon.google_driver_flutter.RidesharingDriverApi.setVehicleState",
       binaryMessenger: binaryMessenger
     )
     if let api {
@@ -871,7 +871,7 @@ class AuthTokenEventApi: AuthTokenEventApiProtocol {
 
   func getToken(taskId taskIdArg: String?, vehicleId vehicleIdArg: String?,
                 completion: @escaping (Result<String, FlutterError>) -> Void) {
-    let channelName = "dev.flutter.pigeon.google_maps_driver.AuthTokenEventApi.getToken"
+    let channelName = "dev.flutter.pigeon.google_driver_flutter.AuthTokenEventApi.getToken"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
     channel.sendMessage([taskIdArg, vehicleIdArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
@@ -971,7 +971,7 @@ class VehicleReporterListenerApi: VehicleReporterListenerApiProtocol {
   func onDidSucceed(vehicleUpdate vehicleUpdateArg: VehicleUpdateDto,
                     completion: @escaping (Result<Void, FlutterError>) -> Void) {
     let channelName =
-      "dev.flutter.pigeon.google_maps_driver.VehicleReporterListenerApi.onDidSucceed"
+      "dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidSucceed"
     let channel = FlutterBasicMessageChannel(
       name: channelName,
       binaryMessenger: binaryMessenger,
@@ -996,7 +996,8 @@ class VehicleReporterListenerApi: VehicleReporterListenerApiProtocol {
   func onDidFail(vehicleUpdate vehicleUpdateArg: VehicleUpdateDto, errorCode errorCodeArg: String,
                  errorMessage errorMessageArg: String,
                  completion: @escaping (Result<Void, FlutterError>) -> Void) {
-    let channelName = "dev.flutter.pigeon.google_maps_driver.VehicleReporterListenerApi.onDidFail"
+    let channelName =
+      "dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail"
     let channel = FlutterBasicMessageChannel(
       name: channelName,
       binaryMessenger: binaryMessenger,
@@ -1037,7 +1038,8 @@ class DriverStatusListenerApi: DriverStatusListenerApiProtocol {
                       message messageArg: String, errorCode errorCodeArg: String?,
                       errorMessage errorMessageArg: String?,
                       completion: @escaping (Result<Void, FlutterError>) -> Void) {
-    let channelName = "dev.flutter.pigeon.google_maps_driver.DriverStatusListenerApi.onStatusUpdate"
+    let channelName =
+      "dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
     channel.sendMessage([
       levelArg.rawValue,

@@ -13,12 +13,12 @@
 // limitations under the License.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:google_maps_driver/google_maps_driver.dart';
-import 'package:google_maps_driver/src/method_channel/method_channel.dart';
+import 'package:google_driver_flutter/google_driver_flutter.dart';
+import 'package:google_driver_flutter/src/method_channel/method_channel.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'google_maps_driver_test.mocks.dart';
+import 'google_driver_flutter_test.mocks.dart';
 import 'messages_test.g.dart';
 
 @GenerateMocks(<Type>[
