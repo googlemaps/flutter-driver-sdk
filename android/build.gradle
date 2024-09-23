@@ -71,7 +71,7 @@ android {
     }
 
     dependencies {
-        implementation 'com.google.android.libraries.mapsplatform.transportation:transportation-driver:5.0.0'
+        implementation 'com.google.android.libraries.mapsplatform.transportation:transportation-driver:5.99.0'
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
         testImplementation 'io.mockk:mockk:1.13.9'
         testImplementation 'junit:junit:4.13.2'
