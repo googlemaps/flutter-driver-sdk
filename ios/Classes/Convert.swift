@@ -100,12 +100,12 @@ enum Convert {
   }
 
   // Converts Pigeon [TaskInfoDto] to Google Driver [GMTSTaskInfo].
-  static func convertTaskInfoFromDto(task: TaskInfoDto) -> GMTSTaskInfo {
-    GMTSTaskInfo(taskID: task.taskId, taskDuration: TimeInterval(task.durationSeconds))
+  static func convertTaskInfoFromDto(task: TaskInfoDto) -> GMTDTaskInfo {
+    GMTDTaskInfo(taskID: task.taskId, taskDuration: TimeInterval(task.durationSeconds))
   }
 
   // Converts Google Driver [GMTSTaskInfo] to Pigeon [TaskInfoDto].
-  static func convertTaskInfoToDto(task: GMTSTaskInfo) -> TaskInfoDto {
+  static func convertTaskInfoToDto(task: GMTDTaskInfo) -> TaskInfoDto {
     TaskInfoDto(taskId: task.taskID, durationSeconds: Int64(task.taskDuration))
   }
 
@@ -154,7 +154,7 @@ enum Convert {
 
   // Converts Google Driver [GMTDVehicleStop] to Pigeon [VehicleStopDto].
   static func convertVehicleStopFromDto(stop: VehicleStopDto) -> GMTDVehicleStop {
-    GMTDVehicleStop(taskInfoArray: stop.taskInfoList.map { taskInfo -> GMTSTaskInfo? in
+    GMTDVehicleStop(taskInfoArray: stop.taskInfoList.map { taskInfo -> GMTDTaskInfo? in
       guard let taskInfo else { return nil }
 
       return convertTaskInfoFromDto(task: taskInfo)

@@ -13,11 +13,11 @@
 # limitations under the License.
 
 # Use an appropriate Java base image
-FROM openjdk:11
+FROM openjdk:17-jdk-slim
 
 # Install git
 RUN apt-get update && \
-    apt-get install -y git && \
+    apt-get install -y git python3 && \
     rm -rf /var/lib/apt/lists/*
 
 # Create a directory for the backend

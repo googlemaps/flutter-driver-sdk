@@ -26,7 +26,7 @@ services:
         FLEET_READER_SERVICE_ACCOUNT_EMAIL: ${FLEET_READER_SERVICE_ACCOUNT_EMAIL}
         JS_API_KEY: ${JS_API_KEY}
         HOST: http://localhost:8091
-        GIT_HASH: dff5045208bb687337ca2e27e2060ff0b2c7826e
+        GIT_HASH: 70246d5b9af68eba49d091dc4bbf4557683072ef
     command: ["./gradlew", "appengineRun", "--stacktrace"]
     ports:
       - "8091:8080"
@@ -42,7 +42,7 @@ services:
         SERVER_SERVICE_ACCOUNT_EMAIL: ${SERVER_SERVICE_ACCOUNT_EMAIL}
         DRIVER_SERVICE_ACCOUNT_EMAIL: ${DRIVER_SERVICE_ACCOUNT_EMAIL}
         CONSUMER_SERVICE_ACCOUNT_EMAIL: ${CONSUMER_SERVICE_ACCOUNT_EMAIL}
-        GIT_HASH: 9ae34af34a0abc51e1139ce2a4fc7e0d30f368b2
+        GIT_HASH: 4e60f77a46b0affd7b8e3f7355f1c60faf8699b1
     command: ["./gradlew", "appengineRun", "--stacktrace"]
     ports:
       - "8092:8080"
