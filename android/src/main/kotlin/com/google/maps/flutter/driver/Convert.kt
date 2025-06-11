@@ -93,7 +93,7 @@ object Convert {
       convertLatLngToDto(waypoint.position),
       waypoint.placeId,
       waypoint.preferSameSideOfRoad,
-      waypoint.preferredHeading.takeIf { it != -1 }?.toLong()
+      waypoint.preferredHeading.takeIf { it != -1 }?.toLong(),
     )
   }
 
@@ -165,7 +165,7 @@ object Convert {
       convertWaypointToDto(stop.waypoint),
       Lists.transform<TaskInfo, TaskInfoDto?>(stop.taskInfoList) { task: TaskInfo ->
         convertTaskInfoToDto(task)
-      }
+      },
     )
   }
 
@@ -222,14 +222,14 @@ object Convert {
           "driverException",
           t.message?.replace("java.lang.RuntimeException: Exception: ", "")
             ?: "Token retrieval from the backend failed.",
-          "UNAUTHENTICATED"
+          "UNAUTHENTICATED",
         )
       }
       else -> {
         return FlutterError(
           "driverException",
           extractErrorMessage(t) ?: "Driver API call failed.",
-          extractErrorCode(t) ?: "UNKNOWN"
+          extractErrorCode(t) ?: "UNKNOWN",
         )
       }
     }
@@ -296,7 +296,7 @@ object Convert {
       longitude = location.longitude,
       isMock = isMock,
       speed = location.speed.toDouble(),
-      time = location.time
+      time = location.time,
     )
   }
 
@@ -311,7 +311,7 @@ object Convert {
       providerId = deliveryVehicle.providerId,
       id = deliveryVehicle.vehicleId,
       name = deliveryVehicle.vehicleName,
-      stops = deliveryVehicle.vehicleStops.map { convertVehicleStopToDto(it) }
+      stops = deliveryVehicle.vehicleStops.map { convertVehicleStopToDto(it) },
     )
   }
 

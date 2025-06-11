@@ -14,8 +14,8 @@
 
 import Flutter
 import Foundation
-import google_navigation_flutter
 import GoogleRidesharingDriver
+import google_navigation_flutter
 
 // Keep in sync with GoogleMapsNavigationSessionManager.kt
 enum GoogleMapsRidesharingDriverError: Error {
@@ -43,8 +43,10 @@ class GoogleMapsRidesharingDriver: GoogleMapsBaseDriver, RidesharingDriverApi {
     }
   }
 
-  override func initialize(providerId: String, vehicleId: String,
-                           abnormalTerminationReportingEnabled: Bool) throws {
+  override func initialize(
+    providerId: String, vehicleId: String,
+    abnormalTerminationReportingEnabled: Bool
+  ) throws {
     let navigator = try ExposedGoogleMapsNavigator.getNavigator()
     GMSNavigationServices.createNavigationSession()
 
@@ -59,8 +61,10 @@ class GoogleMapsRidesharingDriver: GoogleMapsBaseDriver, RidesharingDriverApi {
 
       // Should not fail since the ExposedGoogleMapsNavigator.getNavigator() few
       // lines above should have thrown sessionNotInitialized already.
-      if let _roadSnappedLocationProvider = try ExposedGoogleMapsNavigator
-        .getRoadSnappedLocationProvider() {
+      if let _roadSnappedLocationProvider =
+        try ExposedGoogleMapsNavigator
+        .getRoadSnappedLocationProvider()
+      {
         if let vehicleReporter = _ridesharingDriverAPI?.vehicleReporter {
           _roadSnappedLocationProvider.add(vehicleReporter)
         } else {

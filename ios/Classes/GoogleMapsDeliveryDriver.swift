@@ -14,8 +14,8 @@
 
 import Flutter
 import Foundation
-import google_navigation_flutter
 import GoogleRidesharingDriver
+import google_navigation_flutter
 
 // Keep in sync with GoogleMapsNavigationSessionManager.kt
 enum GoogleMapsDeliveryDriverError: Error {
@@ -56,8 +56,10 @@ class GoogleMapsDeliveryDriver: GoogleMapsBaseDriver, DeliveryDriverApi {
     }
   }
 
-  override func initialize(providerId: String, vehicleId: String,
-                           abnormalTerminationReportingEnabled: Bool) throws {
+  override func initialize(
+    providerId: String, vehicleId: String,
+    abnormalTerminationReportingEnabled: Bool
+  ) throws {
     let navigator = try ExposedGoogleMapsNavigator.getNavigator()
     GMSNavigationServices.createNavigationSession()
 
@@ -73,8 +75,10 @@ class GoogleMapsDeliveryDriver: GoogleMapsBaseDriver, DeliveryDriverApi {
 
       // Should not fail since the ExposedGoogleMapsNavigator.getNavigator() few
       // lines above should have thrown sessionNotInitialized already.
-      if let _roadSnappedLocationProvider = try ExposedGoogleMapsNavigator
-        .getRoadSnappedLocationProvider() {
+      if let _roadSnappedLocationProvider =
+        try ExposedGoogleMapsNavigator
+        .getRoadSnappedLocationProvider()
+      {
         if let vehicleReporter = _deliveryDriverAPI?.vehicleReporter {
           _roadSnappedLocationProvider.add(vehicleReporter)
         } else {
@@ -110,11 +114,12 @@ class GoogleMapsDeliveryDriver: GoogleMapsBaseDriver, DeliveryDriverApi {
     if _deliveryDriverAPI != nil {
       _deliveryDriverAPI?.vehicleReporter.reportEnrouteToNextStop(completion: { stops, error in
         if error == nil {
-          completion(.success(
-            (stops ?? []).map { stop -> VehicleStopDto in
-              Convert.convertVehicleStopToDto(stop: stop)
-            }
-          ))
+          completion(
+            .success(
+              (stops ?? []).map { stop -> VehicleStopDto in
+                Convert.convertVehicleStopToDto(stop: stop)
+              }
+            ))
         } else {
           completion(.failure(convertError(error!)))
         }
@@ -128,11 +133,12 @@ class GoogleMapsDeliveryDriver: GoogleMapsBaseDriver, DeliveryDriverApi {
     if _deliveryDriverAPI != nil {
       _deliveryDriverAPI?.vehicleReporter.reportArrivedAtStop(completion: { stops, error in
         if error == nil {
-          completion(.success(
-            (stops ?? []).map { stop -> VehicleStopDto in
-              Convert.convertVehicleStopToDto(stop: stop)
-            }
-          ))
+          completion(
+            .success(
+              (stops ?? []).map { stop -> VehicleStopDto in
+                Convert.convertVehicleStopToDto(stop: stop)
+              }
+            ))
         } else {
           completion(.failure(convertError(error!)))
         }
@@ -146,11 +152,12 @@ class GoogleMapsDeliveryDriver: GoogleMapsBaseDriver, DeliveryDriverApi {
     if _deliveryDriverAPI != nil {
       _deliveryDriverAPI?.vehicleReporter.reportCompletedStop(completion: { stops, error in
         if error == nil {
-          completion(.success(
-            (stops ?? []).map { stop -> VehicleStopDto in
-              Convert.convertVehicleStopToDto(stop: stop)
-            }
-          ))
+          completion(
+            .success(
+              (stops ?? []).map { stop -> VehicleStopDto in
+                Convert.convertVehicleStopToDto(stop: stop)
+              }
+            ))
         } else {
           completion(.failure(convertError(error!)))
         }
@@ -164,11 +171,12 @@ class GoogleMapsDeliveryDriver: GoogleMapsBaseDriver, DeliveryDriverApi {
     if _deliveryDriverAPI != nil {
       _deliveryDriverAPI?.vehicleReporter.getRemainingVehicleStops(completion: { stops, error in
         if error == nil {
-          completion(.success(
-            (stops ?? []).map { stop -> VehicleStopDto in
-              Convert.convertVehicleStopToDto(stop: stop)
-            }
-          ))
+          completion(
+            .success(
+              (stops ?? []).map { stop -> VehicleStopDto in
+                Convert.convertVehicleStopToDto(stop: stop)
+              }
+            ))
         } else {
           completion(.failure(convertError(error!)))
         }
@@ -178,31 +186,35 @@ class GoogleMapsDeliveryDriver: GoogleMapsBaseDriver, DeliveryDriverApi {
     }
   }
 
-  func setVehicleStops(stops: [VehicleStopDto],
-                       completion: @escaping (Result<[VehicleStopDto], Error>) -> Void) {
+  func setVehicleStops(
+    stops: [VehicleStopDto],
+    completion: @escaping (Result<[VehicleStopDto], Error>) -> Void
+  ) {
     if _deliveryDriverAPI != nil {
       let vehicleStops: [GMTDVehicleStop] = stops.map { stop -> GMTDVehicleStop in
         Convert.convertVehicleStopFromDto(stop: stop)
       }
 
-      _deliveryDriverAPI?.vehicleReporter.setVehicleStops(vehicleStops,
-                                                          completion: { stops, error in
-                                                            if error == nil {
-                                                              completion(.success(
-                                                                (stops ?? [])
-                                                                  .map { stop -> VehicleStopDto in
-                                                                    Convert
-                                                                      .convertVehicleStopToDto(
-                                                                        stop: stop
-                                                                      )
-                                                                  }
-                                                              ))
-                                                            } else {
-                                                              completion(
-                                                                .failure(convertError(error!))
-                                                              )
-                                                            }
-                                                          })
+      _deliveryDriverAPI?.vehicleReporter.setVehicleStops(
+        vehicleStops,
+        completion: { stops, error in
+          if error == nil {
+            completion(
+              .success(
+                (stops ?? [])
+                  .map { stop -> VehicleStopDto in
+                    Convert
+                      .convertVehicleStopToDto(
+                        stop: stop
+                      )
+                  }
+              ))
+          } else {
+            completion(
+              .failure(convertError(error!))
+            )
+          }
+        })
 
     } else {
       completion(.failure(GoogleMapsDeliveryDriverError.driverNotInitialized))
@@ -214,8 +226,10 @@ class GoogleMapsDeliveryDriver: GoogleMapsBaseDriver, DeliveryDriverApi {
       _deliveryDriverAPI!.deliveryVehicleManager!
         .getVehicleWithCompletion { deliveryVehicle, error in
           if error == nil {
-            completion(.success(Convert
-                .convertDeliveryVehicleToDto(deliveryVehicle: deliveryVehicle!)))
+            completion(
+              .success(
+                Convert
+                  .convertDeliveryVehicleToDto(deliveryVehicle: deliveryVehicle!)))
           } else {
             completion(.failure(convertError(error!)))
           }

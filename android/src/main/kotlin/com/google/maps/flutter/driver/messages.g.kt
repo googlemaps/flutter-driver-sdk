@@ -36,7 +36,7 @@ private fun wrapError(exception: Throwable): List<Any?> {
     return listOf(
       exception.javaClass.simpleName,
       exception.toString(),
-      "Cause: " + exception.cause + ", Stacktrace: " + Log.getStackTraceString(exception)
+      "Cause: " + exception.cause + ", Stacktrace: " + Log.getStackTraceString(exception),
     )
   }
 }
@@ -45,7 +45,7 @@ private fun createConnectionError(channelName: String): FlutterError {
   return FlutterError(
     "channel-error",
     "Unable to establish connection on channel: '$channelName'.",
-    ""
+    "",
   )
 }
 
@@ -59,7 +59,7 @@ private fun createConnectionError(channelName: String): FlutterError {
 class FlutterError(
   val code: String,
   override val message: String? = null,
-  val details: Any? = null
+  val details: Any? = null,
 ) : Throwable()
 
 /** Indicates the API type for a driver. */
@@ -145,10 +145,7 @@ data class TaskInfoDto(val taskId: String, val durationSeconds: Long) {
   }
 
   fun toList(): List<Any?> {
-    return listOf<Any?>(
-      taskId,
-      durationSeconds,
-    )
+    return listOf<Any?>(taskId, durationSeconds)
   }
 }
 
@@ -156,7 +153,7 @@ data class TaskInfoDto(val taskId: String, val durationSeconds: Long) {
 data class VehicleStopDto(
   val vehicleStopState: VehicleStopStateDto,
   val waypoint: NavigationWaypointDto? = null,
-  val taskInfoList: List<TaskInfoDto?>
+  val taskInfoList: List<TaskInfoDto?>,
 ) {
   companion object {
     @Suppress("UNCHECKED_CAST")
@@ -170,11 +167,7 @@ data class VehicleStopDto(
   }
 
   fun toList(): List<Any?> {
-    return listOf<Any?>(
-      vehicleStopState.raw,
-      waypoint?.toList(),
-      taskInfoList,
-    )
+    return listOf<Any?>(vehicleStopState.raw, waypoint?.toList(), taskInfoList)
   }
 }
 
@@ -191,10 +184,7 @@ data class LatLngDto(val latitude: Double, val longitude: Double) {
   }
 
   fun toList(): List<Any?> {
-    return listOf<Any?>(
-      latitude,
-      longitude,
-    )
+    return listOf<Any?>(latitude, longitude)
   }
 }
 
@@ -204,7 +194,7 @@ data class NavigationWaypointDto(
   val target: LatLngDto? = null,
   val placeID: String? = null,
   val preferSameSideOfRoad: Boolean? = null,
-  val preferredSegmentHeading: Long? = null
+  val preferredSegmentHeading: Long? = null,
 ) {
   companion object {
     @Suppress("UNCHECKED_CAST")
@@ -219,7 +209,7 @@ data class NavigationWaypointDto(
         target,
         placeID,
         preferSameSideOfRoad,
-        preferredSegmentHeading
+        preferredSegmentHeading,
       )
     }
   }
@@ -246,7 +236,7 @@ data class LocationDto(
   val longitude: Double? = null,
   val provider: String? = null,
   val speed: Double? = null,
-  val time: Long? = null
+  val time: Long? = null,
 ) {
   companion object {
     @Suppress("UNCHECKED_CAST")
@@ -271,7 +261,7 @@ data class LocationDto(
         longitude,
         provider,
         speed,
-        time
+        time,
       )
     }
   }
@@ -297,7 +287,7 @@ data class DeliveryVehicleDto(
   val providerId: String,
   val id: String,
   val name: String,
-  val stops: List<VehicleStopDto?>
+  val stops: List<VehicleStopDto?>,
 ) {
   companion object {
     @Suppress("UNCHECKED_CAST")
@@ -311,12 +301,7 @@ data class DeliveryVehicleDto(
   }
 
   fun toList(): List<Any?> {
-    return listOf<Any?>(
-      providerId,
-      id,
-      name,
-      stops,
-    )
+    return listOf<Any?>(providerId, id, name, stops)
   }
 }
 
@@ -327,7 +312,7 @@ data class VehicleUpdateDto(
   val destinationWaypoint: NavigationWaypointDto? = null,
   val route: List<LatLngDto?>? = null,
   val remainingTimeInSeconds: Double? = null,
-  val remainingDistanceInMeters: Double? = null
+  val remainingDistanceInMeters: Double? = null,
 ) {
   companion object {
     @Suppress("UNCHECKED_CAST")
@@ -345,7 +330,7 @@ data class VehicleUpdateDto(
         destinationWaypoint,
         route,
         remainingTimeInSeconds,
-        remainingDistanceInMeters
+        remainingDistanceInMeters,
       )
     }
   }
@@ -390,7 +375,7 @@ interface CommonDriverApi {
     type: DriverApiTypeDto,
     providerId: String,
     vehicleId: String,
-    abnormalTerminationReportingEnabled: Boolean
+    abnormalTerminationReportingEnabled: Boolean,
   )
 
   fun isInitialized(type: DriverApiTypeDto): Boolean
@@ -416,6 +401,7 @@ interface CommonDriverApi {
   companion object {
     /** The codec used by CommonDriverApi. */
     val codec: MessageCodec<Any?> by lazy { CommonDriverApiCodec }
+
     /**
      * Sets up an instance of `CommonDriverApi` to handle messages through the `binaryMessenger`.
      */
@@ -426,7 +412,7 @@ interface CommonDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { message, reply ->
@@ -441,7 +427,7 @@ interface CommonDriverApi {
                 typeArg,
                 providerIdArg,
                 vehicleIdArg,
-                abnormalTerminationReportingEnabledArg
+                abnormalTerminationReportingEnabledArg,
               )
               wrapped = listOf<Any?>(null)
             } catch (exception: Throwable) {
@@ -458,7 +444,7 @@ interface CommonDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isInitialized",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { message, reply ->
@@ -481,7 +467,7 @@ interface CommonDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getProviderId",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { message, reply ->
@@ -504,7 +490,7 @@ interface CommonDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getVehicleId",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { message, reply ->
@@ -527,7 +513,7 @@ interface CommonDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isLocationTrackingEnabled",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { message, reply ->
@@ -550,7 +536,7 @@ interface CommonDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationTrackingEnabled",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { message, reply ->
@@ -575,7 +561,7 @@ interface CommonDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getLocationReportingIntervalMillis",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { message, reply ->
@@ -598,7 +584,7 @@ interface CommonDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { message, reply ->
@@ -623,7 +609,7 @@ interface CommonDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.dispose",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { message, reply ->
@@ -647,7 +633,7 @@ interface CommonDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getDriverSdkVersion",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { message, reply ->
@@ -670,7 +656,7 @@ interface CommonDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setSupplementalLocation",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { message, reply ->
@@ -761,6 +747,7 @@ interface DeliveryDriverApi {
   companion object {
     /** The codec used by DeliveryDriverApi. */
     val codec: MessageCodec<Any?> by lazy { DeliveryDriverApiCodec }
+
     /**
      * Sets up an instance of `DeliveryDriverApi` to handle messages through the `binaryMessenger`.
      */
@@ -771,7 +758,7 @@ interface DeliveryDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.arrivedAtStop",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { _, reply ->
@@ -794,7 +781,7 @@ interface DeliveryDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.completedStop",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { _, reply ->
@@ -817,7 +804,7 @@ interface DeliveryDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.enrouteToNextStop",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { _, reply ->
@@ -840,7 +827,7 @@ interface DeliveryDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.getRemainingVehicleStops",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { _, reply ->
@@ -863,7 +850,7 @@ interface DeliveryDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.setVehicleStops",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { message, reply ->
@@ -888,7 +875,7 @@ interface DeliveryDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.getDeliveryVehicle",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { _, reply ->
@@ -909,6 +896,7 @@ interface DeliveryDriverApi {
     }
   }
 }
+
 /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
 interface RidesharingDriverApi {
   fun setVehicleState(state: VehicleStateDto)
@@ -916,6 +904,7 @@ interface RidesharingDriverApi {
   companion object {
     /** The codec used by RidesharingDriverApi. */
     val codec: MessageCodec<Any?> by lazy { StandardMessageCodec() }
+
     /**
      * Sets up an instance of `RidesharingDriverApi` to handle messages through the
      * `binaryMessenger`.
@@ -927,7 +916,7 @@ interface RidesharingDriverApi {
           BasicMessageChannel<Any?>(
             binaryMessenger,
             "dev.flutter.pigeon.google_driver_flutter.RidesharingDriverApi.setVehicleState",
-            codec
+            codec,
           )
         if (api != null) {
           channel.setMessageHandler { message, reply ->
@@ -949,6 +938,7 @@ interface RidesharingDriverApi {
     }
   }
 }
+
 /** Generated class from Pigeon that represents Flutter messages that can be called from Kotlin. */
 @Suppress("UNCHECKED_CAST")
 class AuthTokenEventApi(private val binaryMessenger: BinaryMessenger) {
@@ -970,7 +960,7 @@ class AuthTokenEventApi(private val binaryMessenger: BinaryMessenger) {
               FlutterError(
                 "null-error",
                 "Flutter api returned null value for non-null return value.",
-                ""
+                "",
               )
             )
           )
@@ -1057,7 +1047,7 @@ class VehicleReporterListenerApi(private val binaryMessenger: BinaryMessenger) {
     vehicleUpdateArg: VehicleUpdateDto,
     errorCodeArg: String,
     errorMessageArg: String,
-    callback: (Result<Unit>) -> Unit
+    callback: (Result<Unit>) -> Unit,
   ) {
     val channelName =
       "dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail"
@@ -1075,6 +1065,7 @@ class VehicleReporterListenerApi(private val binaryMessenger: BinaryMessenger) {
     }
   }
 }
+
 /** Generated class from Pigeon that represents Flutter messages that can be called from Kotlin. */
 @Suppress("UNCHECKED_CAST")
 class DriverStatusListenerApi(private val binaryMessenger: BinaryMessenger) {
@@ -1089,7 +1080,7 @@ class DriverStatusListenerApi(private val binaryMessenger: BinaryMessenger) {
     messageArg: String,
     errorCodeArg: String?,
     errorMessageArg: String?,
-    callback: (Result<Unit>) -> Unit
+    callback: (Result<Unit>) -> Unit,
   ) {
     val channelName =
       "dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate"

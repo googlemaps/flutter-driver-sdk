@@ -149,7 +149,7 @@ class ConvertTests: XCTestCase {
           latitude: 55.0,
           longitude: 44.0
         )
-      ),
+      )
     ]
 
     XCTAssertEqual(Convert.convertWaypoints(testWaypoints).count, 1)
@@ -161,7 +161,7 @@ class ConvertTests: XCTestCase {
       .init(
         title: "test",
         placeID: "id"
-      ),
+      )
     ]
 
     XCTAssertEqual(Convert.convertWaypoints(testWaypoints).count, 1)

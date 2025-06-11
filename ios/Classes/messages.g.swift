@@ -16,6 +16,7 @@
 // See also: https://pub.dev/packages/pigeon
 
 import Foundation
+
 #if os(iOS)
   import Flutter
 #elseif os(macOS)
@@ -192,8 +193,8 @@ struct NavigationWaypointDto {
     }
     let placeID: String? = nilOrValue(list[2])
     let preferSameSideOfRoad: Bool? = nilOrValue(list[3])
-    let preferredSegmentHeading: Int64? = isNullish(list[4]) ? nil :
-      (list[4] is Int64? ? list[4] as! Int64? : Int64(list[4] as! Int32))
+    let preferredSegmentHeading: Int64? =
+      isNullish(list[4]) ? nil : (list[4] is Int64? ? list[4] as! Int64? : Int64(list[4] as! Int32))
 
     return NavigationWaypointDto(
       title: title,
@@ -231,16 +232,16 @@ struct LocationDto {
   static func fromList(_ list: [Any?]) -> LocationDto? {
     let accuracy: Double? = nilOrValue(list[0])
     let altitude: Double? = nilOrValue(list[1])
-    let elapsedRealtimeNanos: Int64? = isNullish(list[2]) ? nil :
-      (list[2] is Int64? ? list[2] as! Int64? : Int64(list[2] as! Int32))
+    let elapsedRealtimeNanos: Int64? =
+      isNullish(list[2]) ? nil : (list[2] is Int64? ? list[2] as! Int64? : Int64(list[2] as! Int32))
     let bearing: Double? = nilOrValue(list[3])
     let isMock: Bool? = nilOrValue(list[4])
     let latitude: Double? = nilOrValue(list[5])
     let longitude: Double? = nilOrValue(list[6])
     let provider: String? = nilOrValue(list[7])
     let speed: Double? = nilOrValue(list[8])
-    let time: Int64? = isNullish(list[9]) ? nil :
-      (list[9] is Int64? ? list[9] as! Int64? : Int64(list[9] as! Int32))
+    let time: Int64? =
+      isNullish(list[9]) ? nil : (list[9] is Int64? ? list[9] as! Int64? : Int64(list[9] as! Int32))
 
     return LocationDto(
       accuracy: accuracy,
@@ -390,8 +391,9 @@ class CommonDriverApiCodec: FlutterStandardMessageCodec {
 
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol CommonDriverApi {
-  func initialize(type: DriverApiTypeDto, providerId: String, vehicleId: String,
-                  abnormalTerminationReportingEnabled: Bool) throws
+  func initialize(
+    type: DriverApiTypeDto, providerId: String, vehicleId: String,
+    abnormalTerminationReportingEnabled: Bool) throws
   func isInitialized(type: DriverApiTypeDto) throws -> Bool
   func getProviderId(type: DriverApiTypeDto) throws -> String
   func getVehicleId(type: DriverApiTypeDto) throws -> String
@@ -534,7 +536,8 @@ enum CommonDriverApiSetup {
       setLocationTrackingEnabledChannel.setMessageHandler(nil)
     }
     let getLocationReportingIntervalMillisChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getLocationReportingIntervalMillis",
+      name:
+        "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getLocationReportingIntervalMillis",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -553,7 +556,8 @@ enum CommonDriverApiSetup {
       getLocationReportingIntervalMillisChannel.setMessageHandler(nil)
     }
     let setLocationReportingIntervalMillisChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis",
+      name:
+        "dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis",
       binaryMessenger: binaryMessenger,
       codec: codec
     )
@@ -695,8 +699,9 @@ protocol DeliveryDriverApi {
   func completedStop(completion: @escaping (Result<[VehicleStopDto], Error>) -> Void)
   func enrouteToNextStop(completion: @escaping (Result<[VehicleStopDto], Error>) -> Void)
   func getRemainingVehicleStops(completion: @escaping (Result<[VehicleStopDto], Error>) -> Void)
-  func setVehicleStops(stops: [VehicleStopDto],
-                       completion: @escaping (Result<[VehicleStopDto], Error>) -> Void)
+  func setVehicleStops(
+    stops: [VehicleStopDto],
+    completion: @escaping (Result<[VehicleStopDto], Error>) -> Void)
   func getDeliveryVehicle(completion: @escaping (Result<DeliveryVehicleDto, Error>) -> Void)
 }
 
@@ -859,8 +864,9 @@ enum RidesharingDriverApiSetup {
 
 /// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
 protocol AuthTokenEventApiProtocol {
-  func getToken(taskId taskIdArg: String?, vehicleId vehicleIdArg: String?,
-                completion: @escaping (Result<String, FlutterError>) -> Void)
+  func getToken(
+    taskId taskIdArg: String?, vehicleId vehicleIdArg: String?,
+    completion: @escaping (Result<String, FlutterError>) -> Void)
 }
 
 class AuthTokenEventApi: AuthTokenEventApiProtocol {
@@ -869,8 +875,10 @@ class AuthTokenEventApi: AuthTokenEventApiProtocol {
     self.binaryMessenger = binaryMessenger
   }
 
-  func getToken(taskId taskIdArg: String?, vehicleId vehicleIdArg: String?,
-                completion: @escaping (Result<String, FlutterError>) -> Void) {
+  func getToken(
+    taskId taskIdArg: String?, vehicleId vehicleIdArg: String?,
+    completion: @escaping (Result<String, FlutterError>) -> Void
+  ) {
     let channelName = "dev.flutter.pigeon.google_driver_flutter.AuthTokenEventApi.getToken"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
     channel.sendMessage([taskIdArg, vehicleIdArg] as [Any?]) { response in
@@ -884,11 +892,13 @@ class AuthTokenEventApi: AuthTokenEventApiProtocol {
         let details: String? = nilOrValue(listResponse[2])
         completion(.failure(FlutterError(code: code, message: message, details: details)))
       } else if listResponse[0] == nil {
-        completion(.failure(FlutterError(
-          code: "null-error",
-          message: "Flutter api returned null value for non-null return value.",
-          details: ""
-        )))
+        completion(
+          .failure(
+            FlutterError(
+              code: "null-error",
+              message: "Flutter api returned null value for non-null return value.",
+              details: ""
+            )))
       } else {
         let result = listResponse[0] as! String
         completion(.success(result))
@@ -951,11 +961,13 @@ class VehicleReporterListenerApiCodec: FlutterStandardMessageCodec {
 
 /// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
 protocol VehicleReporterListenerApiProtocol {
-  func onDidSucceed(vehicleUpdate vehicleUpdateArg: VehicleUpdateDto,
-                    completion: @escaping (Result<Void, FlutterError>) -> Void)
-  func onDidFail(vehicleUpdate vehicleUpdateArg: VehicleUpdateDto, errorCode errorCodeArg: String,
-                 errorMessage errorMessageArg: String,
-                 completion: @escaping (Result<Void, FlutterError>) -> Void)
+  func onDidSucceed(
+    vehicleUpdate vehicleUpdateArg: VehicleUpdateDto,
+    completion: @escaping (Result<Void, FlutterError>) -> Void)
+  func onDidFail(
+    vehicleUpdate vehicleUpdateArg: VehicleUpdateDto, errorCode errorCodeArg: String,
+    errorMessage errorMessageArg: String,
+    completion: @escaping (Result<Void, FlutterError>) -> Void)
 }
 
 class VehicleReporterListenerApi: VehicleReporterListenerApiProtocol {
@@ -968,8 +980,10 @@ class VehicleReporterListenerApi: VehicleReporterListenerApiProtocol {
     VehicleReporterListenerApiCodec.shared
   }
 
-  func onDidSucceed(vehicleUpdate vehicleUpdateArg: VehicleUpdateDto,
-                    completion: @escaping (Result<Void, FlutterError>) -> Void) {
+  func onDidSucceed(
+    vehicleUpdate vehicleUpdateArg: VehicleUpdateDto,
+    completion: @escaping (Result<Void, FlutterError>) -> Void
+  ) {
     let channelName =
       "dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidSucceed"
     let channel = FlutterBasicMessageChannel(
@@ -993,9 +1007,11 @@ class VehicleReporterListenerApi: VehicleReporterListenerApiProtocol {
     }
   }
 
-  func onDidFail(vehicleUpdate vehicleUpdateArg: VehicleUpdateDto, errorCode errorCodeArg: String,
-                 errorMessage errorMessageArg: String,
-                 completion: @escaping (Result<Void, FlutterError>) -> Void) {
+  func onDidFail(
+    vehicleUpdate vehicleUpdateArg: VehicleUpdateDto, errorCode errorCodeArg: String,
+    errorMessage errorMessageArg: String,
+    completion: @escaping (Result<Void, FlutterError>) -> Void
+  ) {
     let channelName =
       "dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail"
     let channel = FlutterBasicMessageChannel(
@@ -1022,10 +1038,11 @@ class VehicleReporterListenerApi: VehicleReporterListenerApiProtocol {
 
 /// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
 protocol DriverStatusListenerApiProtocol {
-  func onStatusUpdate(level levelArg: DriverStatusLevelDto, code codeArg: DriverStatusCodeDto,
-                      message messageArg: String, errorCode errorCodeArg: String?,
-                      errorMessage errorMessageArg: String?,
-                      completion: @escaping (Result<Void, FlutterError>) -> Void)
+  func onStatusUpdate(
+    level levelArg: DriverStatusLevelDto, code codeArg: DriverStatusCodeDto,
+    message messageArg: String, errorCode errorCodeArg: String?,
+    errorMessage errorMessageArg: String?,
+    completion: @escaping (Result<Void, FlutterError>) -> Void)
 }
 
 class DriverStatusListenerApi: DriverStatusListenerApiProtocol {
@@ -1034,20 +1051,24 @@ class DriverStatusListenerApi: DriverStatusListenerApiProtocol {
     self.binaryMessenger = binaryMessenger
   }
 
-  func onStatusUpdate(level levelArg: DriverStatusLevelDto, code codeArg: DriverStatusCodeDto,
-                      message messageArg: String, errorCode errorCodeArg: String?,
-                      errorMessage errorMessageArg: String?,
-                      completion: @escaping (Result<Void, FlutterError>) -> Void) {
+  func onStatusUpdate(
+    level levelArg: DriverStatusLevelDto, code codeArg: DriverStatusCodeDto,
+    message messageArg: String, errorCode errorCodeArg: String?,
+    errorMessage errorMessageArg: String?,
+    completion: @escaping (Result<Void, FlutterError>) -> Void
+  ) {
     let channelName =
       "dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger)
-    channel.sendMessage([
-      levelArg.rawValue,
-      codeArg.rawValue,
-      messageArg,
-      errorCodeArg,
-      errorMessageArg,
-    ] as [Any?]) { response in
+    channel.sendMessage(
+      [
+        levelArg.rawValue,
+        codeArg.rawValue,
+        messageArg,
+        errorCodeArg,
+        errorMessageArg,
+      ] as [Any?]
+    ) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName: channelName)))
         return

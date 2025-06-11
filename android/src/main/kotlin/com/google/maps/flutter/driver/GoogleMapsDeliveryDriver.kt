@@ -31,9 +31,8 @@ import com.google.common.util.concurrent.MoreExecutors
 import com.google.maps.flutter.navigation.GoogleMapsNavigationSessionManager
 import io.flutter.plugin.common.BinaryMessenger
 
-class GoogleMapsDeliveryDriver(
-  private val messenger: BinaryMessenger,
-) : GoogleMapsBaseDriver(messenger), DeliveryDriverApi {
+class GoogleMapsDeliveryDriver(private val messenger: BinaryMessenger) :
+  GoogleMapsBaseDriver(messenger), DeliveryDriverApi {
   private var _deliveryDriverApi: NativeDeliveryDriverApi? = null
   private var _statusListener: GoogleMapsDriverStatusListener? = null
 
@@ -44,13 +43,13 @@ class GoogleMapsDeliveryDriver(
   override fun initialize(
     providerId: String,
     vehicleId: String,
-    abnormalTerminationReportingEnabled: Boolean
+    abnormalTerminationReportingEnabled: Boolean,
   ) {
     val navigator: Navigator =
       GoogleMapsNavigationSessionManager.getInstance().getNavigatorWithoutError()
         ?: throw FlutterError(
           "sessionNotInitialized",
-          "Cannot access navigation functionality before the navigation session has been initialized."
+          "Cannot access navigation functionality before the navigation session has been initialized.",
         )
 
     _statusListener = GoogleMapsDriverStatusListener(messenger, getActivity())
@@ -89,7 +88,7 @@ class GoogleMapsDeliveryDriver(
     } else {
       throw FlutterError(
         "driverNotInitialized",
-        "Cannot access DeliveryVehicleReporter before the DeliveryDriver has been initialized."
+        "Cannot access DeliveryVehicleReporter before the DeliveryDriver has been initialized.",
       )
     }
   }
@@ -100,7 +99,7 @@ class GoogleMapsDeliveryDriver(
     } else {
       throw FlutterError(
         "driverNotInitialized",
-        "Cannot access DeliveryVehicleManager before the DeliveryDriver has been initialized."
+        "Cannot access DeliveryVehicleManager before the DeliveryDriver has been initialized.",
       )
     }
   }
@@ -126,7 +125,7 @@ class GoogleMapsDeliveryDriver(
             callback(Result.failure(Convert.convertToDriverException(t)))
           }
         },
-        MoreExecutors.directExecutor()
+        MoreExecutors.directExecutor(),
       )
     } catch (error: Throwable) {
       callback(Result.failure(error))
@@ -148,7 +147,7 @@ class GoogleMapsDeliveryDriver(
             callback(Result.failure(Convert.convertToDriverException(t)))
           }
         },
-        MoreExecutors.directExecutor()
+        MoreExecutors.directExecutor(),
       )
     } catch (error: Throwable) {
       callback(Result.failure(error))
@@ -170,7 +169,7 @@ class GoogleMapsDeliveryDriver(
             callback(Result.failure(Convert.convertToDriverException(t)))
           }
         },
-        MoreExecutors.directExecutor()
+        MoreExecutors.directExecutor(),
       )
     } catch (error: Throwable) {
       callback(Result.failure(error))
@@ -192,7 +191,7 @@ class GoogleMapsDeliveryDriver(
             callback(Result.failure(Convert.convertToDriverException(t)))
           }
         },
-        MoreExecutors.directExecutor()
+        MoreExecutors.directExecutor(),
       )
     } catch (error: Throwable) {
       callback(Result.failure(error))
@@ -201,7 +200,7 @@ class GoogleMapsDeliveryDriver(
 
   override fun setVehicleStops(
     stops: List<VehicleStopDto>,
-    callback: (Result<List<VehicleStopDto>>) -> Unit
+    callback: (Result<List<VehicleStopDto>>) -> Unit,
   ) {
     try {
       val future =
@@ -218,7 +217,7 @@ class GoogleMapsDeliveryDriver(
             callback(Result.failure(Convert.convertToDriverException(t)))
           }
         },
-        MoreExecutors.directExecutor()
+        MoreExecutors.directExecutor(),
       )
     } catch (error: Throwable) {
       callback(Result.failure(error))
@@ -240,7 +239,7 @@ class GoogleMapsDeliveryDriver(
             callback(Result.failure(Convert.convertToDriverException(t)))
           }
         },
-        MoreExecutors.directExecutor()
+        MoreExecutors.directExecutor(),
       )
     } catch (error: Throwable) {
       callback(Result.failure(error))

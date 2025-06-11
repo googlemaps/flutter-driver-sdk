@@ -38,18 +38,18 @@ class GoogleMapsCommonDriverApiHandler(
     type: DriverApiTypeDto,
     providerId: String,
     vehicleId: String,
-    abnormalTerminationReportingEnabled: Boolean
+    abnormalTerminationReportingEnabled: Boolean,
   ) {
     if (deliveryDriverApi.isInitialized()) {
       throw FlutterError(
         "apiAlreadyInitialized",
-        "DeliveryDriverAPI instance already exists, and must be disposed before $type can be initialized"
+        "DeliveryDriverAPI instance already exists, and must be disposed before $type can be initialized",
       )
     }
     if (ridesharingDriverApi.isInitialized()) {
       throw FlutterError(
         "apiAlreadyInitialized",
-        "RidesharingDriverAPI instance already exists, and must be disposed before $type can be initialized"
+        "RidesharingDriverAPI instance already exists, and must be disposed before $type can be initialized",
       )
     }
     return getApi(type).initialize(providerId, vehicleId, abnormalTerminationReportingEnabled)

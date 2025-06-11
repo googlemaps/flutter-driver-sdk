@@ -30,10 +30,14 @@ class AccessTokenProvider: NSObject, GMTDAuthorization, ObservableObject {
     _authTokenEventApi = AuthTokenEventApi(binaryMessenger: messenger)
   }
 
-  func fetchToken(with authorizationContext: GMTDAuthorizationContext?,
-                  completion: @escaping GMTDAuthTokenFetchCompletionHandler) {
-    _authTokenEventApi.getToken(taskId: authorizationContext?.taskID ?? nil,
-                                vehicleId: authorizationContext?.vehicleID ?? nil) { result in
+  func fetchToken(
+    with authorizationContext: GMTDAuthorizationContext?,
+    completion: @escaping GMTDAuthTokenFetchCompletionHandler
+  ) {
+    _authTokenEventApi.getToken(
+      taskId: authorizationContext?.taskID ?? nil,
+      vehicleId: authorizationContext?.vehicleID ?? nil
+    ) { result in
       switch result {
       case let .success(data):
         completion(data, nil)
@@ -41,8 +45,10 @@ class AccessTokenProvider: NSObject, GMTDAuthorization, ObservableObject {
         let nsError = NSError(
           domain: "com.google.mapsplatform.transportation.driver.vehiclereporter.ErrorDomain",
           code: 0,
-          userInfo: [NSLocalizedDescriptionKey: error
-            .message ?? "Token retrieval from the backend failed."]
+          userInfo: [
+            NSLocalizedDescriptionKey: error
+              .message ?? "Token retrieval from the backend failed."
+          ]
         )
         completion(nil, nsError)
       }

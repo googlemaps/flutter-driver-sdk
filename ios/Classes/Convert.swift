@@ -36,7 +36,8 @@ enum Convert {
   // This conversion functions has been duplicated from
   // google_navigation_flutter. Keep in sync.
   static func convertNavigationWayPointToDto(_ gmsNavigationWaypoint: GMSNavigationWaypoint?)
-    -> NavigationWaypointDto? {
+    -> NavigationWaypointDto?
+  {
     guard let gmsNavigationWaypoint else { return nil }
     return NavigationWaypointDto(
       title: gmsNavigationWaypoint.title,
@@ -53,7 +54,8 @@ enum Convert {
   // This conversion functions has been duplicated from
   // google_navigation_flutter. Keep in sync.
   static func convertNavigationWayPointFromDto(_ waypoint: NavigationWaypointDto?)
-    -> GMSNavigationWaypoint? {
+    -> GMSNavigationWaypoint?
+  {
     guard let waypoint else { return nil }
     if let latitude = waypoint.target?.latitude, let longitude = waypoint.target?.longitude {
       if let preferSameSideOfRoad = waypoint.preferSameSideOfRoad {
@@ -90,7 +92,8 @@ enum Convert {
   // This conversion functions has been duplicated from
   // google_navigation_flutter. Keep in sync.
   static func convertWaypoints(_ waypoints: [NavigationWaypointDto?])
-    -> [GMSNavigationWaypoint] {
+    -> [GMSNavigationWaypoint]
+  {
     waypoints
       .map { waypoint -> GMSNavigationWaypoint? in
         guard let waypoint else { return nil }
@@ -111,7 +114,8 @@ enum Convert {
 
   // Converts pigeon [VehicleStopStateDto] to Google Drive [Int].
   static func convertVehicleStopStateFromDto(vehicleStopState: VehicleStopStateDto)
-    -> GMTDVehicleStopState {
+    -> GMTDVehicleStopState
+  {
     switch vehicleStopState {
     case VehicleStopStateDto.stateUnspecified:
       return .unspecified
@@ -126,7 +130,8 @@ enum Convert {
 
   // Converts Google Drive [Int] to pigeon [VehicleStopStateDto].
   static func convertVehicleStopStateToDto(googleVehicleStopState: GMTDVehicleStopState)
-    -> VehicleStopStateDto {
+    -> VehicleStopStateDto
+  {
     switch googleVehicleStopState {
     case .unspecified:
       return VehicleStopStateDto.stateUnspecified
@@ -154,19 +159,21 @@ enum Convert {
 
   // Converts Google Driver [GMTDVehicleStop] to Pigeon [VehicleStopDto].
   static func convertVehicleStopFromDto(stop: VehicleStopDto) -> GMTDVehicleStop {
-    GMTDVehicleStop(taskInfoArray: stop.taskInfoList.map { taskInfo -> GMTDTaskInfo? in
-      guard let taskInfo else { return nil }
+    GMTDVehicleStop(
+      taskInfoArray: stop.taskInfoList.map { taskInfo -> GMTDTaskInfo? in
+        guard let taskInfo else { return nil }
 
-      return convertTaskInfoFromDto(task: taskInfo)
-    }.compactMap { $0 }, plannedWaypoint: convertNavigationWayPointFromDto(stop.waypoint),
-    state: convertVehicleStopStateFromDto(
-      vehicleStopState: stop.vehicleStopState
-    ))
+        return convertTaskInfoFromDto(task: taskInfo)
+      }.compactMap { $0 }, plannedWaypoint: convertNavigationWayPointFromDto(stop.waypoint),
+      state: convertVehicleStopStateFromDto(
+        vehicleStopState: stop.vehicleStopState
+      ))
   }
 
   // Converts Pigeon [VehicleStateDto] to Google Driver [GMTDVehicleState].
   static func convertVehicleStateFromDto(state: VehicleStateDto)
-    -> GMTDVehicleState {
+    -> GMTDVehicleState
+  {
     switch state {
     case .offline:
       return GMTDVehicleState.offline
@@ -177,7 +184,8 @@ enum Convert {
 
   // Converts Google Driver [GMTDVehicleState] to Pigeon [VehicleStateDto].
   static func convertVehicleStateToDto(state: GMTDVehicleState)
-    -> VehicleStateDto {
+    -> VehicleStateDto
+  {
     switch state {
     case .offline:
       return VehicleStateDto.offline
@@ -189,16 +197,19 @@ enum Convert {
     }
   }
 
-  static func convertVehicleUpdateToDto(vehicleUpdate: GMTDVehicleUpdate,
-                                        ridesharing: Bool) -> VehicleUpdateDto {
+  static func convertVehicleUpdateToDto(
+    vehicleUpdate: GMTDVehicleUpdate,
+    ridesharing: Bool
+  ) -> VehicleUpdateDto {
     VehicleUpdateDto(
-      vehicleState: ridesharing ?
-        convertVehicleStateToDto(state: vehicleUpdate.vehicleState)
+      vehicleState: ridesharing
+        ? convertVehicleStateToDto(state: vehicleUpdate.vehicleState)
         : nil,
       location: vehicleUpdate
         .location != nil ? convertLatLngToDto(point: vehicleUpdate.location!.coordinate) : nil,
       destinationWaypoint: convertNavigationWayPointToDto(vehicleUpdate.destinationWaypoint),
-      route: (vehicleUpdate.route ?? []).map { convertLatLngToDto(point: $0.coordinate)
+      route: (vehicleUpdate.route ?? []).map {
+        convertLatLngToDto(point: $0.coordinate)
       },
       remainingTimeInSeconds: vehicleUpdate.remainingTimeInSeconds?.doubleValue,
       remainingDistanceInMeters: vehicleUpdate.remainingDistanceInMeters?.doubleValue
@@ -228,7 +239,8 @@ enum Convert {
   }
 
   static func convertDeliveryVehicleToDto(deliveryVehicle: GMTDDeliveryVehicle)
-    -> DeliveryVehicleDto {
+    -> DeliveryVehicleDto
+  {
     DeliveryVehicleDto(
       providerId: deliveryVehicle.providerID,
       id: deliveryVehicle.vehicleID,

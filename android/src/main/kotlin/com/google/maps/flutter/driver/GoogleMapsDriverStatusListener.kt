@@ -23,7 +23,7 @@ import io.flutter.plugin.common.BinaryMessenger
 
 internal class GoogleMapsDriverStatusListener(
   private val messenger: BinaryMessenger,
-  private val activity: Activity
+  private val activity: Activity,
 ) : DriverContext.DriverStatusListener {
   private val _statusListener: DriverStatusListenerApi = DriverStatusListenerApi(messenger)
 
@@ -31,7 +31,7 @@ internal class GoogleMapsDriverStatusListener(
     level: DriverStatusListener.StatusLevel,
     code: DriverStatusListener.StatusCode,
     message: String,
-    error: Throwable?
+    error: Throwable?,
   ) {
     var errorCode: String? = null
     var errorMessage: String? = null
@@ -45,7 +45,7 @@ internal class GoogleMapsDriverStatusListener(
         Convert.convertStatusCodeToDto(code),
         message,
         errorCode,
-        errorMessage
+        errorMessage,
       ) {}
     }
   }

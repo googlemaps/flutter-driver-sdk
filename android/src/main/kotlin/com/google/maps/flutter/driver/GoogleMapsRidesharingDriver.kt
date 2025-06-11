@@ -24,9 +24,8 @@ import com.google.android.libraries.navigation.Navigator
 import com.google.maps.flutter.navigation.GoogleMapsNavigationSessionManager
 import io.flutter.plugin.common.BinaryMessenger
 
-class GoogleMapsRidesharingDriver(
-  private val messenger: BinaryMessenger,
-) : GoogleMapsBaseDriver(messenger), RidesharingDriverApi {
+class GoogleMapsRidesharingDriver(private val messenger: BinaryMessenger) :
+  GoogleMapsBaseDriver(messenger), RidesharingDriverApi {
   private var _ridesharingDriverApi: NativeRidesharingDriverApi? = null
   private var _statusListener: GoogleMapsDriverStatusListener? = null
 
@@ -37,13 +36,13 @@ class GoogleMapsRidesharingDriver(
   override fun initialize(
     providerId: String,
     vehicleId: String,
-    abnormalTerminationReportingEnabled: Boolean
+    abnormalTerminationReportingEnabled: Boolean,
   ) {
     val navigator: Navigator =
       GoogleMapsNavigationSessionManager.getInstance().getNavigatorWithoutError()
         ?: throw FlutterError(
           "sessionNotInitialized",
-          "Cannot access navigation functionality before the navigation session has been initialized."
+          "Cannot access navigation functionality before the navigation session has been initialized.",
         )
     _statusListener = GoogleMapsDriverStatusListener(messenger, getActivity())
 
@@ -81,7 +80,7 @@ class GoogleMapsRidesharingDriver(
     } else {
       throw FlutterError(
         "driverNotInitialized",
-        "Cannot access RidesharingVehicleReporter before the RidesharingDriver has been initialized."
+        "Cannot access RidesharingVehicleReporter before the RidesharingDriver has been initialized.",
       )
     }
   }

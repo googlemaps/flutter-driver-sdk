@@ -35,7 +35,7 @@ class GoogleMapsDriverPlugin : FlutterPlugin, ActivityAware {
       GoogleMapsCommonDriverApiHandler(
         flutterPluginBinding.binaryMessenger,
         _deliveryDriverApi!!,
-        _ridesharingDriverApi!!
+        _ridesharingDriverApi!!,
       )
   }
 
