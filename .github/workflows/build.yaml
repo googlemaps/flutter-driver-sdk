@@ -91,11 +91,13 @@ jobs:
       - uses: bluefireteam/melos-action@6085791af7036f6366c9a4b9d55105c0ef9c6388
         with:
           melos-version: "6.0.0"
+      - name: Select XCode 16.1
+        run: sudo xcode-select -s '/Applications/Xcode_16.1.0.app/Contents/Developer'
       - name: Generate necessary files with flutter build
         working-directory: ${{ matrix.working_directory }}
         run: flutter build ios --config-only
       - name: "Run iOS native unit tests"
-        run: DEVICE='iPhone 14 Pro' melos run test:ios
+        run: TEST_DEVICE='iPhone 16 Pro' TEST_OS='18.1' melos run test:ios
 
   build-android:
     needs: [test-dart, test-android, test-ios]
@@ -147,5 +149,7 @@ jobs:
           key: ${{ runner.os }}-pods-${{ hashFiles('**/*.podspec') }}
           restore-keys: |
             ${{ runner.os }}-pods-
+      - name: Select XCode 16.1
+        run: sudo xcode-select -s '/Applications/Xcode_16.1.0.app/Contents/Developer'
       - name: "Run build for iOS"
         run: melos run flutter-build-ios
