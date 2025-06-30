@@ -26,13 +26,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_driver_flutter/google_driver_flutter.dart';
+// ignore: depend_on_referenced_packages
 import 'package:google_navigation_flutter/google_navigation_flutter.dart';
 import 'package:patrol/patrol.dart';
 import 'package:permission_handler/permission_handler.dart';
-
-export 'package:flutter_test/flutter_test.dart';
-export 'package:google_navigation_flutter/google_navigation_flutter.dart';
-export 'package:patrol/patrol.dart';
 
 /// Pumps a [navigationView] widget in tester [$] and then waits until it settles.
 Future<void> pumpNavigationView(

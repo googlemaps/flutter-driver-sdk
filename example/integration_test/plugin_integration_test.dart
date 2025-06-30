@@ -14,9 +14,14 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:google_driver_flutter/google_driver_flutter.dart';
 import 'package:google_driver_flutter_example/api/lmfs.dart';
 import 'package:google_driver_flutter_example/api/odrd.dart';
+// ignore: depend_on_referenced_packages
+import 'package:google_navigation_flutter/google_navigation_flutter.dart';
+import 'package:patrol/patrol.dart';
+
 import 'shared.dart';
 
 enum TokenBehavior { throwsException, emptyToken, invalidToken, validToken }

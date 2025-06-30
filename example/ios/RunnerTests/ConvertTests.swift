@@ -180,7 +180,7 @@ class ConvertTests: XCTestCase {
   }
 
   func testConvertTaskInfoToDto() {
-    let testTaskInfo = GMTSTaskInfo(taskID: "taskId", taskDuration: 100)
+    let testTaskInfo = GMTDTaskInfo(taskID: "taskId", taskDuration: 100)
     let taskInfo = Convert.convertTaskInfoToDto(task: testTaskInfo)
 
     XCTAssertEqual(taskInfo.taskId, testTaskInfo.taskID)
@@ -208,7 +208,7 @@ class ConvertTests: XCTestCase {
   }
 
   func testConvertVehicleStopToDto() {
-    let testTaskInfo = GMTSTaskInfo(taskID: "taskId", taskDuration: 100)
+    let testTaskInfo = GMTDTaskInfo(taskID: "taskId", taskDuration: 100)
     let testWaypoint = GMSNavigationWaypoint(placeID: "id", title: "title")
     let testStop = GMTDVehicleStop(
       taskInfoArray: [testTaskInfo],

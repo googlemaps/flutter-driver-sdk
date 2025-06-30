@@ -116,10 +116,10 @@ class CommonVehicleReporter {
   /// initialization callback instead.
   void setListener(VehicleReporterListener? vehicleReporterListener) {
     if (vehicleReporterListener != null) {
-      VehicleReporterListenerApi.setup(_VehicleReporterListenerApiImpl(
+      VehicleReporterListenerApi.setUp(_VehicleReporterListenerApiImpl(
           vehicleReporterListener: vehicleReporterListener));
     } else {
-      VehicleReporterListenerApi.setup(null);
+      VehicleReporterListenerApi.setUp(null);
     }
   }
 }
@@ -302,13 +302,13 @@ class TypedCommonDriverApi {
       await _commonApi.initialize(apiType.toDto(), providerId, vehicleId,
           abnormalTerminationReportingEnabled);
 
-      AuthTokenEventApi.setup(
+      AuthTokenEventApi.setUp(
           _AuthTokenEventApiImpl(onGetTokenEvent: onGetToken));
       if (onStatusUpdate != null) {
-        DriverStatusListenerApi.setup(
+        DriverStatusListenerApi.setUp(
             _DriverStatusListenerApiImpl(onStatusUpdateEvent: onStatusUpdate));
       } else {
-        DriverStatusListenerApi.setup(null);
+        DriverStatusListenerApi.setUp(null);
       }
     } on PlatformException catch (e) {
       switch (e.code) {

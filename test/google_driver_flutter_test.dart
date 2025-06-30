@@ -32,7 +32,7 @@ void main() {
   late MockTestCommonDriverApi mockedCommonDriverApi;
   setUp(() {
     mockedCommonDriverApi = MockTestCommonDriverApi();
-    TestCommonDriverApi.setup(mockedCommonDriverApi);
+    TestCommonDriverApi.setUp(mockedCommonDriverApi);
   });
 
   for (final DriverApiType driverApiType in <DriverApiType>[
@@ -53,12 +53,12 @@ void main() {
           publicCommonDriverApi = DeliveryDriver.commonDriverApi;
           mockedDeliveryDriverApi = MockTestDeliveryDriverApi();
           vehicleReporter = DeliveryDriver.vehicleReporter;
-          TestDeliveryDriverApi.setup(mockedDeliveryDriverApi);
+          TestDeliveryDriverApi.setUp(mockedDeliveryDriverApi);
         } else if (driverApiType == DriverApiType.ridesharing) {
           publicCommonDriverApi = RidesharingDriver.commonDriverApi;
           mockedRidesharingDriverApi = MockTestRidesharingDriverApi();
           vehicleReporter = RidesharingDriver.vehicleReporter;
-          TestRidesharingDriverApi.setup(mockedRidesharingDriverApi);
+          TestRidesharingDriverApi.setUp(mockedRidesharingDriverApi);
         } else {
           assert(false, 'Unknown driverApiType: $driverApiType');
         }

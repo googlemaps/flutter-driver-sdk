@@ -102,12 +102,12 @@ enum Convert {
       .compactMap { $0 }
   }
 
-  // Converts Pigeon [TaskInfoDto] to Google Driver [GMTSTaskInfo].
+  // Converts Pigeon [TaskInfoDto] to Google Driver [GMTDTaskInfo].
   static func convertTaskInfoFromDto(task: TaskInfoDto) -> GMTDTaskInfo {
     GMTDTaskInfo(taskID: task.taskId, taskDuration: TimeInterval(task.durationSeconds))
   }
 
-  // Converts Google Driver [GMTSTaskInfo] to Pigeon [TaskInfoDto].
+  // Converts Google Driver [GMTDTaskInfo] to Pigeon [TaskInfoDto].
   static func convertTaskInfoToDto(task: GMTDTaskInfo) -> TaskInfoDto {
     TaskInfoDto(taskId: task.taskID, durationSeconds: Int64(task.taskDuration))
   }
