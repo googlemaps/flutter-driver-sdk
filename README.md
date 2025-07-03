@@ -1,5 +1,9 @@
 # Google Maps Driver (Preview)
 
+**European Economic Area (EEA) developers**
+
+If your billing address is in the European Economic Area, effective on 8 July 2025, the [Google Maps Platform EEA Terms of Service](https://cloud.google.com/terms/maps-platform/eea) will apply to your use of the Services. Functionality varies by region. [Learn more](https://developers.google.com/maps/comms/eea/faq).
+
 ## Description
 
 This repository contains a Flutter plugin that allows users to use the [Google Maps Driver SDK](https://developers.google.com/maps/documentation/transportation-logistics/mobility) for Android and iOS. The plugin has a dependency on the [`google-maps-navigation`](https://github.com/googlemaps/flutter-navigation-sdk) plugin.
