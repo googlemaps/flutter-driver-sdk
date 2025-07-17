@@ -25,6 +25,8 @@ enum GoogleMapsDeliveryDriverError: Error {
   case noRoadSnappedLocationProvider
 }
 
+extension FlutterError: Error {}
+
 func convertError(_ error: Error) -> FlutterError {
   let fullError = error as NSError
 
