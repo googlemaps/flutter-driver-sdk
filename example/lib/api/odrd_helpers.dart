@@ -25,10 +25,10 @@ import 'odrd_types.dart';
 /// default value.
 /// See ./tools/backend/docker-compose.yml for the values of these environment
 /// variables.
-const String _ODRDAndroidBaseUrl = String.fromEnvironment(
+const String _odrdAndroidBaseUrl = String.fromEnvironment(
     'ODRD_ANDROID_HOST_URL',
     defaultValue: 'http://10.0.2.2:8092');
-const String _ODRDiOSBaseUrl = String.fromEnvironment('ODRD_IOS_HOST_URL',
+const String _odrdiOSBaseUrl = String.fromEnvironment('ODRD_IOS_HOST_URL',
     defaultValue: 'http://localhost:8092');
 
 ODRDApi? _odrdApiInstance;
@@ -39,7 +39,7 @@ ODRDApi? _odrdApiInstance;
 ODRDApi getODRDApi() {
   if (_odrdApiInstance == null) {
     final String baseUrl =
-        Platform.isAndroid ? _ODRDAndroidBaseUrl : _ODRDiOSBaseUrl;
+        Platform.isAndroid ? _odrdAndroidBaseUrl : _odrdiOSBaseUrl;
     _odrdApiInstance = ODRDApi(baseUrl);
   }
   return _odrdApiInstance!;

@@ -61,6 +61,6 @@ abstract class Vehicle {
   /// The ID of the vehicle.
   String get vehicleId;
 
-  /// Converts a Vehicle instance to a Map<String, dynamic> for JSON serialization.
+  /// Converts a Vehicle instance to a Map`<String, dynamic>` for JSON serialization.
   Map<String, dynamic> toJson();
 }

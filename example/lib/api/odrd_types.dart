@@ -93,7 +93,7 @@ class ODRDVehicle extends Vehicle {
     this.lastLocation,
   });
 
-  /// Constructs a [ODRDVehicle] instance from a Map<String, dynamic>.
+  /// Constructs a [ODRDVehicle] instance from a Map`<String, dynamic>`.
   factory ODRDVehicle.fromJson(Map<String, dynamic> json) {
     final String vehicleId = (json['name'] as String).split('/').last;
     return ODRDVehicle(
@@ -173,7 +173,7 @@ class ODRDVehicle extends Vehicle {
 
 /// Helper class to convert LatLng to/from JSON.
 extension LatLngJsonConversion on LatLng {
-  /// Converts a LatLng instance to a Map<String, dynamic> for JSON serialization.
+  /// Converts a LatLng instance to a Map`<String, dynamic>` for JSON serialization.
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'latitude': latitude,
@@ -181,7 +181,7 @@ extension LatLngJsonConversion on LatLng {
     };
   }
 
-  /// Constructs a [LatLng] instance from a Map<String, dynamic>.
+  /// Constructs a [LatLng] instance from a Map`<String, dynamic>`.
   static LatLng fromJson(Map<String, dynamic> json) {
     return LatLng(
       latitude: json['latitude'] as double,
@@ -358,7 +358,7 @@ class ODRDWaypoint {
     this.tripId,
   });
 
-  /// Constructs a [ODRDWaypoint] instance from a Map<String, dynamic>.
+  /// Constructs a [ODRDWaypoint] instance from a Map`<String, dynamic>`.
   factory ODRDWaypoint.fromJson(Map<String, dynamic> json) {
     final Map<String, dynamic> location =
         json['location'] as Map<String, dynamic>;
@@ -372,7 +372,7 @@ class ODRDWaypoint {
     );
   }
 
-  /// Converts a ODRDWaypoint instance to a Map<String, dynamic> for
+  /// Converts a ODRDWaypoint instance to a Map`<String, dynamic>` for
   /// JSON serialization.
   Map<String, dynamic> toJson() {
     return <String, dynamic>{

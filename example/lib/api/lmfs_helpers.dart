@@ -26,10 +26,10 @@ import 'lmfs_types.dart';
 /// default value.
 /// See ./tools/backend/docker-compose.yml for the values of these environment
 /// variables.
-const String _LMFSAndroidBaseUrl = String.fromEnvironment(
+const String _lmfsAndroidBaseUrl = String.fromEnvironment(
     'LMFS_ANDROID_HOST_URL',
     defaultValue: 'http://10.0.2.2:8091');
-const String _LMFSiOSBaseUrl = String.fromEnvironment('LMFS_IOS_HOST_URL',
+const String _lmfsiOSBaseUrl = String.fromEnvironment('LMFS_IOS_HOST_URL',
     defaultValue: 'http://localhost:8091');
 LMFSApi? _lmfsApiInstance;
 
@@ -44,7 +44,7 @@ LMFSDeliveryConfig? get lmfsDeliveryConfig => _lmfsDeliveryConfig;
 LMFSApi getLMFSApi() {
   if (_lmfsApiInstance == null) {
     final String baseUrl =
-        Platform.isAndroid ? _LMFSAndroidBaseUrl : _LMFSiOSBaseUrl;
+        Platform.isAndroid ? _lmfsAndroidBaseUrl : _lmfsiOSBaseUrl;
     _lmfsApiInstance = LMFSApi(baseUrl);
   }
   return _lmfsApiInstance!;

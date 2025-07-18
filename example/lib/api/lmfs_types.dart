@@ -158,7 +158,7 @@ class LMFSManifest {
   /// A list of stops for the vehicle to travel through.
   final List<LMFSStop> stops;
 
-  /// Converts a Manifest instance to a Map<String, dynamic> for JSON serialization.
+  /// Converts a Manifest instance to a Map`<String, dynamic>` for JSON serialization.
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> json = <String, dynamic>{
       'vehicle': vehicle.toJson(),
@@ -179,7 +179,7 @@ class LMFSManifest {
     return json;
   }
 
-  /// Constructs a Manifest instance from a Map<String, dynamic>.
+  /// Constructs a Manifest instance from a Map`<String, dynamic>`.
   static LMFSManifest fromJson(Map<String, dynamic> json) {
     return LMFSManifest(
       vehicle: LMFSVehicle.fromJson(json['vehicle'] as Map<String, dynamic>),
@@ -226,7 +226,7 @@ class LMFSManifestUpdate {
   /// stops field.
   List<String>? remainingStopIdList;
 
-  /// Converts a Manifest instance to a Map<String, dynamic> for JSON serialization.
+  /// Converts a Manifest instance to a Map`<String, dynamic>` for JSON serialization.
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> json = <String, dynamic>{};
 
@@ -260,7 +260,7 @@ class LMFSVehicle extends Vehicle {
   /// Where the vehicle is located initially for simulation.
   final LMFSWaypoint? startLocation;
 
-  /// Converts a Vehicle instance to a Map<String, dynamic> for JSON serialization.
+  /// Converts a Vehicle instance to a Map`<String, dynamic>` for JSON serialization.
   @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> json = <String, dynamic>{
@@ -273,7 +273,7 @@ class LMFSVehicle extends Vehicle {
     return json;
   }
 
-  /// Constructs a Vehicle instance from a Map<String, dynamic>.
+  /// Constructs a Vehicle instance from a Map`<String, dynamic>`.
   static LMFSVehicle fromJson(Map<String, dynamic> json) {
     return LMFSVehicle(
       vehicleId: json['vehicle_id'] as String,
@@ -304,7 +304,7 @@ class LMFSStop {
   /// Multiple nearby tasks may be done at this stop.
   final List<String> taskIds;
 
-  /// Converts a Stop instance to a Map<String, dynamic> for JSON serialization.
+  /// Converts a Stop instance to a Map`<String, dynamic>` for JSON serialization.
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'stop_id': stopId,
@@ -313,7 +313,7 @@ class LMFSStop {
     };
   }
 
-  /// Constructs a Stop instance from a Map<String, dynamic>.
+  /// Constructs a Stop instance from a Map`<String, dynamic>`.
   static LMFSStop fromJson(Map<String, dynamic> json) {
     return LMFSStop(
       stopId: json['stop_id'] as String,
@@ -431,7 +431,7 @@ class LMFSTask {
   /// A description of the task.
   final String? description;
 
-  /// Converts a Task instance to a Map<String, dynamic> for JSON serialization.
+  /// Converts a Task instance to a Map`<String, dynamic>` for JSON serialization.
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> json = <String, dynamic>{
       'task_id': taskId,
@@ -461,7 +461,7 @@ class LMFSTask {
     return json;
   }
 
-  /// Constructs a Task instance from a Map<String, dynamic>.
+  /// Constructs a Task instance from a Map`<String, dynamic>`.
   static LMFSTask fromJson(Map<String, dynamic> json) {
     return LMFSTask(
       taskId: json['task_id'] as String,
@@ -496,7 +496,7 @@ class LMFSWaypoint {
     );
   }
 
-  /// Constructs a Waypoint instance from a Map<String, dynamic>.
+  /// Constructs a Waypoint instance from a Map`<String, dynamic>`.
   factory LMFSWaypoint.fromJson(Map<String, dynamic> json) {
     return LMFSWaypoint(
       description: json['description'] as String?,
@@ -519,7 +519,7 @@ class LMFSWaypoint {
   /// The point on the map.
   final LatLng target;
 
-  /// Converts a Waypoint instance to a Map<String, dynamic> for JSON serialization.
+  /// Converts a Waypoint instance to a Map`<String, dynamic>` for JSON serialization.
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'description': description,
