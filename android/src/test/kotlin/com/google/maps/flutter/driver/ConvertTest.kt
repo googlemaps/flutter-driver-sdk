@@ -72,11 +72,11 @@ internal class ConvertTest {
   fun convertVehicleStopStateFromDto_returnsExpectedValue() {
     assertEquals(
       VehicleStop.VehicleStopState.UNSPECIFIED,
-      Convert.convertVehicleStopStateFromDto(VehicleStopStateDto.STATEUNSPECIFIED),
+      Convert.convertVehicleStopStateFromDto(VehicleStopStateDto.STATE_UNSPECIFIED),
     )
     assertEquals(
       VehicleStop.VehicleStopState.NEW,
-      Convert.convertVehicleStopStateFromDto(VehicleStopStateDto.NEWSTOP),
+      Convert.convertVehicleStopStateFromDto(VehicleStopStateDto.NEW_STOP),
     )
     assertEquals(
       VehicleStop.VehicleStopState.ENROUTE,
@@ -91,11 +91,11 @@ internal class ConvertTest {
   @Test
   fun convertVehicleStopStateToDto_returnsExpectedValue() {
     assertEquals(
-      VehicleStopStateDto.STATEUNSPECIFIED,
+      VehicleStopStateDto.STATE_UNSPECIFIED,
       Convert.convertVehicleStopStateToDto(VehicleStop.VehicleStopState.UNSPECIFIED),
     )
     assertEquals(
-      VehicleStopStateDto.NEWSTOP,
+      VehicleStopStateDto.NEW_STOP,
       Convert.convertVehicleStopStateToDto(VehicleStop.VehicleStopState.NEW),
     )
     assertEquals(
@@ -220,43 +220,43 @@ internal class ConvertTest {
   @Test
   fun convertStatusCodeToDto_returnsExpectedValue() {
     assertEquals(
-      DriverStatusCodeDto.DEFAULTSTATUS,
+      DriverStatusCodeDto.DEFAULT_STATUS,
       Convert.convertStatusCodeToDto(DriverContext.DriverStatusListener.StatusCode.DEFAULT),
     )
     assertEquals(
-      DriverStatusCodeDto.UNKNOWNERROR,
+      DriverStatusCodeDto.UNKNOWN_ERROR,
       Convert.convertStatusCodeToDto(DriverContext.DriverStatusListener.StatusCode.UNKNOWN_ERROR),
     )
     assertEquals(
-      DriverStatusCodeDto.VEHICLENOTFOUND,
+      DriverStatusCodeDto.VEHICLE_NOT_FOUND,
       Convert.convertStatusCodeToDto(
         DriverContext.DriverStatusListener.StatusCode.VEHICLE_NOT_FOUND
       ),
     )
     assertEquals(
-      DriverStatusCodeDto.BACKENDCONNECTIVITYERROR,
+      DriverStatusCodeDto.BACKEND_CONNECTIVITY_ERROR,
       Convert.convertStatusCodeToDto(
         DriverContext.DriverStatusListener.StatusCode.BACKEND_CONNECTIVITY_ERROR
       ),
     )
     assertEquals(
-      DriverStatusCodeDto.PERMISSIONDENIED,
+      DriverStatusCodeDto.PERMISSION_DENIED,
       Convert.convertStatusCodeToDto(
         DriverContext.DriverStatusListener.StatusCode.PERMISSION_DENIED
       ),
     )
     assertEquals(
-      DriverStatusCodeDto.SERVICEERROR,
+      DriverStatusCodeDto.SERVICE_ERROR,
       Convert.convertStatusCodeToDto(DriverContext.DriverStatusListener.StatusCode.SERVICE_ERROR),
     )
     assertEquals(
-      DriverStatusCodeDto.FILEACCESSERROR,
+      DriverStatusCodeDto.FILE_ACCESS_ERROR,
       Convert.convertStatusCodeToDto(
         DriverContext.DriverStatusListener.StatusCode.FILE_ACCESS_ERROR
       ),
     )
     assertEquals(
-      DriverStatusCodeDto.TRAVELEDROUTEERROR,
+      DriverStatusCodeDto.TRAVELED_ROUTE_ERROR,
       Convert.convertStatusCodeToDto(
         DriverContext.DriverStatusListener.StatusCode.TRAVELED_ROUTE_ERROR
       ),
