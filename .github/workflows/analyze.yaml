@@ -57,7 +57,7 @@ jobs:
           key: ${{ runner.os }}-linuxbrew
       - uses: Homebrew/actions/setup-homebrew@master
       - name: Install swift-format 600.0.0
-        if: steps.cache.outputs.cache-hit != 'true'
+        #if: steps.cache.outputs.cache-hit != 'true'
         run: |
           eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
