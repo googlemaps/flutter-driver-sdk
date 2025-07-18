@@ -69,15 +69,18 @@ abstract class ApiClient {
   ///
   /// Returns the response body as a string
   Future<String> postFile(String endpoint, String data) async {
-    final http.MultipartRequest request =
-        http.MultipartRequest('POST', Uri.parse('$baseUrl/$endpoint'));
+    final http.MultipartRequest request = http.MultipartRequest(
+      'POST',
+      Uri.parse('$baseUrl/$endpoint'),
+    );
 
     // Adding file data
     request.files.add(http.MultipartFile.fromString('file', data));
 
     final http.StreamedResponse streamedResponse = await request.send();
-    final http.Response response =
-        await http.Response.fromStream(streamedResponse);
+    final http.Response response = await http.Response.fromStream(
+      streamedResponse,
+    );
 
     return _parseResponse(response);
   }
@@ -88,8 +91,10 @@ abstract class ApiClient {
       return response.body;
     } else {
       debugPrint(response.body);
-      throw Exception('Failed to communicate with the server, status code: '
-          '${response.statusCode}.');
+      throw Exception(
+        'Failed to communicate with the server, status code: '
+        '${response.statusCode}.',
+      );
     }
   }
 }

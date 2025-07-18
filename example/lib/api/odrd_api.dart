@@ -35,7 +35,8 @@ class ODRDApi extends ApiClient {
     final String typeStr = type.toJsonString();
     final String response = await get('token/$typeStr/${vehicleId ?? ''}');
     return TokenResponse.fromODRDJson(
-        jsonDecode(response) as Map<String, dynamic>);
+      jsonDecode(response) as Map<String, dynamic>,
+    );
   }
 
   /// Creates a new vehicle in the ODRD backend with the specified details.
@@ -61,8 +62,10 @@ class ODRDApi extends ApiClient {
   /// Fetches the details of a trip from the ODRD backend using the trip ID.
   Future<ODRDTrip> getTrip(String tripId) async {
     final String response = await get('trip/$tripId');
-    return ODRDTrip.fromJson((jsonDecode(response)
-        as Map<String, dynamic>)['trip'] as Map<String, dynamic>);
+    return ODRDTrip.fromJson(
+      (jsonDecode(response) as Map<String, dynamic>)['trip']
+          as Map<String, dynamic>,
+    );
   }
 
   /// Creates a new trip in the ODRD backend with the given trip data.

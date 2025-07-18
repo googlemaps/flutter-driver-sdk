@@ -25,12 +25,12 @@ import '../method_channel.dart';
 extension ConvertNavigationWaypointDto on NavigationWaypointDto {
   /// Converts [NavigationWaypointDto] to [NavigationWaypoint]
   NavigationWaypoint toNavigationWaypoint() => NavigationWaypoint(
-        title: title,
-        target: target?.toLatLng(),
-        placeID: placeID,
-        preferSameSideOfRoad: preferSameSideOfRoad,
-        preferredSegmentHeading: preferredSegmentHeading,
-      );
+    title: title,
+    target: target?.toLatLng(),
+    placeID: placeID,
+    preferSameSideOfRoad: preferSameSideOfRoad,
+    preferredSegmentHeading: preferredSegmentHeading,
+  );
 }
 
 /// [NavigationWaypoint] convert extension.
@@ -38,10 +38,10 @@ extension ConvertNavigationWaypointDto on NavigationWaypointDto {
 extension ConvertNavigationWaypoint on NavigationWaypoint {
   /// Converts [NavigationWaypoint] to [NavigationWaypointDto]
   NavigationWaypointDto toDto() => NavigationWaypointDto(
-        title: title,
-        target: target?.toDto(),
-        placeID: placeID,
-        preferSameSideOfRoad: preferSameSideOfRoad,
-        preferredSegmentHeading: preferredSegmentHeading,
-      );
+    title: title,
+    target: target?.toDto(),
+    placeID: placeID,
+    preferSameSideOfRoad: preferSameSideOfRoad,
+    preferredSegmentHeading: preferredSegmentHeading,
+  );
 }

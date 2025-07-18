@@ -29,7 +29,7 @@ enum DriverStatusLevel {
   warning,
 
   /// Error messages.
-  error
+  error,
 }
 
 /// The driver status code of the driver update.
@@ -62,5 +62,5 @@ enum DriverStatusCode {
   permissionDenied,
 
   /// Traveled route error.
-  traveledRouteError
+  traveledRouteError,
 }

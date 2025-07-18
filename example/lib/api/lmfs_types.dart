@@ -32,7 +32,7 @@ enum LMFSTokenType {
   deliveryConsumer,
 
   /// Fleet reader token
-  fleetReader
+  fleetReader,
 }
 
 /// Helper class to convert LMFSTokenType to/from JSON.
@@ -59,9 +59,10 @@ class LMFSDeliveryConfig {
   factory LMFSDeliveryConfig.fromJson(Map<String, dynamic> json) {
     return LMFSDeliveryConfig(
       description: json['description'] as String,
-      manifests: (json['manifests'] as List<Map<String, dynamic>>)
-          .map((Map<String, dynamic> e) => LMFSManifest.fromJson(e))
-          .toList(),
+      manifests:
+          (json['manifests'] as List<Map<String, dynamic>>)
+              .map((Map<String, dynamic> e) => LMFSManifest.fromJson(e))
+              .toList(),
     );
   }
 
@@ -184,16 +185,25 @@ class LMFSManifest {
     return LMFSManifest(
       vehicle: LMFSVehicle.fromJson(json['vehicle'] as Map<String, dynamic>),
       clientId: json['client_id'] as String?,
-      currentStopState: json['current_stop_state'] != null
-          ? VehicleStopStateJsonConversion.fromJsonString(
-              json['current_stop_state'] as String)
-          : null,
-      remainingStopIdList:
-          List<String>.from(json['remaining_stop_id_list'] as List<dynamic>),
-      tasks: List<LMFSTask>.from((json['tasks'] as List<dynamic>)
-          .map((dynamic t) => LMFSTask.fromJson(t as Map<String, dynamic>))),
-      stops: List<LMFSStop>.from((json['stops'] as List<dynamic>)
-          .map((dynamic s) => LMFSStop.fromJson(s as Map<String, dynamic>))),
+      currentStopState:
+          json['current_stop_state'] != null
+              ? VehicleStopStateJsonConversion.fromJsonString(
+                json['current_stop_state'] as String,
+              )
+              : null,
+      remainingStopIdList: List<String>.from(
+        json['remaining_stop_id_list'] as List<dynamic>,
+      ),
+      tasks: List<LMFSTask>.from(
+        (json['tasks'] as List<dynamic>).map(
+          (dynamic t) => LMFSTask.fromJson(t as Map<String, dynamic>),
+        ),
+      ),
+      stops: List<LMFSStop>.from(
+        (json['stops'] as List<dynamic>).map(
+          (dynamic s) => LMFSStop.fromJson(s as Map<String, dynamic>),
+        ),
+      ),
     );
   }
 }
@@ -201,10 +211,7 @@ class LMFSManifest {
 /// Object used to update the manifest for a given vehicle ID.
 class LMFSManifestUpdate {
   /// Constructs a [LMFSManifestUpdate] instance.
-  LMFSManifestUpdate({
-    this.currentStopState,
-    this.remainingStopIdList,
-  });
+  LMFSManifestUpdate({this.currentStopState, this.remainingStopIdList});
 
   /// The current state of the vehicle as it travels to the next stop.
   ///
@@ -278,10 +285,12 @@ class LMFSVehicle extends Vehicle {
     return LMFSVehicle(
       vehicleId: json['vehicle_id'] as String,
       providerId: json['provider_id'] as String,
-      startLocation: json['start_location'] != null
-          ? LMFSWaypoint.fromJson(
-              json['start_location'] as Map<String, dynamic>)
-          : null,
+      startLocation:
+          json['start_location'] != null
+              ? LMFSWaypoint.fromJson(
+                json['start_location'] as Map<String, dynamic>,
+              )
+              : null,
     );
   }
 }
@@ -318,7 +327,8 @@ class LMFSStop {
     return LMFSStop(
       stopId: json['stop_id'] as String,
       plannedWaypoint: LMFSWaypoint.fromJson(
-          json['planned_waypoint'] as Map<String, dynamic>),
+        json['planned_waypoint'] as Map<String, dynamic>,
+      ),
       taskIds: List<String>.from(json['tasks'] as List<dynamic>),
     );
   }
@@ -467,16 +477,19 @@ class LMFSTask {
       taskId: json['task_id'] as String,
       trackingId: json['tracking_id'] as String,
       plannedWaypoint: LMFSWaypoint.fromJson(
-          json['planned_waypoint'] as Map<String, dynamic>),
+        json['planned_waypoint'] as Map<String, dynamic>,
+      ),
       contactName: json['contact_name'] as String?,
       plannedCompletionTime: json['planned_completion_time'] as String?,
       plannedCompletionTimeRangeSeconds:
           json['planned_completion_time_range_seconds'] as int?,
       durationSeconds: json['duration_seconds'] as int,
-      taskType: json['taskType'] != null
-          ? LMFSTaskTypeJsonConversion.fromJsonString(
-              json['taskType'] as String)
-          : null,
+      taskType:
+          json['taskType'] != null
+              ? LMFSTaskTypeJsonConversion.fromJsonString(
+                json['taskType'] as String,
+              )
+              : null,
       description: json['description'] as String?,
     );
   }
@@ -490,10 +503,7 @@ class LMFSWaypoint {
   /// Greates a [LMFSWaypoint] instance from a [NavigationWaypoint].
   factory LMFSWaypoint.fromNavigationWaypoint(NavigationWaypoint waypoint) {
     assert(waypoint.target != null, 'NavigationWaypoint target is null.');
-    return LMFSWaypoint(
-      description: waypoint.title,
-      target: waypoint.target!,
-    );
+    return LMFSWaypoint(description: waypoint.title, target: waypoint.target!);
   }
 
   /// Constructs a Waypoint instance from a Map`<String, dynamic>`.
@@ -501,7 +511,9 @@ class LMFSWaypoint {
     return LMFSWaypoint(
       description: json['description'] as String?,
       target: LatLng(
-          latitude: json['lat'] as double, longitude: json['lng'] as double),
+        latitude: json['lat'] as double,
+        longitude: json['lng'] as double,
+      ),
     );
   }
 

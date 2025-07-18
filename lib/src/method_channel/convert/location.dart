@@ -22,16 +22,17 @@ extension ConvertLocation on Location {
   /// Converts [Location] to [LocationDto]
   LocationDto toDto() {
     return LocationDto(
-        accuracy: accuracy,
-        altitude: altitude,
-        elapsedRealtimeNanos: elapsedRealtimeNanos,
-        bearing: bearing,
-        isMock: isMock,
-        latitude: latitude,
-        longitude: longitude,
-        provider: provider,
-        speed: speed,
-        time: time);
+      accuracy: accuracy,
+      altitude: altitude,
+      elapsedRealtimeNanos: elapsedRealtimeNanos,
+      bearing: bearing,
+      isMock: isMock,
+      latitude: latitude,
+      longitude: longitude,
+      provider: provider,
+      speed: speed,
+      time: time,
+    );
   }
 }
 
@@ -41,15 +42,16 @@ extension ConvertLocationDto on LocationDto {
   /// Converts [LocationDto] to [Location]
   Location toLocation() {
     return Location(
-        accuracy: accuracy,
-        altitude: altitude,
-        elapsedRealtimeNanos: elapsedRealtimeNanos,
-        bearing: bearing,
-        isMock: isMock,
-        latitude: latitude,
-        longitude: longitude,
-        provider: provider,
-        speed: speed,
-        time: time);
+      accuracy: accuracy,
+      altitude: altitude,
+      elapsedRealtimeNanos: elapsedRealtimeNanos,
+      bearing: bearing,
+      isMock: isMock,
+      latitude: latitude,
+      longitude: longitude,
+      provider: provider,
+      speed: speed,
+      time: time,
+    );
   }
 }

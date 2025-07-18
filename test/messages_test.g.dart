@@ -115,8 +115,12 @@ abstract class TestCommonDriverApi {
       TestDefaultBinaryMessengerBinding.instance;
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
 
-  void initialize(DriverApiTypeDto type, String providerId, String vehicleId,
-      bool abnormalTerminationReportingEnabled);
+  void initialize(
+    DriverApiTypeDto type,
+    String providerId,
+    String vehicleId,
+    bool abnormalTerminationReportingEnabled,
+  );
 
   bool isInitialized(DriverApiTypeDto type);
 
@@ -131,7 +135,9 @@ abstract class TestCommonDriverApi {
   int getLocationReportingIntervalMillis(DriverApiTypeDto type);
 
   void setLocationReportingIntervalMillis(
-      DriverApiTypeDto type, int milliseconds);
+    DriverApiTypeDto type,
+    int milliseconds,
+  );
 
   void dispose(DriverApiTypeDto type);
 
@@ -147,199 +153,256 @@ abstract class TestCommonDriverApi {
     messageChannelSuffix =
         messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
-        _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize was null.');
+        _testBinaryMessengerBinding!.defaultBinaryMessenger.setMockDecodedMessageHandler<
+          Object?
+        >(pigeonVar_channel, (Object? message) async {
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize was null.',
+          );
           final List<Object?> args = (message as List<Object?>?)!;
           final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
-          assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize was null, expected non-null DriverApiTypeDto.');
+          assert(
+            arg_type != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize was null, expected non-null DriverApiTypeDto.',
+          );
           final String? arg_providerId = (args[1] as String?);
-          assert(arg_providerId != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize was null, expected non-null String.');
+          assert(
+            arg_providerId != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize was null, expected non-null String.',
+          );
           final String? arg_vehicleId = (args[2] as String?);
-          assert(arg_vehicleId != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize was null, expected non-null String.');
+          assert(
+            arg_vehicleId != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize was null, expected non-null String.',
+          );
           final bool? arg_abnormalTerminationReportingEnabled =
               (args[3] as bool?);
-          assert(arg_abnormalTerminationReportingEnabled != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize was null, expected non-null bool.');
+          assert(
+            arg_abnormalTerminationReportingEnabled != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize was null, expected non-null bool.',
+          );
           try {
-            api.initialize(arg_type!, arg_providerId!, arg_vehicleId!,
-                arg_abnormalTerminationReportingEnabled!);
+            api.initialize(
+              arg_type!,
+              arg_providerId!,
+              arg_vehicleId!,
+              arg_abnormalTerminationReportingEnabled!,
+            );
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
           } catch (e) {
             return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isInitialized$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isInitialized$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isInitialized was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
-          assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isInitialized was null, expected non-null DriverApiTypeDto.');
-          try {
-            final bool output = api.isInitialized(arg_type!);
-            return <Object?>[output];
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
+            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, (
+              Object? message,
+            ) async {
+              assert(
+                message != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isInitialized was null.',
+              );
+              final List<Object?> args = (message as List<Object?>?)!;
+              final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
+              assert(
+                arg_type != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isInitialized was null, expected non-null DriverApiTypeDto.',
+              );
+              try {
+                final bool output = api.isInitialized(arg_type!);
+                return <Object?>[output];
+              } on PlatformException catch (e) {
+                return wrapResponse(error: e);
+              } catch (e) {
+                return wrapResponse(
+                  error: PlatformException(
+                    code: 'error',
+                    message: e.toString(),
+                  ),
+                );
+              }
+            });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getProviderId$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getProviderId$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getProviderId was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
-          assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getProviderId was null, expected non-null DriverApiTypeDto.');
-          try {
-            final String output = api.getProviderId(arg_type!);
-            return <Object?>[output];
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
+            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, (
+              Object? message,
+            ) async {
+              assert(
+                message != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getProviderId was null.',
+              );
+              final List<Object?> args = (message as List<Object?>?)!;
+              final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
+              assert(
+                arg_type != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getProviderId was null, expected non-null DriverApiTypeDto.',
+              );
+              try {
+                final String output = api.getProviderId(arg_type!);
+                return <Object?>[output];
+              } on PlatformException catch (e) {
+                return wrapResponse(error: e);
+              } catch (e) {
+                return wrapResponse(
+                  error: PlatformException(
+                    code: 'error',
+                    message: e.toString(),
+                  ),
+                );
+              }
+            });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getVehicleId$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getVehicleId$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getVehicleId was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
-          assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getVehicleId was null, expected non-null DriverApiTypeDto.');
-          try {
-            final String output = api.getVehicleId(arg_type!);
-            return <Object?>[output];
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
+            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, (
+              Object? message,
+            ) async {
+              assert(
+                message != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getVehicleId was null.',
+              );
+              final List<Object?> args = (message as List<Object?>?)!;
+              final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
+              assert(
+                arg_type != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getVehicleId was null, expected non-null DriverApiTypeDto.',
+              );
+              try {
+                final String output = api.getVehicleId(arg_type!);
+                return <Object?>[output];
+              } on PlatformException catch (e) {
+                return wrapResponse(error: e);
+              } catch (e) {
+                return wrapResponse(
+                  error: PlatformException(
+                    code: 'error',
+                    message: e.toString(),
+                  ),
+                );
+              }
+            });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isLocationTrackingEnabled$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isLocationTrackingEnabled$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isLocationTrackingEnabled was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
-          assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isLocationTrackingEnabled was null, expected non-null DriverApiTypeDto.');
-          try {
-            final bool output = api.isLocationTrackingEnabled(arg_type!);
-            return <Object?>[output];
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
+            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, (
+              Object? message,
+            ) async {
+              assert(
+                message != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isLocationTrackingEnabled was null.',
+              );
+              final List<Object?> args = (message as List<Object?>?)!;
+              final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
+              assert(
+                arg_type != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isLocationTrackingEnabled was null, expected non-null DriverApiTypeDto.',
+              );
+              try {
+                final bool output = api.isLocationTrackingEnabled(arg_type!);
+                return <Object?>[output];
+              } on PlatformException catch (e) {
+                return wrapResponse(error: e);
+              } catch (e) {
+                return wrapResponse(
+                  error: PlatformException(
+                    code: 'error',
+                    message: e.toString(),
+                  ),
+                );
+              }
+            });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationTrackingEnabled$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationTrackingEnabled$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
-        _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationTrackingEnabled was null.');
+        _testBinaryMessengerBinding!.defaultBinaryMessenger.setMockDecodedMessageHandler<
+          Object?
+        >(pigeonVar_channel, (Object? message) async {
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationTrackingEnabled was null.',
+          );
           final List<Object?> args = (message as List<Object?>?)!;
           final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
-          assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationTrackingEnabled was null, expected non-null DriverApiTypeDto.');
+          assert(
+            arg_type != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationTrackingEnabled was null, expected non-null DriverApiTypeDto.',
+          );
           final bool? arg_enabled = (args[1] as bool?);
-          assert(arg_enabled != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationTrackingEnabled was null, expected non-null bool.');
+          assert(
+            arg_enabled != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationTrackingEnabled was null, expected non-null bool.',
+          );
           try {
             api.setLocationTrackingEnabled(arg_type!, arg_enabled!);
             return wrapResponse(empty: true);
@@ -347,167 +410,211 @@ abstract class TestCommonDriverApi {
             return wrapResponse(error: e);
           } catch (e) {
             return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getLocationReportingIntervalMillis$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getLocationReportingIntervalMillis$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getLocationReportingIntervalMillis was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
-          assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getLocationReportingIntervalMillis was null, expected non-null DriverApiTypeDto.');
-          try {
-            final int output =
-                api.getLocationReportingIntervalMillis(arg_type!);
-            return <Object?>[output];
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
+            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, (
+              Object? message,
+            ) async {
+              assert(
+                message != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getLocationReportingIntervalMillis was null.',
+              );
+              final List<Object?> args = (message as List<Object?>?)!;
+              final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
+              assert(
+                arg_type != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getLocationReportingIntervalMillis was null, expected non-null DriverApiTypeDto.',
+              );
+              try {
+                final int output = api.getLocationReportingIntervalMillis(
+                  arg_type!,
+                );
+                return <Object?>[output];
+              } on PlatformException catch (e) {
+                return wrapResponse(error: e);
+              } catch (e) {
+                return wrapResponse(
+                  error: PlatformException(
+                    code: 'error',
+                    message: e.toString(),
+                  ),
+                );
+              }
+            });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
-        _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis was null.');
+        _testBinaryMessengerBinding!.defaultBinaryMessenger.setMockDecodedMessageHandler<
+          Object?
+        >(pigeonVar_channel, (Object? message) async {
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis was null.',
+          );
           final List<Object?> args = (message as List<Object?>?)!;
           final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
-          assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis was null, expected non-null DriverApiTypeDto.');
+          assert(
+            arg_type != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis was null, expected non-null DriverApiTypeDto.',
+          );
           final int? arg_milliseconds = (args[1] as int?);
-          assert(arg_milliseconds != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis was null, expected non-null int.');
+          assert(
+            arg_milliseconds != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis was null, expected non-null int.',
+          );
           try {
             api.setLocationReportingIntervalMillis(
-                arg_type!, arg_milliseconds!);
+              arg_type!,
+              arg_milliseconds!,
+            );
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
           } catch (e) {
             return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.dispose$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.dispose$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.dispose was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
-          assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.dispose was null, expected non-null DriverApiTypeDto.');
-          try {
-            api.dispose(arg_type!);
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
+            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, (
+              Object? message,
+            ) async {
+              assert(
+                message != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.dispose was null.',
+              );
+              final List<Object?> args = (message as List<Object?>?)!;
+              final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
+              assert(
+                arg_type != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.dispose was null, expected non-null DriverApiTypeDto.',
+              );
+              try {
+                api.dispose(arg_type!);
+                return wrapResponse(empty: true);
+              } on PlatformException catch (e) {
+                return wrapResponse(error: e);
+              } catch (e) {
+                return wrapResponse(
+                  error: PlatformException(
+                    code: 'error',
+                    message: e.toString(),
+                  ),
+                );
+              }
+            });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getDriverSdkVersion$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getDriverSdkVersion$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getDriverSdkVersion was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
-          assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getDriverSdkVersion was null, expected non-null DriverApiTypeDto.');
-          try {
-            final String output = api.getDriverSdkVersion(arg_type!);
-            return <Object?>[output];
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
+            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, (
+              Object? message,
+            ) async {
+              assert(
+                message != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getDriverSdkVersion was null.',
+              );
+              final List<Object?> args = (message as List<Object?>?)!;
+              final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
+              assert(
+                arg_type != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getDriverSdkVersion was null, expected non-null DriverApiTypeDto.',
+              );
+              try {
+                final String output = api.getDriverSdkVersion(arg_type!);
+                return <Object?>[output];
+              } on PlatformException catch (e) {
+                return wrapResponse(error: e);
+              } catch (e) {
+                return wrapResponse(
+                  error: PlatformException(
+                    code: 'error',
+                    message: e.toString(),
+                  ),
+                );
+              }
+            });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setSupplementalLocation$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setSupplementalLocation$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
-        _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setSupplementalLocation was null.');
+        _testBinaryMessengerBinding!.defaultBinaryMessenger.setMockDecodedMessageHandler<
+          Object?
+        >(pigeonVar_channel, (Object? message) async {
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setSupplementalLocation was null.',
+          );
           final List<Object?> args = (message as List<Object?>?)!;
           final DriverApiTypeDto? arg_type = (args[0] as DriverApiTypeDto?);
-          assert(arg_type != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setSupplementalLocation was null, expected non-null DriverApiTypeDto.');
+          assert(
+            arg_type != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setSupplementalLocation was null, expected non-null DriverApiTypeDto.',
+          );
           final LocationDto? arg_location = (args[1] as LocationDto?);
-          assert(arg_location != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setSupplementalLocation was null, expected non-null LocationDto.');
+          assert(
+            arg_location != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setSupplementalLocation was null, expected non-null LocationDto.',
+          );
           try {
             api.setSupplementalLocation(arg_type!, arg_location!);
             return wrapResponse(empty: true);
@@ -515,7 +622,8 @@ abstract class TestCommonDriverApi {
             return wrapResponse(error: e);
           } catch (e) {
             return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
@@ -548,168 +656,205 @@ abstract class TestDeliveryDriverApi {
     messageChannelSuffix =
         messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.arrivedAtStop$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.arrivedAtStop$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          try {
-            final List<VehicleStopDto> output = await api.arrivedAtStop();
-            return <Object?>[output];
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
+            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, (
+              Object? message,
+            ) async {
+              try {
+                final List<VehicleStopDto> output = await api.arrivedAtStop();
+                return <Object?>[output];
+              } on PlatformException catch (e) {
+                return wrapResponse(error: e);
+              } catch (e) {
+                return wrapResponse(
+                  error: PlatformException(
+                    code: 'error',
+                    message: e.toString(),
+                  ),
+                );
+              }
+            });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.completedStop$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.completedStop$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          try {
-            final List<VehicleStopDto> output = await api.completedStop();
-            return <Object?>[output];
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
+            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, (
+              Object? message,
+            ) async {
+              try {
+                final List<VehicleStopDto> output = await api.completedStop();
+                return <Object?>[output];
+              } on PlatformException catch (e) {
+                return wrapResponse(error: e);
+              } catch (e) {
+                return wrapResponse(
+                  error: PlatformException(
+                    code: 'error',
+                    message: e.toString(),
+                  ),
+                );
+              }
+            });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.enrouteToNextStop$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.enrouteToNextStop$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          try {
-            final List<VehicleStopDto> output = await api.enrouteToNextStop();
-            return <Object?>[output];
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
+            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, (
+              Object? message,
+            ) async {
+              try {
+                final List<VehicleStopDto> output =
+                    await api.enrouteToNextStop();
+                return <Object?>[output];
+              } on PlatformException catch (e) {
+                return wrapResponse(error: e);
+              } catch (e) {
+                return wrapResponse(
+                  error: PlatformException(
+                    code: 'error',
+                    message: e.toString(),
+                  ),
+                );
+              }
+            });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.getRemainingVehicleStops$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.getRemainingVehicleStops$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          try {
-            final List<VehicleStopDto> output =
-                await api.getRemainingVehicleStops();
-            return <Object?>[output];
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
+            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, (
+              Object? message,
+            ) async {
+              try {
+                final List<VehicleStopDto> output =
+                    await api.getRemainingVehicleStops();
+                return <Object?>[output];
+              } on PlatformException catch (e) {
+                return wrapResponse(error: e);
+              } catch (e) {
+                return wrapResponse(
+                  error: PlatformException(
+                    code: 'error',
+                    message: e.toString(),
+                  ),
+                );
+              }
+            });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.setVehicleStops$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.setVehicleStops$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.setVehicleStops was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final List<VehicleStopDto>? arg_stops =
-              (args[0] as List<Object?>?)?.cast<VehicleStopDto>();
-          assert(arg_stops != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.setVehicleStops was null, expected non-null List<VehicleStopDto>.');
-          try {
-            final List<VehicleStopDto> output =
-                await api.setVehicleStops(arg_stops!);
-            return <Object?>[output];
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
+            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, (
+              Object? message,
+            ) async {
+              assert(
+                message != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.setVehicleStops was null.',
+              );
+              final List<Object?> args = (message as List<Object?>?)!;
+              final List<VehicleStopDto>? arg_stops =
+                  (args[0] as List<Object?>?)?.cast<VehicleStopDto>();
+              assert(
+                arg_stops != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.setVehicleStops was null, expected non-null List<VehicleStopDto>.',
+              );
+              try {
+                final List<VehicleStopDto> output = await api.setVehicleStops(
+                  arg_stops!,
+                );
+                return <Object?>[output];
+              } on PlatformException catch (e) {
+                return wrapResponse(error: e);
+              } catch (e) {
+                return wrapResponse(
+                  error: PlatformException(
+                    code: 'error',
+                    message: e.toString(),
+                  ),
+                );
+              }
+            });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.getDeliveryVehicle$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.getDeliveryVehicle$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          try {
-            final DeliveryVehicleDto output = await api.getDeliveryVehicle();
-            return <Object?>[output];
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
+            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, (
+              Object? message,
+            ) async {
+              try {
+                final DeliveryVehicleDto output =
+                    await api.getDeliveryVehicle();
+                return <Object?>[output];
+              } on PlatformException catch (e) {
+                return wrapResponse(error: e);
+              } catch (e) {
+                return wrapResponse(
+                  error: PlatformException(
+                    code: 'error',
+                    message: e.toString(),
+                  ),
+                );
+              }
+            });
       }
     }
   }
@@ -730,35 +875,44 @@ abstract class TestRidesharingDriverApi {
     messageChannelSuffix =
         messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.RidesharingDriverApi.setVehicleState$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.RidesharingDriverApi.setVehicleState$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.RidesharingDriverApi.setVehicleState was null.');
-          final List<Object?> args = (message as List<Object?>?)!;
-          final VehicleStateDto? arg_state = (args[0] as VehicleStateDto?);
-          assert(arg_state != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.RidesharingDriverApi.setVehicleState was null, expected non-null VehicleStateDto.');
-          try {
-            api.setVehicleState(arg_state!);
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
-          }
-        });
+            .setMockDecodedMessageHandler<Object?>(pigeonVar_channel, (
+              Object? message,
+            ) async {
+              assert(
+                message != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.RidesharingDriverApi.setVehicleState was null.',
+              );
+              final List<Object?> args = (message as List<Object?>?)!;
+              final VehicleStateDto? arg_state = (args[0] as VehicleStateDto?);
+              assert(
+                arg_state != null,
+                'Argument for dev.flutter.pigeon.google_driver_flutter.RidesharingDriverApi.setVehicleState was null, expected non-null VehicleStateDto.',
+              );
+              try {
+                api.setVehicleState(arg_state!);
+                return wrapResponse(empty: true);
+              } on PlatformException catch (e) {
+                return wrapResponse(error: e);
+              } catch (e) {
+                return wrapResponse(
+                  error: PlatformException(
+                    code: 'error',
+                    message: e.toString(),
+                  ),
+                );
+              }
+            });
       }
     }
   }

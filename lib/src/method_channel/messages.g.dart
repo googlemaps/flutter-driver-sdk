@@ -29,8 +29,11 @@ PlatformException _createConnectionError(String channelName) {
   );
 }
 
-List<Object?> wrapResponse(
-    {Object? result, PlatformException? error, bool empty = false}) {
+List<Object?> wrapResponse({
+  Object? result,
+  PlatformException? error,
+  bool empty = false,
+}) {
   if (empty) {
     return <Object?>[];
   }
@@ -43,14 +46,17 @@ List<Object?> wrapResponse(
 bool _deepEquals(Object? a, Object? b) {
   if (a is List && b is List) {
     return a.length == b.length &&
-        a.indexed
-            .every(((int, dynamic) item) => _deepEquals(item.$2, b[item.$1]));
+        a.indexed.every(
+          ((int, dynamic) item) => _deepEquals(item.$2, b[item.$1]),
+        );
   }
   if (a is Map && b is Map) {
     return a.length == b.length &&
-        a.entries.every((MapEntry<Object?, Object?> entry) =>
-            (b as Map<Object?, Object?>).containsKey(entry.key) &&
-            _deepEquals(entry.value, b[entry.key]));
+        a.entries.every(
+          (MapEntry<Object?, Object?> entry) =>
+              (b as Map<Object?, Object?>).containsKey(entry.key) &&
+              _deepEquals(entry.value, b[entry.key]),
+        );
   }
   return a == b;
 }
@@ -64,12 +70,7 @@ enum DriverApiTypeDto {
   ridesharing,
 }
 
-enum VehicleStopStateDto {
-  stateUnspecified,
-  newStop,
-  enroute,
-  arrived,
-}
+enum VehicleStopStateDto { stateUnspecified, newStop, enroute, arrived }
 
 enum VehicleStateDto {
   /// Indicates the vehicle is not accepting new trips.
@@ -79,12 +80,7 @@ enum VehicleStateDto {
   online,
 }
 
-enum DriverStatusLevelDto {
-  debug,
-  info,
-  warning,
-  error,
-}
+enum DriverStatusLevelDto { debug, info, warning, error }
 
 enum DriverStatusCodeDto {
   defaultStatus,
@@ -98,20 +94,14 @@ enum DriverStatusCodeDto {
 }
 
 class TaskInfoDto {
-  TaskInfoDto({
-    required this.taskId,
-    required this.durationSeconds,
-  });
+  TaskInfoDto({required this.taskId, required this.durationSeconds});
 
   String taskId;
 
   int durationSeconds;
 
   List<Object?> _toList() {
-    return <Object?>[
-      taskId,
-      durationSeconds,
-    ];
+    return <Object?>[taskId, durationSeconds];
   }
 
   Object encode() {
@@ -157,11 +147,7 @@ class VehicleStopDto {
   List<TaskInfoDto?> taskInfoList;
 
   List<Object?> _toList() {
-    return <Object?>[
-      vehicleStopState,
-      waypoint,
-      taskInfoList,
-    ];
+    return <Object?>[vehicleStopState, waypoint, taskInfoList];
   }
 
   Object encode() {
@@ -195,20 +181,14 @@ class VehicleStopDto {
 }
 
 class LatLngDto {
-  LatLngDto({
-    required this.latitude,
-    required this.longitude,
-  });
+  LatLngDto({required this.latitude, required this.longitude});
 
   double latitude;
 
   double longitude;
 
   List<Object?> _toList() {
-    return <Object?>[
-      latitude,
-      longitude,
-    ];
+    return <Object?>[latitude, longitude];
   }
 
   Object encode() {
@@ -404,12 +384,7 @@ class DeliveryVehicleDto {
   List<VehicleStopDto?> stops;
 
   List<Object?> _toList() {
-    return <Object?>[
-      providerId,
-      id,
-      name,
-      stops,
-    ];
+    return <Object?>[providerId, id, name, stops];
   }
 
   Object encode() {
@@ -599,34 +574,40 @@ class CommonDriverApi {
   /// Constructor for [CommonDriverApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  CommonDriverApi(
-      {BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
-      : pigeonVar_binaryMessenger = binaryMessenger,
-        pigeonVar_messageChannelSuffix =
-            messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+  CommonDriverApi({
+    BinaryMessenger? binaryMessenger,
+    String messageChannelSuffix = '',
+  }) : pigeonVar_binaryMessenger = binaryMessenger,
+       pigeonVar_messageChannelSuffix =
+           messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? pigeonVar_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
 
   final String pigeonVar_messageChannelSuffix;
 
-  Future<void> initialize(DriverApiTypeDto type, String providerId,
-      String vehicleId, bool abnormalTerminationReportingEnabled) async {
+  Future<void> initialize(
+    DriverApiTypeDto type,
+    String providerId,
+    String vehicleId,
+    bool abnormalTerminationReportingEnabled,
+  ) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.initialize$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[
+        type,
+        providerId,
+        vehicleId,
+        abnormalTerminationReportingEnabled,
+      ],
     );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel
-        .send(<Object?>[
-      type,
-      providerId,
-      vehicleId,
-      abnormalTerminationReportingEnabled
-    ]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -647,12 +628,13 @@ class CommonDriverApi {
         'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isInitialized$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[type],
     );
-    final Future<Object?> pigeonVar_sendFuture =
-        pigeonVar_channel.send(<Object?>[type]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -678,12 +660,13 @@ class CommonDriverApi {
         'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getProviderId$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[type],
     );
-    final Future<Object?> pigeonVar_sendFuture =
-        pigeonVar_channel.send(<Object?>[type]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -709,12 +692,13 @@ class CommonDriverApi {
         'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getVehicleId$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[type],
     );
-    final Future<Object?> pigeonVar_sendFuture =
-        pigeonVar_channel.send(<Object?>[type]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -740,12 +724,13 @@ class CommonDriverApi {
         'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.isLocationTrackingEnabled$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[type],
     );
-    final Future<Object?> pigeonVar_sendFuture =
-        pigeonVar_channel.send(<Object?>[type]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -767,17 +752,20 @@ class CommonDriverApi {
   }
 
   Future<void> setLocationTrackingEnabled(
-      DriverApiTypeDto type, bool enabled) async {
+    DriverApiTypeDto type,
+    bool enabled,
+  ) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationTrackingEnabled$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[type, enabled],
     );
-    final Future<Object?> pigeonVar_sendFuture =
-        pigeonVar_channel.send(<Object?>[type, enabled]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -798,12 +786,13 @@ class CommonDriverApi {
         'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getLocationReportingIntervalMillis$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[type],
     );
-    final Future<Object?> pigeonVar_sendFuture =
-        pigeonVar_channel.send(<Object?>[type]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -825,17 +814,20 @@ class CommonDriverApi {
   }
 
   Future<void> setLocationReportingIntervalMillis(
-      DriverApiTypeDto type, int milliseconds) async {
+    DriverApiTypeDto type,
+    int milliseconds,
+  ) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setLocationReportingIntervalMillis$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[type, milliseconds],
     );
-    final Future<Object?> pigeonVar_sendFuture =
-        pigeonVar_channel.send(<Object?>[type, milliseconds]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -856,12 +848,13 @@ class CommonDriverApi {
         'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.dispose$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[type],
     );
-    final Future<Object?> pigeonVar_sendFuture =
-        pigeonVar_channel.send(<Object?>[type]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -882,12 +875,13 @@ class CommonDriverApi {
         'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.getDriverSdkVersion$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[type],
     );
-    final Future<Object?> pigeonVar_sendFuture =
-        pigeonVar_channel.send(<Object?>[type]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -909,17 +903,20 @@ class CommonDriverApi {
   }
 
   Future<void> setSupplementalLocation(
-      DriverApiTypeDto type, LocationDto location) async {
+    DriverApiTypeDto type,
+    LocationDto location,
+  ) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.google_driver_flutter.CommonDriverApi.setSupplementalLocation$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[type, location],
     );
-    final Future<Object?> pigeonVar_sendFuture =
-        pigeonVar_channel.send(<Object?>[type, location]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -940,11 +937,12 @@ class DeliveryDriverApi {
   /// Constructor for [DeliveryDriverApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  DeliveryDriverApi(
-      {BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
-      : pigeonVar_binaryMessenger = binaryMessenger,
-        pigeonVar_messageChannelSuffix =
-            messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+  DeliveryDriverApi({
+    BinaryMessenger? binaryMessenger,
+    String messageChannelSuffix = '',
+  }) : pigeonVar_binaryMessenger = binaryMessenger,
+       pigeonVar_messageChannelSuffix =
+           messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? pigeonVar_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -956,10 +954,10 @@ class DeliveryDriverApi {
         'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.arrivedAtStop$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
@@ -986,10 +984,10 @@ class DeliveryDriverApi {
         'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.completedStop$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
@@ -1016,10 +1014,10 @@ class DeliveryDriverApi {
         'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.enrouteToNextStop$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
@@ -1046,10 +1044,10 @@ class DeliveryDriverApi {
         'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.getRemainingVehicleStops$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
@@ -1072,17 +1070,19 @@ class DeliveryDriverApi {
   }
 
   Future<List<VehicleStopDto>> setVehicleStops(
-      List<VehicleStopDto> stops) async {
+    List<VehicleStopDto> stops,
+  ) async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.setVehicleStops$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[stops],
     );
-    final Future<Object?> pigeonVar_sendFuture =
-        pigeonVar_channel.send(<Object?>[stops]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -1108,10 +1108,10 @@ class DeliveryDriverApi {
         'dev.flutter.pigeon.google_driver_flutter.DeliveryDriverApi.getDeliveryVehicle$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
-    );
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
@@ -1138,11 +1138,12 @@ class RidesharingDriverApi {
   /// Constructor for [RidesharingDriverApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  RidesharingDriverApi(
-      {BinaryMessenger? binaryMessenger, String messageChannelSuffix = ''})
-      : pigeonVar_binaryMessenger = binaryMessenger,
-        pigeonVar_messageChannelSuffix =
-            messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+  RidesharingDriverApi({
+    BinaryMessenger? binaryMessenger,
+    String messageChannelSuffix = '',
+  }) : pigeonVar_binaryMessenger = binaryMessenger,
+       pigeonVar_messageChannelSuffix =
+           messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
   final BinaryMessenger? pigeonVar_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -1154,12 +1155,13 @@ class RidesharingDriverApi {
         'dev.flutter.pigeon.google_driver_flutter.RidesharingDriverApi.setVehicleState$pigeonVar_messageChannelSuffix';
     final BasicMessageChannel<Object?> pigeonVar_channel =
         BasicMessageChannel<Object?>(
-      pigeonVar_channelName,
-      pigeonChannelCodec,
-      binaryMessenger: pigeonVar_binaryMessenger,
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[state],
     );
-    final Future<Object?> pigeonVar_sendFuture =
-        pigeonVar_channel.send(<Object?>[state]);
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;
     if (pigeonVar_replyList == null) {
@@ -1189,18 +1191,20 @@ abstract class AuthTokenEventApi {
     messageChannelSuffix =
         messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.AuthTokenEventApi.getToken$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.AuthTokenEventApi.getToken$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
         pigeonVar_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.AuthTokenEventApi.getToken was null.');
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.AuthTokenEventApi.getToken was null.',
+          );
           final List<Object?> args = (message as List<Object?>?)!;
           final String? arg_taskId = (args[0] as String?);
           final String? arg_vehicleId = (args[1] as String?);
@@ -1211,7 +1215,8 @@ abstract class AuthTokenEventApi {
             return wrapResponse(error: e);
           } catch (e) {
             return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
@@ -1225,7 +1230,10 @@ abstract class VehicleReporterListenerApi {
   void onDidSucceed(VehicleUpdateDto vehicleUpdate);
 
   void onDidFail(
-      VehicleUpdateDto vehicleUpdate, String errorCode, String errorMessage);
+    VehicleUpdateDto vehicleUpdate,
+    String errorCode,
+    String errorMessage,
+  );
 
   static void setUp(
     VehicleReporterListenerApi? api, {
@@ -1235,23 +1243,27 @@ abstract class VehicleReporterListenerApi {
     messageChannelSuffix =
         messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidSucceed$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidSucceed$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
         pigeonVar_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidSucceed was null.');
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidSucceed was null.',
+          );
           final List<Object?> args = (message as List<Object?>?)!;
           final VehicleUpdateDto? arg_vehicleUpdate =
               (args[0] as VehicleUpdateDto?);
-          assert(arg_vehicleUpdate != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidSucceed was null, expected non-null VehicleUpdateDto.');
+          assert(
+            arg_vehicleUpdate != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidSucceed was null, expected non-null VehicleUpdateDto.',
+          );
           try {
             api.onDidSucceed(arg_vehicleUpdate!);
             return wrapResponse(empty: true);
@@ -1259,44 +1271,57 @@ abstract class VehicleReporterListenerApi {
             return wrapResponse(error: e);
           } catch (e) {
             return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
     }
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
         pigeonVar_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail was null.');
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail was null.',
+          );
           final List<Object?> args = (message as List<Object?>?)!;
           final VehicleUpdateDto? arg_vehicleUpdate =
               (args[0] as VehicleUpdateDto?);
-          assert(arg_vehicleUpdate != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail was null, expected non-null VehicleUpdateDto.');
+          assert(
+            arg_vehicleUpdate != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail was null, expected non-null VehicleUpdateDto.',
+          );
           final String? arg_errorCode = (args[1] as String?);
-          assert(arg_errorCode != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail was null, expected non-null String.');
+          assert(
+            arg_errorCode != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail was null, expected non-null String.',
+          );
           final String? arg_errorMessage = (args[2] as String?);
-          assert(arg_errorMessage != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail was null, expected non-null String.');
+          assert(
+            arg_errorMessage != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.VehicleReporterListenerApi.onDidFail was null, expected non-null String.',
+          );
           try {
             api.onDidFail(
-                arg_vehicleUpdate!, arg_errorCode!, arg_errorMessage!);
+              arg_vehicleUpdate!,
+              arg_errorCode!,
+              arg_errorMessage!,
+            );
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
           } catch (e) {
             return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }
@@ -1307,8 +1332,13 @@ abstract class VehicleReporterListenerApi {
 abstract class DriverStatusListenerApi {
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
 
-  void onStatusUpdate(DriverStatusLevelDto level, DriverStatusCodeDto code,
-      String message, String? errorCode, String? errorMessage);
+  void onStatusUpdate(
+    DriverStatusLevelDto level,
+    DriverStatusCodeDto code,
+    String message,
+    String? errorCode,
+    String? errorMessage,
+  );
 
   static void setUp(
     DriverStatusListenerApi? api, {
@@ -1318,41 +1348,55 @@ abstract class DriverStatusListenerApi {
     messageChannelSuffix =
         messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
     {
-      final BasicMessageChannel<
-          Object?> pigeonVar_channel = BasicMessageChannel<
-              Object?>(
-          'dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate$messageChannelSuffix',
-          pigeonChannelCodec,
-          binaryMessenger: binaryMessenger);
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
       if (api == null) {
         pigeonVar_channel.setMessageHandler(null);
       } else {
         pigeonVar_channel.setMessageHandler((Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate was null.');
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate was null.',
+          );
           final List<Object?> args = (message as List<Object?>?)!;
           final DriverStatusLevelDto? arg_level =
               (args[0] as DriverStatusLevelDto?);
-          assert(arg_level != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate was null, expected non-null DriverStatusLevelDto.');
+          assert(
+            arg_level != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate was null, expected non-null DriverStatusLevelDto.',
+          );
           final DriverStatusCodeDto? arg_code =
               (args[1] as DriverStatusCodeDto?);
-          assert(arg_code != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate was null, expected non-null DriverStatusCodeDto.');
+          assert(
+            arg_code != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate was null, expected non-null DriverStatusCodeDto.',
+          );
           final String? arg_message = (args[2] as String?);
-          assert(arg_message != null,
-              'Argument for dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate was null, expected non-null String.');
+          assert(
+            arg_message != null,
+            'Argument for dev.flutter.pigeon.google_driver_flutter.DriverStatusListenerApi.onStatusUpdate was null, expected non-null String.',
+          );
           final String? arg_errorCode = (args[3] as String?);
           final String? arg_errorMessage = (args[4] as String?);
           try {
-            api.onStatusUpdate(arg_level!, arg_code!, arg_message!,
-                arg_errorCode, arg_errorMessage);
+            api.onStatusUpdate(
+              arg_level!,
+              arg_code!,
+              arg_message!,
+              arg_errorCode,
+              arg_errorMessage,
+            );
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
           } catch (e) {
             return wrapResponse(
-                error: PlatformException(code: 'error', message: e.toString()));
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
           }
         });
       }

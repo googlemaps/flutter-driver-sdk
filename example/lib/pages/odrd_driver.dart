@@ -29,9 +29,10 @@ import '../widgets/widgets.dart';
 class ODRDDriverPage extends ExamplePage {
   /// Creates a Google Maps Driver ODRD demo page.
   const ODRDDriverPage({super.key})
-      : super(
-            leading: const Icon(Icons.directions),
-            title: 'Ridesharing Driver (ODRD)');
+    : super(
+        leading: const Icon(Icons.directions),
+        title: 'Ridesharing Driver (ODRD)',
+      );
 
   @override
   ExamplePageState<ODRDDriverPage> createState() => _DriverPageState();
@@ -46,43 +47,47 @@ class _ExampleTrip {
 
 final List<_ExampleTrip> _exampleTrips = <_ExampleTrip>[
   _ExampleTrip(
-      NavigationWaypoint.withLatLngTarget(
-        title: 'Kuusiluoto, Oulu',
-        target: const LatLng(latitude: 65.0105737, longitude: 25.4564055),
-      ),
-      NavigationWaypoint.withLatLngTarget(
-        title: 'Höyhtyä, Oulu',
-        target: const LatLng(latitude: 64.9955575, longitude: 25.4865491),
-      )),
+    NavigationWaypoint.withLatLngTarget(
+      title: 'Kuusiluoto, Oulu',
+      target: const LatLng(latitude: 65.0105737, longitude: 25.4564055),
+    ),
+    NavigationWaypoint.withLatLngTarget(
+      title: 'Höyhtyä, Oulu',
+      target: const LatLng(latitude: 64.9955575, longitude: 25.4865491),
+    ),
+  ),
   _ExampleTrip(
-      NavigationWaypoint.withLatLngTarget(
-        title: 'Valtatie, Oulu',
-        target: const LatLng(latitude: 65.027869, longitude: 25.457963),
-      ),
-      NavigationWaypoint.withLatLngTarget(
-        title: 'Hollihaka, Oulu',
-        target: const LatLng(latitude: 65.007450, longitude: 25.449969),
-      )),
+    NavigationWaypoint.withLatLngTarget(
+      title: 'Valtatie, Oulu',
+      target: const LatLng(latitude: 65.027869, longitude: 25.457963),
+    ),
+    NavigationWaypoint.withLatLngTarget(
+      title: 'Hollihaka, Oulu',
+      target: const LatLng(latitude: 65.007450, longitude: 25.449969),
+    ),
+  ),
   _ExampleTrip(
-      NavigationWaypoint.withLatLngTarget(
-        title: 'Tuira, Oulu',
-        target: const LatLng(latitude: 65.0161051, longitude: 25.4983671),
-      ),
-      NavigationWaypoint.withLatLngTarget(
-        title: 'Nokela, Oulu',
-        target: const LatLng(latitude: 64.9904488, longitude: 25.4719577),
-      ))
+    NavigationWaypoint.withLatLngTarget(
+      title: 'Tuira, Oulu',
+      target: const LatLng(latitude: 65.0161051, longitude: 25.4983671),
+    ),
+    NavigationWaypoint.withLatLngTarget(
+      title: 'Nokela, Oulu',
+      target: const LatLng(latitude: 64.9904488, longitude: 25.4719577),
+    ),
+  ),
 ];
 
 /// Driver demo page state.
 class _DriverPageState extends ExamplePageState<ODRDDriverPage>
     with WidgetsBindingObserver {
-  static const LatLng _startLocation =
-      LatLng(latitude: 65.002822, longitude: 25.463639);
+  static const LatLng _startLocation = LatLng(
+    latitude: 65.002822,
+    longitude: 25.463639,
+  );
 
   final Completer<GoogleNavigationViewController>
-      _navigationControllerCompleter =
-      Completer<GoogleNavigationViewController>();
+  _navigationControllerCompleter = Completer<GoogleNavigationViewController>();
 
   bool _backendInitialized = false;
   bool _driverInitialized = false;
@@ -191,7 +196,8 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
     );
 
     debugPrint(
-        'ODRD backend initialized.\nVehicle ID: ${_vehicle!.vehicleId}\nVehicle state: ${_vehicle!.vehicleState?.name}');
+      'ODRD backend initialized.\nVehicle ID: ${_vehicle!.vehicleId}\nVehicle state: ${_vehicle!.vehicleState?.name}',
+    );
     setState(() {
       _backendInitialized = true;
       _vehicleUpdated = true;
@@ -226,14 +232,18 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
     debugPrint('ODRD backend Trip ID: ${_trip!.tripId}');
 
     if (_vehicle?.waypoints != null) {
-      _waypoints = _vehicle!.waypoints!
-          .asMap()
-          .entries
-          .map((MapEntry<int, ODRDWaypoint> waypointEntry) =>
-              NavigationWaypoint.withLatLngTarget(
-                  target: waypointEntry.value.location,
-                  title: 'Waypoint ${waypointEntry.key + 1}'))
-          .toList();
+      _waypoints =
+          _vehicle!.waypoints!
+              .asMap()
+              .entries
+              .map(
+                (MapEntry<int, ODRDWaypoint> waypointEntry) =>
+                    NavigationWaypoint.withLatLngTarget(
+                      target: waypointEntry.value.location,
+                      title: 'Waypoint ${waypointEntry.key + 1}',
+                    ),
+              )
+              .toList();
     }
     await _initNavigation();
     _pollVehicleUpdates();
@@ -253,52 +263,66 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
 
         // Initialize Ridesharing Driver SDK.
         await RidesharingDriver.initialize(
-            providerId: getProjectId(),
-            vehicleId: _vehicle!.vehicleId,
-            onGetToken: (AuthTokenContext context) async {
-              if (_tokenResponse == null ||
-                  DateTime.now().millisecondsSinceEpoch >
-                      _tokenResponse!.expirationTimestampMs) {
-                _tokenResponse = await getODRDApi().getToken(
-                  ODRDTokenType.driver,
-                  _vehicle!.vehicleId,
-                );
-              }
-              if (_tokenResponse == null || _tokenResponse!.token.isEmpty) {
-                throw Exception('Token retrieval from the backend failed.');
-              }
+          providerId: getProjectId(),
+          vehicleId: _vehicle!.vehicleId,
+          onGetToken: (AuthTokenContext context) async {
+            if (_tokenResponse == null ||
+                DateTime.now().millisecondsSinceEpoch >
+                    _tokenResponse!.expirationTimestampMs) {
+              _tokenResponse = await getODRDApi().getToken(
+                ODRDTokenType.driver,
+                _vehicle!.vehicleId,
+              );
+            }
+            if (_tokenResponse == null || _tokenResponse!.token.isEmpty) {
+              throw Exception('Token retrieval from the backend failed.');
+            }
 
-              return Future<String>.value(_tokenResponse!.token);
-            },
-            onStatusUpdate: Platform.isAndroid
-                ? (DriverStatusLevel level, DriverStatusCode code,
-                    String message, DriverException? exception) {
+            return Future<String>.value(_tokenResponse!.token);
+          },
+          onStatusUpdate:
+              Platform.isAndroid
+                  ? (
+                    DriverStatusLevel level,
+                    DriverStatusCode code,
+                    String message,
+                    DriverException? exception,
+                  ) {
                     debugPrint(
-                        'Driver status changed: $level - $code - $message, e: ${exception?.code} ${exception?.message}');
+                      'Driver status changed: $level - $code - $message, e: ${exception?.code} ${exception?.message}',
+                    );
                   }
-                : null);
+                  : null,
+        );
 
         if (Platform.isIOS) {
-          RidesharingDriver.vehicleReporter.setListener(VehicleReporterListener(
-            onDidSucceed: (VehicleUpdate vehicleUpdate) {
-              debugPrint(
-                  'Vehicle update succeeded - location (${vehicleUpdate.location?.latitude.toStringAsFixed(3) ?? '-'}, ${vehicleUpdate.location?.longitude.toStringAsFixed(3) ?? '-'}) and state: ${vehicleUpdate.vehicleState == VehicleState.online ? 'online' : 'offline'}');
-            },
-            onDidFail:
-                (VehicleUpdate vehicleUpdate, DriverException exception) {
-              debugPrint(
-                  'Vehicle updated failed - location (${vehicleUpdate.location?.latitude.toStringAsFixed(3) ?? '-'}, ${vehicleUpdate.location?.longitude.toStringAsFixed(3) ?? '-'}) state: ${vehicleUpdate.vehicleState == VehicleState.online ? 'online' : 'offline'}');
-              debugPrint('  Error ${exception.message}');
-            },
-          ));
+          RidesharingDriver.vehicleReporter.setListener(
+            VehicleReporterListener(
+              onDidSucceed: (VehicleUpdate vehicleUpdate) {
+                debugPrint(
+                  'Vehicle update succeeded - location (${vehicleUpdate.location?.latitude.toStringAsFixed(3) ?? '-'}, ${vehicleUpdate.location?.longitude.toStringAsFixed(3) ?? '-'}) and state: ${vehicleUpdate.vehicleState == VehicleState.online ? 'online' : 'offline'}',
+                );
+              },
+              onDidFail: (
+                VehicleUpdate vehicleUpdate,
+                DriverException exception,
+              ) {
+                debugPrint(
+                  'Vehicle updated failed - location (${vehicleUpdate.location?.latitude.toStringAsFixed(3) ?? '-'}, ${vehicleUpdate.location?.longitude.toStringAsFixed(3) ?? '-'}) state: ${vehicleUpdate.vehicleState == VehicleState.online ? 'online' : 'offline'}',
+                );
+                debugPrint('  Error ${exception.message}');
+              },
+            ),
+          );
         }
 
         // Fetch the current locationReportintInterval
-        await RidesharingDriver.vehicleReporter
-            .setLocationReportingInterval(const Duration(seconds: 5));
-        _locationReportingIntervalMillis = await RidesharingDriver
-            .vehicleReporter
-            .getLocationReportingInterval();
+        await RidesharingDriver.vehicleReporter.setLocationReportingInterval(
+          const Duration(seconds: 5),
+        );
+        _locationReportingIntervalMillis =
+            await RidesharingDriver.vehicleReporter
+                .getLocationReportingInterval();
         if (!_locationTrackingEnabled) {
           await _setLocationTrackingEnabled(true);
         }
@@ -313,12 +337,14 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
         switch (e.code) {
           case SessionInitializationError.locationPermissionMissing:
             _showMessage(
-                'No user location is available. Did you allow location permission?');
+              'No user location is available. Did you allow location permission?',
+            );
           case SessionInitializationError.termsNotAccepted:
             _showMessage('Accept the terms and conditions dialog first.');
           case SessionInitializationError.notAuthorized:
             _showMessage(
-                'Your API key is empty, invalid or not authorized to use Navigation.');
+              'Your API key is empty, invalid or not authorized to use Navigation.',
+            );
         }
       }
     }
@@ -330,8 +356,9 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
   void _pollTripUpdates() {
     assert(_trip != null && _trip!.tripId.isNotEmpty, 'tripId is required');
     _stopPollingTripUpdates();
-    _tripUpdateTimer =
-        Timer.periodic(const Duration(seconds: 5), (Timer timer) async {
+    _tripUpdateTimer = Timer.periodic(const Duration(seconds: 5), (
+      Timer timer,
+    ) async {
       try {
         if (_trip == null) {
           _stopPollingTripUpdates();
@@ -339,7 +366,8 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
         }
         _trip = await getODRDApi().getTrip(_selectedTripId ?? _trip!.tripId);
         debugPrint(
-            ' - Trip (${_trip!.tripId}) status: ${_trip!.tripStatus.name}');
+          ' - Trip (${_trip!.tripId}) status: ${_trip!.tripStatus.name}',
+        );
         bool tripMatched = false;
         if (_trip!.vehicleId.isNotEmpty && !_tripMatched) {
           debugPrint(' - Trip has matched vehicle: ${_trip!.vehicleId}');
@@ -367,33 +395,38 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
     assert(_vehicle != null, 'vehicle is required');
     _stopPollingVehicleUpdates();
     _vehicleUpdateTimer = Timer.periodic(
-        _locationReportingIntervalMillis ?? const Duration(seconds: 5),
-        (Timer timer) async {
-      try {
-        final ODRDVehicle vehicle =
-            await getODRDApi().getVehicle(_vehicle!.vehicleId);
-        debugPrint(
-            ' - Vehicle (${vehicle.vehicleId}) state: ${vehicle.vehicleState?.name}, vehicle trips: ${vehicle.currentTripsIds}, vehicle waypoints: ${vehicle.waypoints}, last location ${vehicle.lastLocation?.latitude},${vehicle.lastLocation?.longitude}');
+      _locationReportingIntervalMillis ?? const Duration(seconds: 5),
+      (Timer timer) async {
+        try {
+          final ODRDVehicle vehicle = await getODRDApi().getVehicle(
+            _vehicle!.vehicleId,
+          );
+          debugPrint(
+            ' - Vehicle (${vehicle.vehicleId}) state: ${vehicle.vehicleState?.name}, vehicle trips: ${vehicle.currentTripsIds}, vehicle waypoints: ${vehicle.waypoints}, last location ${vehicle.lastLocation?.latitude},${vehicle.lastLocation?.longitude}',
+          );
 
-        if (_simulationRunning && vehicle.lastLocation != null) {
-          _lastKnownDriverLocation = vehicle.lastLocation;
+          if (_simulationRunning && vehicle.lastLocation != null) {
+            _lastKnownDriverLocation = vehicle.lastLocation;
+          }
+
+          _vehicleState =
+              vehicle.vehicleState == ODRDVehicleState.online
+                  ? VehicleState.online
+                  : VehicleState.offline;
+
+          setState(() {
+            _vehicleUpdated = true;
+            _vehicle = vehicle;
+          });
+
+          await _updateFleetEngineLocationMarker(
+            show: _showFleetEngineLocationOnMap,
+          );
+        } catch (e) {
+          debugPrint(' - Error fetching vehicle: $e');
         }
-
-        _vehicleState = vehicle.vehicleState == ODRDVehicleState.online
-            ? VehicleState.online
-            : VehicleState.offline;
-
-        setState(() {
-          _vehicleUpdated = true;
-          _vehicle = vehicle;
-        });
-
-        await _updateFleetEngineLocationMarker(
-            show: _showFleetEngineLocationOnMap);
-      } catch (e) {
-        debugPrint(' - Error fetching vehicle: $e');
-      }
-    });
+      },
+    );
   }
 
   void _stopPollingVehicleUpdates() {
@@ -405,7 +438,8 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
     final List<ODRDVehicle> allVehicles = await getODRDApi().getVehicles();
     allVehicles.map((ODRDVehicle vehicle) {
       debugPrint(
-          'Vehicle: ${vehicle.vehicleId}, Vehicle state: ${vehicle.vehicleState?.name}, Vehicle trips: ${vehicle.currentTripsIds}');
+        'Vehicle: ${vehicle.vehicleId}, Vehicle state: ${vehicle.vehicleState?.name}, Vehicle trips: ${vehicle.currentTripsIds}',
+      );
     }).toList();
   }
 
@@ -416,9 +450,7 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
       try {
         _trip = await updateODRDTrip(
           tripId: _trip!.tripId,
-          update: ODRDTripUpdate(
-            tripStatus: status,
-          ),
+          update: ODRDTripUpdate(tripStatus: status),
         );
 
         if (status.name.contains('enroute')) {
@@ -538,8 +570,10 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
     }
   }
 
-  Future<void> _resetSimulatedLocation(LatLng? location,
-      {bool stopSimulation = true}) async {
+  Future<void> _resetSimulatedLocation(
+    LatLng? location, {
+    bool stopSimulation = true,
+  }) async {
     if (location != null) {
       if (stopSimulation) {
         await GoogleMapsNavigator.simulator.removeUserLocation();
@@ -555,15 +589,15 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
     if (_waypoints.length > _waypointIndex) {
       // Reset simulated user location. If navigation is running, this will use the
       // last location from the fleet engine.
-      await GoogleMapsNavigator.simulator
-          .setUserLocation(_lastKnownDriverLocation ?? _startLocation);
+      await GoogleMapsNavigator.simulator.setUserLocation(
+        _lastKnownDriverLocation ?? _startLocation,
+      );
       await GoogleMapsNavigator.simulator
           .simulateLocationsAlongNewRouteWithRoutingAndSimulationOptions(
-              <NavigationWaypoint>[_waypoints[_waypointIndex]],
-              RoutingOptions(),
-              SimulationOptions(
-                speedMultiplier: simulationSpeedMultiplier,
-              ));
+            <NavigationWaypoint>[_waypoints[_waypointIndex]],
+            RoutingOptions(),
+            SimulationOptions(speedMultiplier: simulationSpeedMultiplier),
+          );
       setState(() {
         _waypointIndex = _waypointIndex + 1;
         _simulationRunning = true;
@@ -573,8 +607,9 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
 
   void _setupListeners() {
     _clearListeners();
-    _onArrivalSubscription =
-        GoogleMapsNavigator.setOnArrivalListener(_onArrivalEvent);
+    _onArrivalSubscription = GoogleMapsNavigator.setOnArrivalListener(
+      _onArrivalEvent,
+    );
   }
 
   void _clearListeners() {
@@ -582,9 +617,7 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
     _onArrivalSubscription = null;
   }
 
-  void _onArrivalEvent(
-    OnArrivalEvent event,
-  ) {
+  void _onArrivalEvent(OnArrivalEvent event) {
     if (!mounted) {
       return;
     }
@@ -624,45 +657,49 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
 
   @override
   Widget build(BuildContext context) {
-    final String tripState = _trip?.vehicleId != null
-        ? 'Trip state: ${_getTripStatusText(_trip?.tripStatus)}'
-        : 'No trip';
-    final String vehicleState = _trip?.vehicleId != null
-        ? 'Assigned vehicle ID: ${_trip?.vehicleId}'
-        : 'No assigned vehicle';
+    final String tripState =
+        _trip?.vehicleId != null
+            ? 'Trip state: ${_getTripStatusText(_trip?.tripStatus)}'
+            : 'No trip';
+    final String vehicleState =
+        _trip?.vehicleId != null
+            ? 'Assigned vehicle ID: ${_trip?.vehicleId}'
+            : 'No assigned vehicle';
     return buildPage(
-        context,
-        Stack(children: <Widget>[
-          Column(children: <Widget>[
-            Expanded(
+      context,
+      Stack(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              Expanded(
                 child: GoogleMapsNavigationView(
-              onViewCreated: (GoogleNavigationViewController controller) {
-                _navigationControllerCompleter.complete(controller);
-              },
-              initialCameraPosition: const CameraPosition(
-                target: _startLocation,
-                zoom: 14,
+                  onViewCreated: (GoogleNavigationViewController controller) {
+                    _navigationControllerCompleter.complete(controller);
+                  },
+                  initialCameraPosition: const CameraPosition(
+                    target: _startLocation,
+                    zoom: 14,
+                  ),
+                ),
               ),
-            )),
-            Padding(
+              Padding(
                 padding: const EdgeInsets.all(8),
-                child: Column(children: <Widget>[
-                  if (_driverInitialized)
-                    Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Text(
-                          '$tripState\n$vehicleState',
+                child: Column(
+                  children: <Widget>[
+                    if (_driverInitialized)
+                      Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Text('$tripState\n$vehicleState'),
                         ),
                       ),
-                    ),
-                  if (_isLoading)
-                    const Padding(
-                      padding: EdgeInsets.all(6),
-                      child: CircularProgressIndicator(),
-                    )
-                  else
-                    Wrap(
+                    if (_isLoading)
+                      const Padding(
+                        padding: EdgeInsets.all(6),
+                        child: CircularProgressIndicator(),
+                      )
+                    else
+                      Wrap(
                         alignment: WrapAlignment.center,
                         spacing: 10,
                         children: <Widget>[
@@ -673,16 +710,16 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
                             ),
                           if (_driverInitialized && !_locationTrackingEnabled)
                             ElevatedButton(
-                              onPressed: () =>
-                                  _setLocationTrackingEnabled(true),
+                              onPressed:
+                                  () => _setLocationTrackingEnabled(true),
                               child: const Text('Enable location tracking'),
                             ),
                           if (_driverInitialized &&
                               _locationTrackingEnabled &&
                               _vehicleState == VehicleState.offline)
                             ElevatedButton(
-                              onPressed: () =>
-                                  _setVehicleState(VehicleState.online),
+                              onPressed:
+                                  () => _setVehicleState(VehicleState.online),
                               child: const Text('Set vehicle online'),
                             ),
                           if (_driverInitialized &&
@@ -690,8 +727,9 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
                               _vehicleUpdated)
                             ElevatedButton(
                               onPressed: _createExampleTrip,
-                              child:
-                                  const Text('Create new trip (as consumer)'),
+                              child: const Text(
+                                'Create new trip (as consumer)',
+                              ),
                             ),
                           if (_canSelectNewTrip)
                             for (final MapEntry<int, String> entry
@@ -703,14 +741,22 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
                           if (_hasTrips &&
                               _hasSelectedTrip &&
                               _trip?.tripId == _selectedTripId)
-                            _buildRouteActionButtons()
-                        ]),
-                  getOverlayOptionsButton(context,
+                            _buildRouteActionButtons(),
+                        ],
+                      ),
+                    getOverlayOptionsButton(
+                      context,
                       onPressed:
-                          _backendInitialized ? () => toggleOverlay() : null),
-                ]))
-          ]),
-        ]));
+                          _backendInitialized ? () => toggleOverlay() : null,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   bool get _hasVehicle => _vehicle != null;
@@ -724,57 +770,62 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
 
   @override
   Widget buildOverlayContent(BuildContext context) {
-    return Column(children: <Widget>[
-      Wrap(
-        alignment: WrapAlignment.center,
-        spacing: 10,
-        children: <Widget>[
-          SwitchListTile(
-            title: const Text('Location tracking'),
-            value: _locationTrackingEnabled,
-            onChanged: (bool value) async {
-              if (await RidesharingDriver.isInitialized()) {
-                await RidesharingDriver.vehicleReporter
-                    .setLocationTrackingEnabled(value);
-              }
-              setState(() {
-                _locationTrackingEnabled = value;
-              });
-            },
-          ),
-          SwitchListTile(
-            title: const Text('Vehicle online'),
-            value: _vehicleState == VehicleState.online,
-            onChanged: _locationTrackingEnabled
-                ? (bool value) async {
-                    final VehicleState newState =
-                        value ? VehicleState.online : VehicleState.offline;
-                    await _setVehicleState(newState);
-                    setState(() {
-                      _vehicleState = newState;
-                    });
-                  }
-                : null,
-          ),
-          SwitchListTile(
-            title: const Text('Show fleet engine location marker'),
-            value: _showFleetEngineLocationOnMap,
-            onChanged: (bool value) async {
-              await _updateFleetEngineLocationMarker(show: value);
-            },
-          ),
-          ElevatedButton(
-            onPressed: _driverInitialized ? _disposeDriver : _initializeDriver,
-            child: Text(
-                _driverInitialized ? 'Dispose driver' : 'Initialize driver'),
-          ),
-          ElevatedButton(
-            onPressed: _fetchVehicles,
-            child: const Text('Debug print all vehicles'),
-          ),
-        ],
-      )
-    ]);
+    return Column(
+      children: <Widget>[
+        Wrap(
+          alignment: WrapAlignment.center,
+          spacing: 10,
+          children: <Widget>[
+            SwitchListTile(
+              title: const Text('Location tracking'),
+              value: _locationTrackingEnabled,
+              onChanged: (bool value) async {
+                if (await RidesharingDriver.isInitialized()) {
+                  await RidesharingDriver.vehicleReporter
+                      .setLocationTrackingEnabled(value);
+                }
+                setState(() {
+                  _locationTrackingEnabled = value;
+                });
+              },
+            ),
+            SwitchListTile(
+              title: const Text('Vehicle online'),
+              value: _vehicleState == VehicleState.online,
+              onChanged:
+                  _locationTrackingEnabled
+                      ? (bool value) async {
+                        final VehicleState newState =
+                            value ? VehicleState.online : VehicleState.offline;
+                        await _setVehicleState(newState);
+                        setState(() {
+                          _vehicleState = newState;
+                        });
+                      }
+                      : null,
+            ),
+            SwitchListTile(
+              title: const Text('Show fleet engine location marker'),
+              value: _showFleetEngineLocationOnMap,
+              onChanged: (bool value) async {
+                await _updateFleetEngineLocationMarker(show: value);
+              },
+            ),
+            ElevatedButton(
+              onPressed:
+                  _driverInitialized ? _disposeDriver : _initializeDriver,
+              child: Text(
+                _driverInitialized ? 'Dispose driver' : 'Initialize driver',
+              ),
+            ),
+            ElevatedButton(
+              onPressed: _fetchVehicles,
+              child: const Text('Debug print all vehicles'),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 
   Wrap _buildRouteActionButtons() {
@@ -836,24 +887,29 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
         await _navigationControllerCompleter.future;
     if (show) {
       final MarkerOptions options = MarkerOptions(
-          position: _lastKnownDriverLocation ?? _startLocation,
-          infoWindow: const InfoWindow(title: 'Fleet engine location'));
+        position: _lastKnownDriverLocation ?? _startLocation,
+        infoWindow: const InfoWindow(title: 'Fleet engine location'),
+      );
 
       if (_fleetEngineLocationMarker != null) {
-        final Marker updatedMarker =
-            _fleetEngineLocationMarker!.copyWith(options: options);
+        final Marker updatedMarker = _fleetEngineLocationMarker!.copyWith(
+          options: options,
+        );
         _fleetEngineLocationMarker =
-            (await viewController.updateMarkers(<Marker>[updatedMarker]))
-                .firstOrNull;
+            (await viewController.updateMarkers(<Marker>[
+              updatedMarker,
+            ])).firstOrNull;
       } else {
         _fleetEngineLocationMarker =
-            (await viewController.addMarkers(<MarkerOptions>[options]))
-                .firstOrNull;
+            (await viewController.addMarkers(<MarkerOptions>[
+              options,
+            ])).firstOrNull;
       }
     } else {
       if (_fleetEngineLocationMarker != null) {
-        await viewController
-            .removeMarkers(<Marker>[_fleetEngineLocationMarker!]);
+        await viewController.removeMarkers(<Marker>[
+          _fleetEngineLocationMarker!,
+        ]);
         setState(() {
           _fleetEngineLocationMarker = null;
         });

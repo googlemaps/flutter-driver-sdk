@@ -34,9 +34,7 @@ import 'method_channel/method_channel.dart';
 ///
 /// {@category Delivery Driver}
 /// {@category Ridesharing Driver}
-typedef OnGetToken = Future<String> Function(
-  AuthTokenContext context,
-);
+typedef OnGetToken = Future<String> Function(AuthTokenContext context);
 
 /// Called when there are status updates (Android-only).
 ///
@@ -46,23 +44,26 @@ typedef OnGetToken = Future<String> Function(
 ///
 /// {@category Delivery Driver}
 /// {@category Ridesharing Driver}
-typedef OnStatusUpdate = void Function(DriverStatusLevel level,
-    DriverStatusCode code, String message, DriverException? exception);
+typedef OnStatusUpdate =
+    void Function(
+      DriverStatusLevel level,
+      DriverStatusCode code,
+      String message,
+      DriverException? exception,
+    );
 
 /// Called when the vehicle location or state update succeeded.
 ///
 /// {@category Delivery Driver}
 /// {@category Ridesharing Driver}
-typedef OnVehicleUpdateDidSucceed = void Function(
-  VehicleUpdate vehicleUpdate,
-);
+typedef OnVehicleUpdateDidSucceed = void Function(VehicleUpdate vehicleUpdate);
 
 /// Called when the vehicle location or state update failed.
 ///
 /// {@category Delivery Driver}
 /// {@category Ridesharing Driver}
-typedef OnVehicleUpdateDidFail = void Function(
-    VehicleUpdate vehicleUpdate, DriverException exception);
+typedef OnVehicleUpdateDidFail =
+    void Function(VehicleUpdate vehicleUpdate, DriverException exception);
 
 /// Base vehicle reporter containing shared methods between delivery and
 /// ridesharing apis.
@@ -101,10 +102,14 @@ class CommonVehicleReporter {
   /// By default, the interval is 10 seconds. The minimum allowed
   /// interval is 5 seconds and the maximum 60 seconds.
   Future<void> setLocationReportingInterval(Duration duration) async {
-    assert(duration.inSeconds >= 5,
-        'Minimum supported reporting interval is 5 seconds');
-    assert(duration.inSeconds <= 60,
-        'Maximum supported reporting interval is 60 seconds');
+    assert(
+      duration.inSeconds >= 5,
+      'Minimum supported reporting interval is 5 seconds',
+    );
+    assert(
+      duration.inSeconds <= 60,
+      'Maximum supported reporting interval is 60 seconds',
+    );
     return _commonApi.setLocationReportingInterval(duration);
   }
 
@@ -116,8 +121,11 @@ class CommonVehicleReporter {
   /// initialization callback instead.
   void setListener(VehicleReporterListener? vehicleReporterListener) {
     if (vehicleReporterListener != null) {
-      VehicleReporterListenerApi.setUp(_VehicleReporterListenerApiImpl(
-          vehicleReporterListener: vehicleReporterListener));
+      VehicleReporterListenerApi.setUp(
+        _VehicleReporterListenerApiImpl(
+          vehicleReporterListener: vehicleReporterListener,
+        ),
+      );
     } else {
       VehicleReporterListenerApi.setUp(null);
     }
@@ -144,7 +152,7 @@ class CommonVehicleReporter {
 /// {@category Delivery Driver}
 class DeliveryVehicleReporter extends CommonVehicleReporter {
   DeliveryVehicleReporter._(this._api, TypedCommonDriverApi _commonApi)
-      : super._(_commonApi);
+    : super._(_commonApi);
 
   final DeliveryDriverApi _api;
 
@@ -202,7 +210,8 @@ class DeliveryVehicleReporter extends CommonVehicleReporter {
   Future<List<VehicleStop>> setVehicleStops(List<VehicleStop> stops) async {
     try {
       final List<VehicleStopDto?> stopsDto = await _api.setVehicleStops(
-          stops.map((VehicleStop stop) => stop.toDto()).toList());
+        stops.map((VehicleStop stop) => stop.toDto()).toList(),
+      );
       return stopsDto.nonNulls
           .map((VehicleStopDto stop) => stop.toVehicleStop())
           .toList();
@@ -241,7 +250,7 @@ class DeliveryVehicleReporter extends CommonVehicleReporter {
 /// {@category Ridesharing Driver}
 class RidesharingVehicleReporter extends CommonVehicleReporter {
   RidesharingVehicleReporter._(this._api, TypedCommonDriverApi _commonApi)
-      : super._(_commonApi);
+    : super._(_commonApi);
 
   final RidesharingDriverApi _api;
 
@@ -264,8 +273,10 @@ class RidesharingVehicleReporter extends CommonVehicleReporter {
 /// {@category Ridesharing Driver}
 class VehicleReporterListener {
   /// Constructs an instance of [VehicleReporterListener].
-  VehicleReporterListener(
-      {required this.onDidSucceed, required this.onDidFail});
+  VehicleReporterListener({
+    required this.onDidSucceed,
+    required this.onDidFail,
+  });
 
   /// Called when the vehicle location or state update succeeded.
   final OnVehicleUpdateDidSucceed onDidSucceed;
@@ -292,21 +303,28 @@ class TypedCommonDriverApi {
 
   /// Initialize Driver api instance for [apiType] with the given
   /// [providerId] and [vehicleId].
-  Future<void> initialize(
-      {required String providerId,
-      required String vehicleId,
-      required OnGetToken onGetToken,
-      OnStatusUpdate? onStatusUpdate,
-      bool abnormalTerminationReportingEnabled = false}) async {
+  Future<void> initialize({
+    required String providerId,
+    required String vehicleId,
+    required OnGetToken onGetToken,
+    OnStatusUpdate? onStatusUpdate,
+    bool abnormalTerminationReportingEnabled = false,
+  }) async {
     try {
-      await _commonApi.initialize(apiType.toDto(), providerId, vehicleId,
-          abnormalTerminationReportingEnabled);
+      await _commonApi.initialize(
+        apiType.toDto(),
+        providerId,
+        vehicleId,
+        abnormalTerminationReportingEnabled,
+      );
 
       AuthTokenEventApi.setUp(
-          _AuthTokenEventApiImpl(onGetTokenEvent: onGetToken));
+        _AuthTokenEventApiImpl(onGetTokenEvent: onGetToken),
+      );
       if (onStatusUpdate != null) {
         DriverStatusListenerApi.setUp(
-            _DriverStatusListenerApiImpl(onStatusUpdateEvent: onStatusUpdate));
+          _DriverStatusListenerApiImpl(onStatusUpdateEvent: onStatusUpdate),
+        );
       } else {
         DriverStatusListenerApi.setUp(null);
       }
@@ -314,10 +332,12 @@ class TypedCommonDriverApi {
       switch (e.code) {
         case 'sessionNotInitialized':
           throw const DriverInitializationException(
-              DriverInitializationError.navigationNotInitialized);
+            DriverInitializationError.navigationNotInitialized,
+          );
         case 'apiAlreadyInitialized':
           throw const DriverInitializationException(
-              DriverInitializationError.apiAlreadyInitialized);
+            DriverInitializationError.apiAlreadyInitialized,
+          );
         default:
           rethrow;
       }
@@ -355,7 +375,9 @@ class TypedCommonDriverApi {
   Future<void> setLocationTrackingEnabled(bool enabled) async {
     try {
       return await _commonApi.setLocationTrackingEnabled(
-          apiType.toDto(), enabled);
+        apiType.toDto(),
+        enabled,
+      );
     } on PlatformException catch (e) {
       throw _convertException(e);
     }
@@ -370,8 +392,10 @@ class TypedCommonDriverApi {
   Future<Duration> getLocationReportingInterval() async {
     try {
       return Duration(
-          milliseconds: await _commonApi
-              .getLocationReportingIntervalMillis(apiType.toDto()));
+        milliseconds: await _commonApi.getLocationReportingIntervalMillis(
+          apiType.toDto(),
+        ),
+      );
     } on PlatformException catch (e) {
       throw _convertException(e);
     }
@@ -383,13 +407,19 @@ class TypedCommonDriverApi {
   /// By default, the interval is 10 seconds. The minimum allowed
   /// interval is 5 seconds and the maximum 60 seconds.
   Future<void> setLocationReportingInterval(Duration duration) async {
-    assert(duration.inSeconds >= 5,
-        'Minimum supported reporting interval is 5 seconds');
-    assert(duration.inSeconds <= 60,
-        'Maximum supported reporting interval is 60 seconds');
+    assert(
+      duration.inSeconds >= 5,
+      'Minimum supported reporting interval is 5 seconds',
+    );
+    assert(
+      duration.inSeconds <= 60,
+      'Maximum supported reporting interval is 60 seconds',
+    );
     try {
       return await _commonApi.setLocationReportingIntervalMillis(
-          apiType.toDto(), duration.inMilliseconds);
+        apiType.toDto(),
+        duration.inMilliseconds,
+      );
     } on PlatformException catch (e) {
       throw _convertException(e);
     }
@@ -403,11 +433,14 @@ class TypedCommonDriverApi {
   Future<void> setSupplementalLocation(Location location) async {
     try {
       return _commonApi.setSupplementalLocation(
-          apiType.toDto(), location.toDto());
+        apiType.toDto(),
+        location.toDto(),
+      );
     } on PlatformException catch (error) {
       if (error.code == 'notSupported') {
         throw UnsupportedError(
-            'Setting supplemental location is not supported on iOS.');
+          'Setting supplemental location is not supported on iOS.',
+        );
       } else {
         rethrow;
       }
@@ -432,8 +465,10 @@ class DeliveryDriver {
   static final TypedCommonDriverApi _deliveryCommonDriverApi =
       TypedCommonDriverApi._(DriverApiType.delivery);
   static final DeliveryDriverApi _deliveryApi = DeliveryDriverApi();
-  static final DeliveryVehicleReporter _reporter =
-      DeliveryVehicleReporter._(_deliveryApi, _deliveryCommonDriverApi);
+  static final DeliveryVehicleReporter _reporter = DeliveryVehicleReporter._(
+    _deliveryApi,
+    _deliveryCommonDriverApi,
+  );
 
   /// Initialize DeliveryDriver instance with the given
   /// [providerId] and [vehicleId].
@@ -445,19 +480,20 @@ class DeliveryDriver {
   /// Optional parameter [abnormalTerminationReportingEnabled] can be used to
   /// disable reporting abnormal SDK terminations such as app crashes while the
   /// SDK is still running. By default, the reporting is enabled.
-  static Future<void> initialize(
-      {required String providerId,
-      required String vehicleId,
-      required OnGetToken onGetToken,
-      OnStatusUpdate? onStatusUpdate,
-      bool abnormalTerminationReportingEnabled = false}) async {
+  static Future<void> initialize({
+    required String providerId,
+    required String vehicleId,
+    required OnGetToken onGetToken,
+    OnStatusUpdate? onStatusUpdate,
+    bool abnormalTerminationReportingEnabled = false,
+  }) async {
     return _deliveryCommonDriverApi.initialize(
-        providerId: providerId,
-        vehicleId: vehicleId,
-        onGetToken: onGetToken,
-        onStatusUpdate: onStatusUpdate,
-        abnormalTerminationReportingEnabled:
-            abnormalTerminationReportingEnabled);
+      providerId: providerId,
+      vehicleId: vehicleId,
+      onGetToken: onGetToken,
+      onStatusUpdate: onStatusUpdate,
+      abnormalTerminationReportingEnabled: abnormalTerminationReportingEnabled,
+    );
   }
 
   /// Returns an instance of the [DeliveryVehicleReporter],
@@ -528,7 +564,9 @@ class RidesharingDriver {
   static final RidesharingDriverApi _ridesharingApi = RidesharingDriverApi();
   static final RidesharingVehicleReporter _reporter =
       RidesharingVehicleReporter._(
-          _ridesharingApi, _ridesharingCommonDriverApi);
+        _ridesharingApi,
+        _ridesharingCommonDriverApi,
+      );
 
   /// Initialize RidesharingDriver instance with the given
   /// [providerId] and [vehicleId].
@@ -540,19 +578,20 @@ class RidesharingDriver {
   /// Optional parameter [abnormalTerminationReportingEnabled] can be used to
   /// disable reporting abnormal SDK terminations such as app crashes while the
   /// SDK is still running. By default, the reporting is enabled.
-  static Future<void> initialize(
-      {required String providerId,
-      required String vehicleId,
-      required OnGetToken onGetToken,
-      OnStatusUpdate? onStatusUpdate,
-      bool abnormalTerminationReportingEnabled = false}) async {
+  static Future<void> initialize({
+    required String providerId,
+    required String vehicleId,
+    required OnGetToken onGetToken,
+    OnStatusUpdate? onStatusUpdate,
+    bool abnormalTerminationReportingEnabled = false,
+  }) async {
     return _ridesharingCommonDriverApi.initialize(
-        providerId: providerId,
-        vehicleId: vehicleId,
-        onGetToken: onGetToken,
-        onStatusUpdate: onStatusUpdate,
-        abnormalTerminationReportingEnabled:
-            abnormalTerminationReportingEnabled);
+      providerId: providerId,
+      vehicleId: vehicleId,
+      onGetToken: onGetToken,
+      onStatusUpdate: onStatusUpdate,
+      abnormalTerminationReportingEnabled: abnormalTerminationReportingEnabled,
+    );
   }
 
   /// Returns an instance of the [RidesharingVehicleReporter],
@@ -707,17 +746,16 @@ class AuthTokenContext {
 /// Event API implementation to receive token requests from Driver SDK.
 class _AuthTokenEventApiImpl implements AuthTokenEventApi {
   /// Basic constructor
-  const _AuthTokenEventApiImpl({
-    this.onGetTokenEvent,
-  });
+  const _AuthTokenEventApiImpl({this.onGetTokenEvent});
 
   /// Callback for authentication token retrieval.
   final OnGetToken? onGetTokenEvent;
 
   @override
   Future<String> getToken(String? taskId, String? vehicleId) async {
-    return onGetTokenEvent!
-        .call(AuthTokenContext._(taskId: taskId, vehicleId: vehicleId));
+    return onGetTokenEvent!.call(
+      AuthTokenContext._(taskId: taskId, vehicleId: vehicleId),
+    );
   }
 }
 
@@ -739,32 +777,43 @@ class _VehicleReporterListenerApiImpl implements VehicleReporterListenerApi {
 
   @override
   void onDidFail(
-      VehicleUpdateDto vehicleUpdate, String? errorCode, String? errorMessage) {
-    vehicleReporterListener.onDidFail(vehicleUpdate.toVehicleUpdate(),
-        DriverException(code: errorCode ?? '', message: errorMessage!));
+    VehicleUpdateDto vehicleUpdate,
+    String? errorCode,
+    String? errorMessage,
+  ) {
+    vehicleReporterListener.onDidFail(
+      vehicleUpdate.toVehicleUpdate(),
+      DriverException(code: errorCode ?? '', message: errorMessage!),
+    );
   }
 }
 
 /// Event API implementation to receive driver status updates from Driver SDK (Android-only).
 class _DriverStatusListenerApiImpl implements DriverStatusListenerApi {
   /// Basic constructor
-  const _DriverStatusListenerApiImpl({
-    this.onStatusUpdateEvent,
-  });
+  const _DriverStatusListenerApiImpl({this.onStatusUpdateEvent});
 
   /// Callback for authentication token retrieval.
   final OnStatusUpdate? onStatusUpdateEvent;
 
   @override
-  void onStatusUpdate(DriverStatusLevelDto level, DriverStatusCodeDto code,
-      String message, String? errorCode, String? errorMessage) {
+  void onStatusUpdate(
+    DriverStatusLevelDto level,
+    DriverStatusCodeDto code,
+    String message,
+    String? errorCode,
+    String? errorMessage,
+  ) {
     return onStatusUpdateEvent!.call(
-        level.toStatusLevel(),
-        code.toStatusCode(),
-        message,
-        errorCode != null
-            ? DriverException(
-                message: errorMessage ?? 'Unknown error.', code: errorCode)
-            : null);
+      level.toStatusLevel(),
+      code.toStatusCode(),
+      message,
+      errorCode != null
+          ? DriverException(
+            message: errorMessage ?? 'Unknown error.',
+            code: errorCode,
+          )
+          : null,
+    );
   }
 }

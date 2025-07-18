@@ -21,12 +21,14 @@ extension ConvertDeliveryVehicleDto on DeliveryVehicleDto {
   /// Converts [DeliveryVehicleDto] to [DeliveryVehicle].
   DeliveryVehicle toDeliveryVehicle() {
     return DeliveryVehicle(
-        providerId: providerId,
-        id: id,
-        name: name,
-        stops: stops
-            .whereType<VehicleStopDto>()
-            .map((VehicleStopDto e) => e.toVehicleStop())
-            .toList());
+      providerId: providerId,
+      id: id,
+      name: name,
+      stops:
+          stops
+              .whereType<VehicleStopDto>()
+              .map((VehicleStopDto e) => e.toVehicleStop())
+              .toList(),
+    );
   }
 }

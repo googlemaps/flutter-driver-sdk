@@ -21,17 +21,18 @@ import 'package:flutter/foundation.dart';
 @immutable
 class Location {
   /// Constructs a [Location] instance.
-  const Location(
-      {this.accuracy,
-      this.altitude,
-      this.elapsedRealtimeNanos,
-      this.bearing,
-      this.isMock,
-      this.latitude,
-      this.longitude,
-      this.provider,
-      this.speed,
-      this.time});
+  const Location({
+    this.accuracy,
+    this.altitude,
+    this.elapsedRealtimeNanos,
+    this.bearing,
+    this.isMock,
+    this.latitude,
+    this.longitude,
+    this.provider,
+    this.speed,
+    this.time,
+  });
 
   /// Horizontal accuracy in meters of this location.
   final double? accuracy;

@@ -19,10 +19,7 @@ import 'package:google_navigation_flutter/google_navigation_flutter.dart';
 /// {@category Delivery Driver}
 class TaskInfo {
   /// Constructs a [TaskInfo] instance.
-  TaskInfo({
-    required this.taskId,
-    required this.durationSeconds,
-  });
+  TaskInfo({required this.taskId, required this.durationSeconds});
 
   /// Returns the unique identifier of the task.
   final String taskId;

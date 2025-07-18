@@ -31,9 +31,10 @@ import '../widgets/widgets.dart';
 class LMFSDriverPage extends ExamplePage {
   /// Creates a Google Maps Driver LMFS demo page.
   const LMFSDriverPage({super.key})
-      : super(
-            leading: const Icon(Icons.directions),
-            title: 'Delivery Driver (LMFS)');
+    : super(
+        leading: const Icon(Icons.directions),
+        title: 'Delivery Driver (LMFS)',
+      );
 
   @override
   ExamplePageState<LMFSDriverPage> createState() => _DriverPageState();
@@ -132,8 +133,9 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
           target: const LatLng(latitude: 37.41914, longitude: -122.08845),
         ),
         NavigationWaypoint.withLatLngTarget(
-            title: 'CWF7+748, 1700 Amphitheatre Pkwy, Mountain View, CA 94043',
-            target: const LatLng(latitude: 37.4231613, longitude: -122.087159))
+          title: 'CWF7+748, 1700 Amphitheatre Pkwy, Mountain View, CA 94043',
+          target: const LatLng(latitude: 37.4231613, longitude: -122.087159),
+        ),
       ],
     );
 
@@ -163,51 +165,68 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
         }
 
         await DeliveryDriver.initialize(
-            providerId: _manifest.vehicle.providerId,
-            vehicleId: _manifest.vehicle.vehicleId,
-            onGetToken: (AuthTokenContext context) async {
-              if (_tokenResponse == null ||
-                  DateTime.now().millisecondsSinceEpoch >
-                      _tokenResponse!.expirationTimestampMs) {
-                _tokenResponse = await getLMFSApi().getToken(
-                    LMFSTokenType.deliveryDriver, _manifest.vehicle.vehicleId);
-              }
-              if (_tokenResponse == null || _tokenResponse!.token.isEmpty) {
-                throw Exception('Token retrieval from the backend failed.');
-              }
+          providerId: _manifest.vehicle.providerId,
+          vehicleId: _manifest.vehicle.vehicleId,
+          onGetToken: (AuthTokenContext context) async {
+            if (_tokenResponse == null ||
+                DateTime.now().millisecondsSinceEpoch >
+                    _tokenResponse!.expirationTimestampMs) {
+              _tokenResponse = await getLMFSApi().getToken(
+                LMFSTokenType.deliveryDriver,
+                _manifest.vehicle.vehicleId,
+              );
+            }
+            if (_tokenResponse == null || _tokenResponse!.token.isEmpty) {
+              throw Exception('Token retrieval from the backend failed.');
+            }
 
-              return _tokenResponse!.token;
-            },
-            onStatusUpdate: Platform.isAndroid
-                ? (DriverStatusLevel level, DriverStatusCode code,
-                    String message, DriverException? exception) {
+            return _tokenResponse!.token;
+          },
+          onStatusUpdate:
+              Platform.isAndroid
+                  ? (
+                    DriverStatusLevel level,
+                    DriverStatusCode code,
+                    String message,
+                    DriverException? exception,
+                  ) {
                     debugPrint(
-                        // ignore: unnecessary_brace_in_string_interps
-                        'Driver status changed: $level - $code - $message, e: ${exception?.code} ${exception?.message}');
+                      // ignore: unnecessary_brace_in_string_interps
+                      'Driver status changed: $level - $code - $message, e: ${exception?.code} ${exception?.message}',
+                    );
                   }
-                : null);
+                  : null,
+        );
 
         if (Platform.isIOS) {
-          DeliveryDriver.vehicleReporter.setListener(VehicleReporterListener(
-            onDidSucceed: (VehicleUpdate vehicleUpdate) {
-              debugPrint(
-                  'Vehicle update succeeded - location (${vehicleUpdate.location?.latitude.toStringAsFixed(3) ?? '-'}, ${vehicleUpdate.location?.longitude.toStringAsFixed(3) ?? '-'})');
-            },
-            onDidFail:
-                (VehicleUpdate vehicleUpdate, DriverException exception) {
-              debugPrint(
-                  'Vehicle updated failed - location (${vehicleUpdate.location?.latitude.toStringAsFixed(3) ?? '-'}, ${vehicleUpdate.location?.longitude.toStringAsFixed(3) ?? '-'})');
-              debugPrint('  Error ${exception.message}');
-            },
-          ));
+          DeliveryDriver.vehicleReporter.setListener(
+            VehicleReporterListener(
+              onDidSucceed: (VehicleUpdate vehicleUpdate) {
+                debugPrint(
+                  'Vehicle update succeeded - location (${vehicleUpdate.location?.latitude.toStringAsFixed(3) ?? '-'}, ${vehicleUpdate.location?.longitude.toStringAsFixed(3) ?? '-'})',
+                );
+              },
+              onDidFail: (
+                VehicleUpdate vehicleUpdate,
+                DriverException exception,
+              ) {
+                debugPrint(
+                  'Vehicle updated failed - location (${vehicleUpdate.location?.latitude.toStringAsFixed(3) ?? '-'}, ${vehicleUpdate.location?.longitude.toStringAsFixed(3) ?? '-'})',
+                );
+                debugPrint('  Error ${exception.message}');
+              },
+            ),
+          );
         }
 
         _locationReportingInterval =
             await DeliveryDriver.vehicleReporter.getLocationReportingInterval();
-        await DeliveryDriver.vehicleReporter
-            .setLocationTrackingEnabled(_locationTrackingEnabled);
-        await DeliveryDriver.vehicleReporter
-            .setLocationReportingInterval(_locationReportingInterval!);
+        await DeliveryDriver.vehicleReporter.setLocationTrackingEnabled(
+          _locationTrackingEnabled,
+        );
+        await DeliveryDriver.vehicleReporter.setLocationReportingInterval(
+          _locationReportingInterval!,
+        );
 
         _driverInitialized = true;
         if (_stopUpdateMethod == _StopUpdateMethod.driverApi) {
@@ -223,12 +242,14 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
         switch (e.code) {
           case SessionInitializationError.locationPermissionMissing:
             _showMessage(
-                'No user location is available. Did you allow location permission?');
+              'No user location is available. Did you allow location permission?',
+            );
           case SessionInitializationError.termsNotAccepted:
             _showMessage('Accept the terms and conditions dialog first.');
           case SessionInitializationError.notAuthorized:
             _showMessage(
-                'Your API key is empty, invalid or not authorized to use Navigation.');
+              'Your API key is empty, invalid or not authorized to use Navigation.',
+            );
         }
       }
     }
@@ -264,8 +285,9 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
 
   void _setupListeners() {
     _clearListeners();
-    _onArrivalSubscription =
-        GoogleMapsNavigator.setOnArrivalListener(_onArrivalEvent);
+    _onArrivalSubscription = GoogleMapsNavigator.setOnArrivalListener(
+      _onArrivalEvent,
+    );
   }
 
   void _clearListeners() {
@@ -273,9 +295,7 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
     _onArrivalSubscription = null;
   }
 
-  void _onArrivalEvent(
-    OnArrivalEvent event,
-  ) {
+  void _onArrivalEvent(OnArrivalEvent event) {
     if (!mounted) {
       return;
     }
@@ -286,8 +306,10 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
     debugPrint('Arrived to waypoint');
   }
 
-  Future<void> _resetSimulatedLocation(LatLng? location,
-      {bool stopSimulation = true}) async {
+  Future<void> _resetSimulatedLocation(
+    LatLng? location, {
+    bool stopSimulation = true,
+  }) async {
     if (location != null) {
       if (stopSimulation) {
         await GoogleMapsNavigator.simulator.removeUserLocation();
@@ -307,8 +329,9 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
               target: waypoint.target,
             ),
           ],
-          displayOptions:
-              NavigationDisplayOptions(showDestinationMarkers: false),
+          displayOptions: NavigationDisplayOptions(
+            showDestinationMarkers: false,
+          ),
         );
 
         final NavigationRouteStatus status =
@@ -316,8 +339,9 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
 
         if (status == NavigationRouteStatus.statusOk) {
           await GoogleMapsNavigator.startGuidance();
-          await _navigationViewController
-              .followMyLocation(CameraPerspective.tilted);
+          await _navigationViewController.followMyLocation(
+            CameraPerspective.tilted,
+          );
           if (_simulationEnabled) {
             await _startSimulation();
           }
@@ -348,8 +372,10 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
       }
     } else {
       await _loadingWrapper(() async {
-        _manifest =
-            await updateLMFSStopState(_manifest, VehicleStopState.enroute);
+        _manifest = await updateLMFSStopState(
+          _manifest,
+          VehicleStopState.enroute,
+        );
       });
       _updateVehicleStopsFromManifest();
     }
@@ -367,8 +393,10 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
       }
     } else {
       await _loadingWrapper(() async {
-        _manifest =
-            await updateLMFSStopState(_manifest, VehicleStopState.arrived);
+        _manifest = await updateLMFSStopState(
+          _manifest,
+          VehicleStopState.arrived,
+        );
       });
       _updateVehicleStopsFromManifest();
     }
@@ -419,9 +447,9 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
 
   Future<void> _startSimulation() async {
     await GoogleMapsNavigator.simulator
-        .simulateLocationsAlongExistingRouteWithOptions(SimulationOptions(
-      speedMultiplier: 5,
-    ));
+        .simulateLocationsAlongExistingRouteWithOptions(
+          SimulationOptions(speedMultiplier: 5),
+        );
   }
 
   Future<void> _pauseSimulation() async {
@@ -430,13 +458,15 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
 
   Future<void> _setSupplementalLocation() async {
     final Location location = Location(
-        latitude: _supplementalLocation.latitude,
-        longitude: _supplementalLocation.longitude,
-        accuracy: 1,
-        time: DateTime.now().millisecondsSinceEpoch);
+      latitude: _supplementalLocation.latitude,
+      longitude: _supplementalLocation.longitude,
+      accuracy: 1,
+      time: DateTime.now().millisecondsSinceEpoch,
+    );
     await DeliveryDriver.setSupplementalLocation(location);
     showOverlaySnackBar(
-        'DeliveryDriver supplemental location set successfully');
+      'DeliveryDriver supplemental location set successfully',
+    );
   }
 
   Future<void> _showDeliveryVehicle() async {
@@ -473,116 +503,151 @@ Stops: ${vehicle.stops.length}''');
 
   @override
   Widget build(BuildContext context) => buildPage(
-      context,
-      Stack(children: <Widget>[
-        Column(children: <Widget>[
-          Expanded(child: GoogleMapsNavigationView(
-              onViewCreated: (GoogleNavigationViewController controller) {
-            _navigationViewController = controller;
-          })),
-          Padding(
+    context,
+    Stack(
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            Expanded(
+              child: GoogleMapsNavigationView(
+                onViewCreated: (GoogleNavigationViewController controller) {
+                  _navigationViewController = controller;
+                },
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.all(8),
-              child: Column(children: <Widget>[
-                if (_driverInitialized)
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text(
-                        _nextStop != null
-                            ? 'Stop state: ${_vehicleStopStateToString(_nextStop!.vehicleStopState)}\nStops remaining: ${_vehicleStops.length}'
-                            : 'No planned vehicle stops',
+              child: Column(
+                children: <Widget>[
+                  if (_driverInitialized)
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Text(
+                          _nextStop != null
+                              ? 'Stop state: ${_vehicleStopStateToString(_nextStop!.vehicleStopState)}\nStops remaining: ${_vehicleStops.length}'
+                              : 'No planned vehicle stops',
+                        ),
                       ),
                     ),
-                  ),
-                if (_isLoading)
-                  const Padding(
-                    padding: EdgeInsets.all(6),
-                    child: CircularProgressIndicator(),
-                  )
-                else
-                  Wrap(spacing: 10, children: <Widget>[
-                    if (!_driverInitialized)
-                      ElevatedButton(
-                        onPressed: _backendInitialized ? _initDriver : null,
-                        child: const Text('Initialize driver'),
-                      ),
-                    if (!_driverInitialized && _backendInitialized)
-                      ElevatedButton(
-                          onPressed: () => Clipboard.setData(
-                              ClipboardData(text: _manifest.vehicle.vehicleId)),
-                          child: const Text('Copy vehicle ID')),
-                    if (_driverInitialized &&
-                        _nextStop?.vehicleStopState == VehicleStopState.newStop)
-                      ElevatedButton(
-                        onPressed: () async {
-                          await _enrouteToNextStop();
-                          await _startNavigation();
-                        },
-                        child: const Text('Navigate to next stop'),
-                      ),
-                    if (_nextStop == null && _driverInitialized)
-                      ElevatedButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: const Text('Exit')),
-                    if (_driverInitialized &&
-                        _nextStop?.vehicleStopState == VehicleStopState.enroute)
-                      ElevatedButton(
-                        onPressed: () async {
-                          await _stopNavigation();
-                          await _pauseSimulation();
-                          await _arrivedAtStop();
-                        },
-                        child: const Text('Arrived at stop'),
-                      ),
-                    if (_driverInitialized &&
-                        _nextStop?.vehicleStopState == VehicleStopState.arrived)
-                      ElevatedButton(
-                        onPressed: _completedStop,
-                        child: const Text('Completed stop'),
-                      ),
-                  ]),
-                getOverlayOptionsButton(context,
+                  if (_isLoading)
+                    const Padding(
+                      padding: EdgeInsets.all(6),
+                      child: CircularProgressIndicator(),
+                    )
+                  else
+                    Wrap(
+                      spacing: 10,
+                      children: <Widget>[
+                        if (!_driverInitialized)
+                          ElevatedButton(
+                            onPressed: _backendInitialized ? _initDriver : null,
+                            child: const Text('Initialize driver'),
+                          ),
+                        if (!_driverInitialized && _backendInitialized)
+                          ElevatedButton(
+                            onPressed:
+                                () => Clipboard.setData(
+                                  ClipboardData(
+                                    text: _manifest.vehicle.vehicleId,
+                                  ),
+                                ),
+                            child: const Text('Copy vehicle ID'),
+                          ),
+                        if (_driverInitialized &&
+                            _nextStop?.vehicleStopState ==
+                                VehicleStopState.newStop)
+                          ElevatedButton(
+                            onPressed: () async {
+                              await _enrouteToNextStop();
+                              await _startNavigation();
+                            },
+                            child: const Text('Navigate to next stop'),
+                          ),
+                        if (_nextStop == null && _driverInitialized)
+                          ElevatedButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text('Exit'),
+                          ),
+                        if (_driverInitialized &&
+                            _nextStop?.vehicleStopState ==
+                                VehicleStopState.enroute)
+                          ElevatedButton(
+                            onPressed: () async {
+                              await _stopNavigation();
+                              await _pauseSimulation();
+                              await _arrivedAtStop();
+                            },
+                            child: const Text('Arrived at stop'),
+                          ),
+                        if (_driverInitialized &&
+                            _nextStop?.vehicleStopState ==
+                                VehicleStopState.arrived)
+                          ElevatedButton(
+                            onPressed: _completedStop,
+                            child: const Text('Completed stop'),
+                          ),
+                      ],
+                    ),
+                  getOverlayOptionsButton(
+                    context,
                     onPressed:
-                        _backendInitialized ? () => toggleOverlay() : null),
-              ]))
-        ]),
-      ]));
+                        _backendInitialized ? () => toggleOverlay() : null,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
 
   @override
   Widget buildOverlayContent(BuildContext context) {
-    return Column(children: <Widget>[
-      Card(
+    return Column(
+      children: <Widget>[
+        Card(
           child: ExpansionTile(
-              title: const Text('Driver initialization'),
-              children: <Widget>[
-            Wrap(
+            title: const Text('Driver initialization'),
+            children: <Widget>[
+              Wrap(
                 alignment: WrapAlignment.center,
                 spacing: 10,
                 children: <Widget>[
                   ElevatedButton(
                     onPressed:
                         _driverInitialized ? _disposeDriver : _initDriver,
-                    child: Text(_driverInitialized
-                        ? 'Dispose driver'
-                        : 'Initialize driver'),
+                    child: Text(
+                      _driverInitialized
+                          ? 'Dispose driver'
+                          : 'Initialize driver',
+                    ),
                   ),
                   ElevatedButton(
-                      onPressed: () => Clipboard.setData(
-                          ClipboardData(text: _manifest.vehicle.vehicleId)),
-                      child: const Text('Copy vehicle ID')),
+                    onPressed:
+                        () => Clipboard.setData(
+                          ClipboardData(text: _manifest.vehicle.vehicleId),
+                        ),
+                    child: const Text('Copy vehicle ID'),
+                  ),
                   ElevatedButton(
-                      onPressed: _driverInitialized
-                          ? _navigationRunning
-                              ? _stopNavigation
-                              : _startNavigation
-                          : null,
-                      child: Text(_navigationRunning
+                    onPressed:
+                        _driverInitialized
+                            ? _navigationRunning
+                                ? _stopNavigation
+                                : _startNavigation
+                            : null,
+                    child: Text(
+                      _navigationRunning
                           ? 'Stop navigation'
-                          : 'Start navigation')),
+                          : 'Start navigation',
+                    ),
+                  ),
                   ElevatedButton(
-                      onPressed:
-                          _driverInitialized ? _showDeliveryVehicle : null,
-                      child: const Text('Show delivery vehicle')),
+                    onPressed: _driverInitialized ? _showDeliveryVehicle : null,
+                    child: const Text('Show delivery vehicle'),
+                  ),
                   SwitchListTile(
                     title: const Text('Simulation'),
                     value: _simulationEnabled,
@@ -601,112 +666,129 @@ Stops: ${vehicle.stops.length}''');
                       });
                     },
                   ),
-                ])
-          ])),
-      IgnorePointer(
+                ],
+              ),
+            ],
+          ),
+        ),
+        IgnorePointer(
           ignoring: !_driverInitialized,
           child: Card(
-              child: ExpansionTile(
-                  title: const Text('Vehicle stop handling'),
-                  children: <Widget>[
+            child: ExpansionTile(
+              title: const Text('Vehicle stop handling'),
+              children: <Widget>[
                 Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: 10,
-                    children: <Widget>[
-                      ExampleDropdownButton<_StopUpdateMethod>(
-                        title: 'Stop update method',
-                        value: _stopUpdateMethod,
-                        items: _StopUpdateMethod.values,
-                        onChanged: (_StopUpdateMethod? newValue) {
+                  alignment: WrapAlignment.center,
+                  spacing: 10,
+                  children: <Widget>[
+                    ExampleDropdownButton<_StopUpdateMethod>(
+                      title: 'Stop update method',
+                      value: _stopUpdateMethod,
+                      items: _StopUpdateMethod.values,
+                      onChanged: (_StopUpdateMethod? newValue) {
+                        setState(() {
+                          _stopUpdateMethod = newValue!;
+                        });
+                      },
+                    ),
+                    ElevatedButton(
+                      onPressed: _nextStop != null ? _enrouteToNextStop : null,
+                      child: const Text('Enroute to stop'),
+                    ),
+                    ElevatedButton(
+                      onPressed: _nextStop != null ? _arrivedAtStop : null,
+                      child: const Text('Arrived at stop'),
+                    ),
+                    ElevatedButton(
+                      onPressed:
+                          _driverInitialized && _nextStop != null
+                              ? _completedStop
+                              : null,
+                      child: const Text('Completed stop'),
+                    ),
+                    if (_stopUpdateMethod == _StopUpdateMethod.driverApi)
+                      SwitchListTile(
+                        title: const Text('Force local stop state on update'),
+                        value: _forceLocalStopStateOnDriverApiUpdates,
+                        onChanged: (bool value) async {
                           setState(() {
-                            _stopUpdateMethod = newValue!;
+                            _forceLocalStopStateOnDriverApiUpdates = value;
                           });
                         },
                       ),
+                    if (_stopUpdateMethod == _StopUpdateMethod.driverApi)
                       ElevatedButton(
-                          onPressed:
-                              _nextStop != null ? _enrouteToNextStop : null,
-                          child: const Text('Enroute to stop')),
-                      ElevatedButton(
-                          onPressed: _nextStop != null ? _arrivedAtStop : null,
-                          child: const Text('Arrived at stop')),
-                      ElevatedButton(
-                          onPressed: _driverInitialized && _nextStop != null
-                              ? _completedStop
-                              : null,
-                          child: const Text('Completed stop')),
-                      if (_stopUpdateMethod == _StopUpdateMethod.driverApi)
-                        SwitchListTile(
-                          title: const Text('Force local stop state on update'),
-                          value: _forceLocalStopStateOnDriverApiUpdates,
-                          onChanged: (bool value) async {
-                            setState(() {
-                              _forceLocalStopStateOnDriverApiUpdates = value;
-                            });
-                          },
-                        ),
-                      if (_stopUpdateMethod == _StopUpdateMethod.driverApi)
-                        ElevatedButton(
-                          onPressed: () async {
-                            await _updateVehicleStopsFromVehicleReporter();
-                          },
-                          child:
-                              const Text('Update stops from vehicle reporter'),
-                        ),
-                    ])
-              ]))),
-      Card(
-          child: ExpansionTile(
-              title: const Text('Vehicle location reporting'),
-              children: <Widget>[
-            SwitchListTile(
-              title: const Text('Location tracking'),
-              value: _locationTrackingEnabled,
-              onChanged: (bool value) async {
-                if (await DeliveryDriver.isInitialized()) {
-                  await DeliveryDriver.vehicleReporter
-                      .setLocationTrackingEnabled(value);
-                }
-                setState(() {
-                  _locationTrackingEnabled = value;
-                });
-              },
+                        onPressed: () async {
+                          await _updateVehicleStopsFromVehicleReporter();
+                        },
+                        child: const Text('Update stops from vehicle reporter'),
+                      ),
+                  ],
+                ),
+              ],
             ),
-            ExampleSlider(
+          ),
+        ),
+        Card(
+          child: ExpansionTile(
+            title: const Text('Vehicle location reporting'),
+            children: <Widget>[
+              SwitchListTile(
+                title: const Text('Location tracking'),
+                value: _locationTrackingEnabled,
+                onChanged: (bool value) async {
+                  if (await DeliveryDriver.isInitialized()) {
+                    await DeliveryDriver.vehicleReporter
+                        .setLocationTrackingEnabled(value);
+                  }
+                  setState(() {
+                    _locationTrackingEnabled = value;
+                  });
+                },
+              ),
+              ExampleSlider(
                 unit: 's',
                 title: 'Reporting interval',
                 min: 5,
                 max: 60,
                 value: _locationReportingInterval?.inSeconds.toDouble() ?? 5,
                 fractionDigits: 0,
-                onChanged: _locationTrackingEnabled
-                    ? (double newValue) async {
-                        _locationReportingInterval =
-                            Duration(seconds: newValue.toInt());
-                        if (_driverInitialized) {
-                          await DeliveryDriver.vehicleReporter
-                              .setLocationReportingInterval(
-                                  _locationReportingInterval!);
-                          setState(() {
-                            _locationReportingInterval =
-                                _locationReportingInterval;
-                          });
+                onChanged:
+                    _locationTrackingEnabled
+                        ? (double newValue) async {
+                          _locationReportingInterval = Duration(
+                            seconds: newValue.toInt(),
+                          );
+                          if (_driverInitialized) {
+                            await DeliveryDriver.vehicleReporter
+                                .setLocationReportingInterval(
+                                  _locationReportingInterval!,
+                                );
+                            setState(() {
+                              _locationReportingInterval =
+                                  _locationReportingInterval;
+                            });
+                          }
                         }
-                      }
-                    : null)
-          ])),
-      Card(
+                        : null,
+              ),
+            ],
+          ),
+        ),
+        Card(
           child: ExpansionTile(
-              title: const Text('Supplemental location'),
-              children: <Widget>[
-            Wrap(
+            title: const Text('Supplemental location'),
+            children: <Widget>[
+              Wrap(
                 alignment: WrapAlignment.center,
                 spacing: 10,
                 children: <Widget>[
                   ExampleLatLngEditor(
                     title: 'Coordinates',
-                    initialLatLng:
-                        const LatLng(latitude: 65.0, longitude: 25.5),
+                    initialLatLng: const LatLng(
+                      latitude: 65.0,
+                      longitude: 25.5,
+                    ),
                     onChanged: (LatLng newTarget) {
                       _supplementalLocation = newTarget;
                     },
@@ -716,22 +798,29 @@ Stops: ${vehicle.stops.length}''');
                         _driverInitialized ? _setSupplementalLocation : null,
                     child: const Text('Set supplemental location'),
                   ),
-                ])
-          ])),
-    ]);
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   // Current version of the driver API does not update the stop state properly,
   // this is a workaround to force the stop state to be updated locally.
   void _forceUpdateLocalStopState(
-      VehicleStopState state, List<VehicleStop> stops) {
+    VehicleStopState state,
+    List<VehicleStop> stops,
+  ) {
     if (_forceLocalStopStateOnDriverApiUpdates &&
         _stopUpdateMethod == _StopUpdateMethod.driverApi &&
         stops.isNotEmpty) {
       stops[0] = VehicleStop(
-          vehicleStopState: state,
-          waypoint: stops[0].waypoint,
-          taskInfoList: stops[0].taskInfoList);
+        vehicleStopState: state,
+        waypoint: stops[0].waypoint,
+        taskInfoList: stops[0].taskInfoList,
+      );
     }
   }
 
@@ -753,7 +842,4 @@ Stops: ${vehicle.stops.length}''');
   }
 }
 
-enum _StopUpdateMethod {
-  backend,
-  driverApi,
-}
+enum _StopUpdateMethod { backend, driverApi }

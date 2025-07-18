@@ -21,13 +21,15 @@ extension ConvertVehicleUpdateDto on VehicleUpdateDto {
   /// Converts Pigeon [VehicleUpdateDto] to Google Driver [VehicleUpdate].
   VehicleUpdate toVehicleUpdate() {
     return VehicleUpdate(
-        destinationWaypoint: destinationWaypoint?.toNavigationWaypoint(),
-        location: location?.toLatLng(),
-        remainingDistanceInMeters: remainingDistanceInMeters?.toInt(),
-        remainingTimeInSeconds: remainingTimeInSeconds != null
-            ? Duration(seconds: remainingTimeInSeconds!.toInt())
-            : null,
-        route: route?.map((LatLngDto? e) => e?.toLatLng()).toList(),
-        vehicleState: vehicleState?.toVehicleState());
+      destinationWaypoint: destinationWaypoint?.toNavigationWaypoint(),
+      location: location?.toLatLng(),
+      remainingDistanceInMeters: remainingDistanceInMeters?.toInt(),
+      remainingTimeInSeconds:
+          remainingTimeInSeconds != null
+              ? Duration(seconds: remainingTimeInSeconds!.toInt())
+              : null,
+      route: route?.map((LatLngDto? e) => e?.toLatLng()).toList(),
+      vehicleState: vehicleState?.toVehicleState(),
+    );
   }
 }
