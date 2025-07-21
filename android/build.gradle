@@ -16,7 +16,7 @@ group 'com.google.maps.flutter.driver'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.9.22'
+    ext.kotlin_version = '2.1.0'
     repositories {
         google()
         mavenCentral()
@@ -24,9 +24,9 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.2.2'
+        classpath 'com.android.tools.build:gradle:8.8.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.ncorti.ktfmt.gradle:plugin:0.17.0'
+        classpath 'com.ncorti.ktfmt.gradle:plugin:0.21.0'
     }
 }
 
@@ -50,15 +50,15 @@ android {
         namespace 'com.google.maps.flutter.driver'
     }
 
-    compileSdk 33
+    compileSdk 34
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
 
     sourceSets {
@@ -71,7 +71,7 @@ android {
     }
 
     dependencies {
-        implementation 'com.google.android.libraries.mapsplatform.transportation:transportation-driver:5.0.0'
+        implementation 'com.google.android.libraries.mapsplatform.transportation:transportation-driver:6.2.0'
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
         testImplementation 'io.mockk:mockk:1.13.9'
         testImplementation 'junit:junit:4.13.2'

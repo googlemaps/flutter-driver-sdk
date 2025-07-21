@@ -13,11 +13,11 @@
 # limitations under the License.
 
 # Use an appropriate Java base image
-FROM openjdk:11
+FROM openjdk:17-jdk-slim
 
 # Install git
 RUN apt-get update && \
-    apt-get install -y git && \
+    apt-get install -y git python3 && \
     rm -rf /var/lib/apt/lists/*
 
 # Accept build arguments for the git hash
@@ -35,14 +35,9 @@ RUN git init && \
 # Move to the backend directory
 WORKDIR /lmfs-backend/backend
 
-# Append the force gRPC versions to the build.gradle file
-RUN echo '\nconfigurations.all {\n\
-    resolutionStrategy {\n\
-        force '\''io.grpc:grpc-stub:1.55.1'\''\n\
-        force '\''io.grpc:grpc-protobuf:1.55.1'\''\n\
-        force '\''io.grpc:grpc-netty:1.55.1'\''\n\
-    }\n\
-}' >> build.gradle
+# Fix grpc dependency issues
+RUN sed -i 's/io\.grpc:grpc-netty:\([0-9.]\+\)/io.grpc:grpc-netty-shaded:\1/' build.gradle
+RUN sed -i '/io\.grpc:grpc-netty-shaded/ a\ \ implementation '\''io.grpc:grpc-core:1.66.0'\''' build.gradle
 
 # Precompile the backend and download the Google Cloud SDK
 RUN ./gradlew compileJava war downloadCloudSdk
@@ -72,6 +67,8 @@ RUN sed -i "s/\*\*\*\*\*UPDATE_WITH_PROJECT_ID\*\*\*\*\*/${PROJECT_ID}/g" src/ma
 
 # Expose the port the backend runs on
 EXPOSE 8080
+
+RUN ./gradlew dependencies > dependencies.txt && echo "--- Gradle Dependency Tree ---" && cat dependencies.txt && echo "--- End of Dependency Tree ---"
 
 # Command to start the backend with App Engine
 CMD ["./gradlew", "appengineRun"]

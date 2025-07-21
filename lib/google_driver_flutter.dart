@@ -23,6 +23,7 @@
 /// This library provides support for two types of drivers:
 ///  - [Delivery Driver](../topics/Delivery%20Driver-topic.html) (LMFS)
 ///  - [RideSharing Driver](../topics/RideSharing%20Driver-topic.html) (ODRD)
+// ignore: unnecessary_library_name
 library google_driver_flutter;
 
 export 'src/google_driver_flutter.dart';

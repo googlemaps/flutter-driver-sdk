@@ -106,15 +106,19 @@ class _DriverDemoState extends State<DriverBody> with WidgetsBindingObserver {
       }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-            content: Text('$backendName backend is not running\n'
-                'Read the README.md file for instructions on '
-                'how to start the backend services.')),
+          content: Text(
+            '$backendName backend is not running\n'
+            'Read the README.md file for instructions on '
+            'how to start the backend services.',
+          ),
+        ),
       );
       return;
     }
 
-    await Navigator.of(context)
-        .push(MaterialPageRoute<void>(builder: (_) => page));
+    await Navigator.of(
+      context,
+    ).push(MaterialPageRoute<void>(builder: (_) => page));
   }
 
   bool _isBackendRunning(ExamplePage page) {
@@ -128,8 +132,9 @@ class _DriverDemoState extends State<DriverBody> with WidgetsBindingObserver {
   }
 
   void _startBackendStatusPolling() {
-    _backendStatusPollingTimer =
-        Timer.periodic(const Duration(seconds: 5), (Timer timer) {
+    _backendStatusPollingTimer = Timer.periodic(const Duration(seconds: 5), (
+      Timer timer,
+    ) {
       _checkBackendServicesStatus();
     });
   }
@@ -166,44 +171,46 @@ class _DriverDemoState extends State<DriverBody> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    String buildPermissionsStatus() => (Platform.isIOS
-        ? 'Location ${_locationPermitted ? 'granted' : 'denied'} • Notifications ${_notificationsPermitted ? 'granted' : 'denied'}'
-        : 'Location ${_locationPermitted ? 'granted' : 'denied'} ');
+    String buildPermissionsStatus() =>
+        (Platform.isIOS
+            ? 'Location ${_locationPermitted ? 'granted' : 'denied'} • Notifications ${_notificationsPermitted ? 'granted' : 'denied'}'
+            : 'Location ${_locationPermitted ? 'granted' : 'denied'} ');
 
     return Scaffold(
       appBar: AppBar(title: const Text('Google Maps Driver examples')),
       body: SafeArea(
-          top: false,
-          minimum: const EdgeInsets.all(8.0),
-          child: ListView.builder(
-            itemCount: _allPages.length + 1,
-            itemBuilder: (_, int index) {
-              if (index == 0) {
-                return Card(
-                  child: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    alignment: Alignment.center,
-                    child: Text(
-                      '${buildPermissionsStatus()}\n'
-                      'Driver SDK version: $_driverSDKVersion\n'
-                      'Navigation SDK version: $_navSDKVersion',
-                      textAlign: TextAlign.center,
-                    ),
+        top: false,
+        minimum: const EdgeInsets.all(8.0),
+        child: ListView.builder(
+          itemCount: _allPages.length + 1,
+          itemBuilder: (_, int index) {
+            if (index == 0) {
+              return Card(
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    '${buildPermissionsStatus()}\n'
+                    'Driver SDK version: $_driverSDKVersion\n'
+                    'Navigation SDK version: $_navSDKVersion',
+                    textAlign: TextAlign.center,
                   ),
-                );
-              }
-              final ExamplePage page = _allPages[index - 1];
-              return ListTile(
-                leading: page.leading,
-                title: Text(page.title),
-                trailing: Icon(
-                  _isBackendRunning(page) ? Icons.check_circle : Icons.error,
-                  color: _isBackendRunning(page) ? Colors.green : Colors.red,
                 ),
-                onTap: () => _pushPage(context, page),
               );
-            },
-          )),
+            }
+            final ExamplePage page = _allPages[index - 1];
+            return ListTile(
+              leading: page.leading,
+              title: Text(page.title),
+              trailing: Icon(
+                _isBackendRunning(page) ? Icons.check_circle : Icons.error,
+                color: _isBackendRunning(page) ? Colors.green : Colors.red,
+              ),
+              onTap: () => _pushPage(context, page),
+            );
+          },
+        ),
+      ),
     );
   }
 }
@@ -211,12 +218,17 @@ class _DriverDemoState extends State<DriverBody> with WidgetsBindingObserver {
 void main() {
   final ElevatedButtonThemeData exampleButtonDefaultTheme =
       ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(minimumSize: const Size(160, 36)));
-  runApp(MaterialApp(
-    home: const DriverDemo(),
-    theme: ThemeData.light()
-        .copyWith(elevatedButtonTheme: exampleButtonDefaultTheme),
-    darkTheme: ThemeData.dark()
-        .copyWith(elevatedButtonTheme: exampleButtonDefaultTheme),
-  ));
+        style: ElevatedButton.styleFrom(minimumSize: const Size(160, 36)),
+      );
+  runApp(
+    MaterialApp(
+      home: const DriverDemo(),
+      theme: ThemeData.light().copyWith(
+        elevatedButtonTheme: exampleButtonDefaultTheme,
+      ),
+      darkTheme: ThemeData.dark().copyWith(
+        elevatedButtonTheme: exampleButtonDefaultTheme,
+      ),
+    ),
+  );
 }

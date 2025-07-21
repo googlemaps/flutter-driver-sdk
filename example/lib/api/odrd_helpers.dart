@@ -25,11 +25,14 @@ import 'odrd_types.dart';
 /// default value.
 /// See ./tools/backend/docker-compose.yml for the values of these environment
 /// variables.
-const String _ODRDAndroidBaseUrl = String.fromEnvironment(
-    'ODRD_ANDROID_HOST_URL',
-    defaultValue: 'http://10.0.2.2:8092');
-const String _ODRDiOSBaseUrl = String.fromEnvironment('ODRD_IOS_HOST_URL',
-    defaultValue: 'http://localhost:8092');
+const String _odrdAndroidBaseUrl = String.fromEnvironment(
+  'ODRD_ANDROID_HOST_URL',
+  defaultValue: 'http://10.0.2.2:8092',
+);
+const String _odrdiOSBaseUrl = String.fromEnvironment(
+  'ODRD_IOS_HOST_URL',
+  defaultValue: 'http://localhost:8092',
+);
 
 ODRDApi? _odrdApiInstance;
 
@@ -39,7 +42,7 @@ ODRDApi? _odrdApiInstance;
 ODRDApi getODRDApi() {
   if (_odrdApiInstance == null) {
     final String baseUrl =
-        Platform.isAndroid ? _ODRDAndroidBaseUrl : _ODRDiOSBaseUrl;
+        Platform.isAndroid ? _odrdAndroidBaseUrl : _odrdiOSBaseUrl;
     _odrdApiInstance = ODRDApi(baseUrl);
   }
   return _odrdApiInstance!;
@@ -55,10 +58,12 @@ Future<ODRDTrip> createODRDTrip({
   assert(pickup.target != null, 'pickup.target is required');
   assert(dropoff.target != null, 'dropoff.target is required');
   assert(
-      intermediateDestinations == null ||
-          intermediateDestinations
-              .every((NavigationWaypoint e) => e.target != null),
-      'each intermediateDestinations must have target property set');
+    intermediateDestinations == null ||
+        intermediateDestinations.every(
+          (NavigationWaypoint e) => e.target != null,
+        ),
+    'each intermediateDestinations must have target property set',
+  );
 
   final ODRDApi odrdApi = getODRDApi();
 
@@ -66,9 +71,10 @@ Future<ODRDTrip> createODRDTrip({
     triptype: triptype ?? ODRDTripType.exclusive,
     pickup: pickup.target!,
     dropoff: dropoff.target!,
-    intermediateDestinations: intermediateDestinations
-        ?.map((NavigationWaypoint e) => e.target!)
-        .toList(),
+    intermediateDestinations:
+        intermediateDestinations
+            ?.map((NavigationWaypoint e) => e.target!)
+            .toList(),
   );
 
   final ODRDTrip trip = await odrdApi.createTrip(createTrip);
@@ -76,8 +82,10 @@ Future<ODRDTrip> createODRDTrip({
 }
 
 /// Updates a trip in the ODRD backend.
-Future<ODRDTrip> updateODRDTrip(
-    {required String tripId, required ODRDTripUpdate update}) async {
+Future<ODRDTrip> updateODRDTrip({
+  required String tripId,
+  required ODRDTripUpdate update,
+}) async {
   final ODRDApi odrdApi = getODRDApi();
   final ODRDTrip trip = await odrdApi.updateTrip(tripId, update);
   return trip;
@@ -102,8 +110,9 @@ Future<ODRDVehicle> createODRDVehicle({
     maximumCapacity: maximumCapacity,
   );
 
-  final ODRDVehicle initializedVehicle =
-      await odrdApi.createVehicle(createVehicle);
+  final ODRDVehicle initializedVehicle = await odrdApi.createVehicle(
+    createVehicle,
+  );
 
   return initializedVehicle;
 }

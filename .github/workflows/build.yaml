@@ -37,7 +37,7 @@ jobs:
           cache: "gradle"
       - uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
-          flutter-version: "3.22.x"
+          flutter-version: "3.32.x"
           channel: "stable"
           cache: true
       - uses: bluefireteam/melos-action@6085791af7036f6366c9a4b9d55105c0ef9c6388
@@ -59,7 +59,7 @@ jobs:
           cache: "gradle"
       - uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
-          flutter-version: "3.22.x"
+          flutter-version: "3.32.x"
           channel: "stable"
           cache: true
       - uses: bluefireteam/melos-action@6085791af7036f6366c9a4b9d55105c0ef9c6388
@@ -85,17 +85,19 @@ jobs:
             ${{ runner.os }}-pods-
       - uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
-          flutter-version: "3.22.x"
+          flutter-version: "3.32.x"
           channel: "stable"
           cache: true
       - uses: bluefireteam/melos-action@6085791af7036f6366c9a4b9d55105c0ef9c6388
         with:
           melos-version: "6.0.0"
+      - name: Select XCode 16.1
+        run: sudo xcode-select -s '/Applications/Xcode_16.1.0.app/Contents/Developer'
       - name: Generate necessary files with flutter build
         working-directory: ${{ matrix.working_directory }}
         run: flutter build ios --config-only
       - name: "Run iOS native unit tests"
-        run: DEVICE='iPhone 14 Pro' melos run test:ios
+        run: TEST_DEVICE='iPhone 16 Pro' TEST_OS='18.1' melos run test:ios
 
   build-android:
     needs: [test-dart, test-android, test-ios]
@@ -114,7 +116,7 @@ jobs:
           cache: "gradle"
       - uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
-          flutter-version: "3.22.x"
+          flutter-version: "3.32.x"
           channel: "stable"
           cache: true
       - uses: bluefireteam/melos-action@6085791af7036f6366c9a4b9d55105c0ef9c6388
@@ -134,7 +136,7 @@ jobs:
       - uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b
       - uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
-          flutter-version: "3.22.x"
+          flutter-version: "3.32.x"
           channel: "stable"
           cache: true
           architecture: x64
@@ -147,5 +149,7 @@ jobs:
           key: ${{ runner.os }}-pods-${{ hashFiles('**/*.podspec') }}
           restore-keys: |
             ${{ runner.os }}-pods-
+      - name: Select XCode 16.1
+        run: sudo xcode-select -s '/Applications/Xcode_16.1.0.app/Contents/Developer'
       - name: "Run build for iOS"
         run: melos run flutter-build-ios

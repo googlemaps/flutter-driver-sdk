@@ -32,12 +32,12 @@ void main() {
   late MockTestCommonDriverApi mockedCommonDriverApi;
   setUp(() {
     mockedCommonDriverApi = MockTestCommonDriverApi();
-    TestCommonDriverApi.setup(mockedCommonDriverApi);
+    TestCommonDriverApi.setUp(mockedCommonDriverApi);
   });
 
   for (final DriverApiType driverApiType in <DriverApiType>[
     DriverApiType.delivery,
-    DriverApiType.ridesharing
+    DriverApiType.ridesharing,
   ]) {
     group('Common API $driverApiType', () {
       const String providerIdIn = 'Foo';
@@ -53,12 +53,12 @@ void main() {
           publicCommonDriverApi = DeliveryDriver.commonDriverApi;
           mockedDeliveryDriverApi = MockTestDeliveryDriverApi();
           vehicleReporter = DeliveryDriver.vehicleReporter;
-          TestDeliveryDriverApi.setup(mockedDeliveryDriverApi);
+          TestDeliveryDriverApi.setUp(mockedDeliveryDriverApi);
         } else if (driverApiType == DriverApiType.ridesharing) {
           publicCommonDriverApi = RidesharingDriver.commonDriverApi;
           mockedRidesharingDriverApi = MockTestRidesharingDriverApi();
           vehicleReporter = RidesharingDriver.vehicleReporter;
-          TestRidesharingDriverApi.setup(mockedRidesharingDriverApi);
+          TestRidesharingDriverApi.setUp(mockedRidesharingDriverApi);
         } else {
           assert(false, 'Unknown driverApiType: $driverApiType');
         }
@@ -66,14 +66,21 @@ void main() {
 
       test('initialize', () async {
         await publicCommonDriverApi.initialize(
-            providerId: providerIdIn,
-            vehicleId: vehicleIdIn,
-            onGetToken: (AuthTokenContext context) => Future<String>.value(''),
-            abnormalTerminationReportingEnabled: true);
+          providerId: providerIdIn,
+          vehicleId: vehicleIdIn,
+          onGetToken: (AuthTokenContext context) => Future<String>.value(''),
+          abnormalTerminationReportingEnabled: true,
+        );
 
         // initialize.
-        final VerificationResult result = verify(mockedCommonDriverApi
-            .initialize(captureAny, captureAny, captureAny, captureAny));
+        final VerificationResult result = verify(
+          mockedCommonDriverApi.initialize(
+            captureAny,
+            captureAny,
+            captureAny,
+            captureAny,
+          ),
+        );
         final String providerIdOut = result.captured[1] as String;
         final String vehicleIdOut = result.captured[2] as String;
         final bool abnormalTerminationReportingEnabledOut =
@@ -86,83 +93,107 @@ void main() {
       });
       test('getProviderId', () async {
         // getProviderId.
-        when(mockedCommonDriverApi.getProviderId(any))
-            .thenAnswer((Invocation _) => providerIdIn);
+        when(
+          mockedCommonDriverApi.getProviderId(any),
+        ).thenAnswer((Invocation _) => providerIdIn);
         final String providerIdOut =
             await publicCommonDriverApi.getProviderId();
-        final VerificationResult result =
-            verify(mockedCommonDriverApi.getProviderId(captureAny));
+        final VerificationResult result = verify(
+          mockedCommonDriverApi.getProviderId(captureAny),
+        );
         expectDriverApiType(driverApiType, result);
         expect(providerIdIn, providerIdOut);
       });
       test('getVehicleId', () async {
         // getVehicleId.
-        when(mockedCommonDriverApi.getVehicleId(any))
-            .thenAnswer((Invocation _) => vehicleIdIn);
+        when(
+          mockedCommonDriverApi.getVehicleId(any),
+        ).thenAnswer((Invocation _) => vehicleIdIn);
         final String vehicleIdOut = await publicCommonDriverApi.getVehicleId();
-        final VerificationResult result =
-            verify(mockedCommonDriverApi.getVehicleId(captureAny));
+        final VerificationResult result = verify(
+          mockedCommonDriverApi.getVehicleId(captureAny),
+        );
         expectDriverApiType(driverApiType, result);
         expect(vehicleIdIn, vehicleIdOut);
       });
       test('getDriverSdkVersion', () async {
         // getDriverSdkVersion.
         const String sdkVersionIn = '1.0.0';
-        when(mockedCommonDriverApi.getDriverSdkVersion(any))
-            .thenAnswer((Invocation _) => sdkVersionIn);
+        when(
+          mockedCommonDriverApi.getDriverSdkVersion(any),
+        ).thenAnswer((Invocation _) => sdkVersionIn);
         final String sdkVersionOut =
             await publicCommonDriverApi.getDriverSdkVersion();
-        final VerificationResult result =
-            verify(mockedCommonDriverApi.getDriverSdkVersion(captureAny));
+        final VerificationResult result = verify(
+          mockedCommonDriverApi.getDriverSdkVersion(captureAny),
+        );
         expectDriverApiType(driverApiType, result);
         expect(sdkVersionOut, sdkVersionIn);
       });
       test('setLocationTrackingEnabled', () async {
         await vehicleReporter.setLocationTrackingEnabled(true);
-        final VerificationResult result = verify(mockedCommonDriverApi
-            .setLocationTrackingEnabled(captureAny, captureAny));
+        final VerificationResult result = verify(
+          mockedCommonDriverApi.setLocationTrackingEnabled(
+            captureAny,
+            captureAny,
+          ),
+        );
         expectDriverApiType(driverApiType, result);
         expect(result.captured[1] as bool, true);
       });
       test('setLocationTrackingEnabled', () async {
         await vehicleReporter.setLocationTrackingEnabled(false);
-        final VerificationResult result = verify(mockedCommonDriverApi
-            .setLocationTrackingEnabled(captureAny, captureAny));
+        final VerificationResult result = verify(
+          mockedCommonDriverApi.setLocationTrackingEnabled(
+            captureAny,
+            captureAny,
+          ),
+        );
         expectDriverApiType(driverApiType, result);
         expect(result.captured[1] as bool, false);
       });
       test('isLocationTrackingEnabled', () async {
-        when(mockedCommonDriverApi.isLocationTrackingEnabled(any))
-            .thenAnswer((Invocation _) => true);
+        when(
+          mockedCommonDriverApi.isLocationTrackingEnabled(any),
+        ).thenAnswer((Invocation _) => true);
         await vehicleReporter.isLocationTrackingEnabled();
-        final VerificationResult result =
-            verify(mockedCommonDriverApi.isLocationTrackingEnabled(captureAny));
+        final VerificationResult result = verify(
+          mockedCommonDriverApi.isLocationTrackingEnabled(captureAny),
+        );
         expectDriverApiType(driverApiType, result);
       });
       test('setLocationReportingInterval', () async {
         const int reportingIntervalIn = 12000;
         await vehicleReporter.setLocationReportingInterval(
-            const Duration(milliseconds: reportingIntervalIn));
-        final VerificationResult result = verify(mockedCommonDriverApi
-            .setLocationReportingIntervalMillis(captureAny, captureAny));
+          const Duration(milliseconds: reportingIntervalIn),
+        );
+        final VerificationResult result = verify(
+          mockedCommonDriverApi.setLocationReportingIntervalMillis(
+            captureAny,
+            captureAny,
+          ),
+        );
         expectDriverApiType(driverApiType, result);
         expect(result.captured[1] as int, reportingIntervalIn);
       });
       test('getLocationReportingInterval', () async {
         const int reportingIntervalIn = 12000;
-        when(mockedCommonDriverApi.getLocationReportingIntervalMillis(any))
-            .thenAnswer((Invocation _) => reportingIntervalIn);
+        when(
+          mockedCommonDriverApi.getLocationReportingIntervalMillis(any),
+        ).thenAnswer((Invocation _) => reportingIntervalIn);
         final Duration reportingIntervalOut =
             await vehicleReporter.getLocationReportingInterval();
-        final VerificationResult result = verify(mockedCommonDriverApi
-            .getLocationReportingIntervalMillis(captureAny));
+        final VerificationResult result = verify(
+          mockedCommonDriverApi.getLocationReportingIntervalMillis(captureAny),
+        );
         expectDriverApiType(driverApiType, result);
         expect(reportingIntervalIn, reportingIntervalOut.inMilliseconds);
       });
       test('dispose', () async {
         await publicCommonDriverApi.dispose();
-        final VerificationResult result =
-            verify(mockedCommonDriverApi.dispose(captureAny));
+        final VerificationResult result = verify(
+          mockedCommonDriverApi.dispose(captureAny),
+        );
         expectDriverApiType(driverApiType, result);
       });
     });
@@ -170,6 +201,8 @@ void main() {
 }
 
 void expectDriverApiType(
-    DriverApiType driverApiType, VerificationResult result) {
+  DriverApiType driverApiType,
+  VerificationResult result,
+) {
   expect(driverApiType.toDto(), result.captured[0] as DriverApiTypeDto);
 }

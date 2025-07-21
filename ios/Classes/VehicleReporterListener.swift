@@ -25,21 +25,28 @@ class VehicleReporterListener: NSObject, GMTDVehicleReporterListener {
     _ridesharing = ridesharing
   }
 
-  func vehicleReporter(_ vehicleReporter: GMTDVehicleReporter,
-                       didSucceed vehicleUpdate: GMTDVehicleUpdate) {
+  func vehicleReporter(
+    _ vehicleReporter: GMTDVehicleReporter,
+    didSucceed vehicleUpdate: GMTDVehicleUpdate
+  ) {
     if _listenerApi != nil {
       _listenerApi?
-        .onDidSucceed(vehicleUpdate: Convert
-          .convertVehicleUpdateToDto(
-            vehicleUpdate: vehicleUpdate,
-            ridesharing: _ridesharing
-          )) { error in }
+        .onDidSucceed(
+          vehicleUpdate:
+            Convert
+            .convertVehicleUpdateToDto(
+              vehicleUpdate: vehicleUpdate,
+              ridesharing: _ridesharing
+            )
+        ) { error in }
     }
   }
 
-  func vehicleReporter(_ vehicleReporter: GMTDVehicleReporter,
-                       didFail vehicleUpdate: GMTDVehicleUpdate,
-                       withError error: Error) {
+  func vehicleReporter(
+    _ vehicleReporter: GMTDVehicleReporter,
+    didFail vehicleUpdate: GMTDVehicleUpdate,
+    withError error: Error
+  ) {
     if _listenerApi != nil {
       // Top-level error always has error code 1 and message "Vehicle update failed.",
       // pass child error that describes the actual issue instead if available.

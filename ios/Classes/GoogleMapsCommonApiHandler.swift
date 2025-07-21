@@ -32,8 +32,10 @@ class GoogleMapsCommonApiHandler: CommonDriverApi {
   private let _deliveryDriverApi: GoogleMapsDeliveryDriver
   private let _ridesharingDriverApi: GoogleMapsRidesharingDriver
 
-  init(messenger: FlutterBinaryMessenger, deliveryDriverApi: GoogleMapsDeliveryDriver,
-       ridesharingDriverApi: GoogleMapsRidesharingDriver) {
+  init(
+    messenger: FlutterBinaryMessenger, deliveryDriverApi: GoogleMapsDeliveryDriver,
+    ridesharingDriverApi: GoogleMapsRidesharingDriver
+  ) {
     _deliveryDriverApi = deliveryDriverApi
     _ridesharingDriverApi = ridesharingDriverApi
     CommonDriverApiSetup.setUp(binaryMessenger: messenger, api: self)
@@ -48,8 +50,10 @@ class GoogleMapsCommonApiHandler: CommonDriverApi {
     }
   }
 
-  func initialize(type: DriverApiTypeDto, providerId: String, vehicleId: String,
-                  abnormalTerminationReportingEnabled: Bool) throws {
+  func initialize(
+    type: DriverApiTypeDto, providerId: String, vehicleId: String,
+    abnormalTerminationReportingEnabled: Bool
+  ) throws {
     if try _deliveryDriverApi.isInitialized() {
       throw GoogleMapsDriverError.apiAlreadyInitialized
     }

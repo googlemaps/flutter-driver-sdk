@@ -45,8 +45,10 @@ String generateRandomString(int length) {
       'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   final Random random = Random();
 
-  return String.fromCharCodes(Iterable<int>.generate(
-    length,
-    (_) => characters.codeUnitAt(random.nextInt(characters.length)),
-  ));
+  return String.fromCharCodes(
+    Iterable<int>.generate(
+      length,
+      (_) => characters.codeUnitAt(random.nextInt(characters.length)),
+    ),
+  );
 }

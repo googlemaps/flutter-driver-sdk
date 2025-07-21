@@ -23,11 +23,12 @@ import '../../google_driver_flutter.dart';
 @immutable
 class DeliveryVehicle {
   /// Constructs a [DeliveryVehicle] instance.
-  const DeliveryVehicle(
-      {required this.providerId,
-      required this.id,
-      required this.name,
-      required this.stops});
+  const DeliveryVehicle({
+    required this.providerId,
+    required this.id,
+    required this.name,
+    required this.stops,
+  });
 
   /// Returns the unique identifier for this provider.
   final String providerId;

@@ -36,12 +36,10 @@ class ExampleDropdownButton<T extends Enum> extends StatelessWidget {
       title: Text(title),
       trailing: DropdownButton<T>(
         value: value,
-        items: items.map<DropdownMenuItem<T>>((T value) {
-          return DropdownMenuItem<T>(
-            value: value,
-            child: Text(value.name),
-          );
-        }).toList(),
+        items:
+            items.map<DropdownMenuItem<T>>((T value) {
+              return DropdownMenuItem<T>(value: value, child: Text(value.name));
+            }).toList(),
         onChanged: onChanged,
       ),
     );

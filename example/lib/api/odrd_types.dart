@@ -93,45 +93,55 @@ class ODRDVehicle extends Vehicle {
     this.lastLocation,
   });
 
-  /// Constructs a [ODRDVehicle] instance from a Map<String, dynamic>.
+  /// Constructs a [ODRDVehicle] instance from a Map`<String, dynamic>`.
   factory ODRDVehicle.fromJson(Map<String, dynamic> json) {
     final String vehicleId = (json['name'] as String).split('/').last;
     return ODRDVehicle(
       vehicleId: vehicleId,
       vehicleState: ODRDVehicleStateJsonConversion.fromJsonString(
-          json['vehicleState'] as String),
+        json['vehicleState'] as String,
+      ),
       name: json['name'] as String?,
-      currentTripsIds: (json['currentTripsIds'] as List<dynamic>?)
-          ?.map((dynamic e) => e as String)
-          .toList(),
-      waypoints: (json['waypoints'] as List<dynamic>?)
-          ?.map((dynamic e) => ODRDWaypoint.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      supportedTripTypes: (json['supportedTripTypes'] as List<dynamic>?)
-          ?.map((dynamic e) =>
-              ODRDTripTypesJsonConversion.fromJsonString(e as String))
-          .toList(),
+      currentTripsIds:
+          (json['currentTripsIds'] as List<dynamic>?)
+              ?.map((dynamic e) => e as String)
+              .toList(),
+      waypoints:
+          (json['waypoints'] as List<dynamic>?)
+              ?.map(
+                (dynamic e) => ODRDWaypoint.fromJson(e as Map<String, dynamic>),
+              )
+              .toList(),
+      supportedTripTypes:
+          (json['supportedTripTypes'] as List<dynamic>?)
+              ?.map(
+                (dynamic e) =>
+                    ODRDTripTypesJsonConversion.fromJsonString(e as String),
+              )
+              .toList(),
       backToBackEnabled: json['backToBackEnabled'] as bool?,
       maximumCapacity: json['maximumCapacity'] as int?,
-      lastLocation: json['lastLocation'] == null
-          ? null
-          : LatLngJsonConversion.fromJson((json['lastLocation']
-              as Map<String, dynamic>)['point'] as Map<String, dynamic>),
+      lastLocation:
+          json['lastLocation'] == null
+              ? null
+              : LatLngJsonConversion.fromJson(
+                (json['lastLocation'] as Map<String, dynamic>)['point']
+                    as Map<String, dynamic>,
+              ),
     );
   }
 
   @override
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> json = <String, dynamic>{
-      'vehicleId': vehicleId,
-    };
+    final Map<String, dynamic> json = <String, dynamic>{'vehicleId': vehicleId};
     if (vehicleState != null) {
       json['vehicleState'] = vehicleState!.toJsonString();
     }
     if (supportedTripTypes != null) {
-      json['supportedTripTypes'] = supportedTripTypes!
-          .map((ODRDTripType e) => e.toJsonString())
-          .toList();
+      json['supportedTripTypes'] =
+          supportedTripTypes!
+              .map((ODRDTripType e) => e.toJsonString())
+              .toList();
     }
     if (backToBackEnabled != null) {
       json['backToBackEnabled'] = backToBackEnabled;
@@ -173,15 +183,12 @@ class ODRDVehicle extends Vehicle {
 
 /// Helper class to convert LatLng to/from JSON.
 extension LatLngJsonConversion on LatLng {
-  /// Converts a LatLng instance to a Map<String, dynamic> for JSON serialization.
+  /// Converts a LatLng instance to a Map`<String, dynamic>` for JSON serialization.
   Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'latitude': latitude,
-      'longitude': longitude,
-    };
+    return <String, dynamic>{'latitude': latitude, 'longitude': longitude};
   }
 
-  /// Constructs a [LatLng] instance from a Map<String, dynamic>.
+  /// Constructs a [LatLng] instance from a Map`<String, dynamic>`.
   static LatLng fromJson(Map<String, dynamic> json) {
     return LatLng(
       latitude: json['latitude'] as double,
@@ -199,7 +206,7 @@ enum ODRDWaypointType {
   dropOff,
 
   /// Intermediate destination waypoint type.
-  intermediateDestination
+  intermediateDestination,
 }
 
 /// Helper class to convert WaypointType to/from JSON.
@@ -358,21 +365,23 @@ class ODRDWaypoint {
     this.tripId,
   });
 
-  /// Constructs a [ODRDWaypoint] instance from a Map<String, dynamic>.
+  /// Constructs a [ODRDWaypoint] instance from a Map`<String, dynamic>`.
   factory ODRDWaypoint.fromJson(Map<String, dynamic> json) {
     final Map<String, dynamic> location =
         json['location'] as Map<String, dynamic>;
     return ODRDWaypoint(
       location: LatLngJsonConversion.fromJson(
-          location['point'] as Map<String, dynamic>),
+        location['point'] as Map<String, dynamic>,
+      ),
       heading: location['heading'] as int? ?? 0,
       waypointType: ODRDWaypointTypeJsonConversion.fromJsonString(
-          json['waypointType'] as String),
+        json['waypointType'] as String,
+      ),
       tripId: json['tripId'] as String?,
     );
   }
 
-  /// Converts a ODRDWaypoint instance to a Map<String, dynamic> for
+  /// Converts a ODRDWaypoint instance to a Map`<String, dynamic>` for
   /// JSON serialization.
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
@@ -402,13 +411,12 @@ class ODRDWaypoint {
 /// On-demand Rides and Deliveries Solution (ODRD).
 class ODRDTripUpdate {
   /// Constructs an [ODRDTripUpdate] instance with the given details.
-  ODRDTripUpdate({
-    required this.tripStatus,
-    this.intermediateDestinationIndex,
-  }) : assert(
-            intermediateDestinationIndex == null ||
-                tripStatus == ODRDTripStatus.enrouteToIntermediateDestination,
-            'intermediateDestinationIndex can be used only with enrouteToIntermediateDestination status.');
+  ODRDTripUpdate({required this.tripStatus, this.intermediateDestinationIndex})
+    : assert(
+        intermediateDestinationIndex == null ||
+            tripStatus == ODRDTripStatus.enrouteToIntermediateDestination,
+        'intermediateDestinationIndex can be used only with enrouteToIntermediateDestination status.',
+      );
 
   /// The next status of the trip.
   final ODRDTripStatus tripStatus;
@@ -467,11 +475,8 @@ class ODRDCreateTrip {
     };
 
     if (intermediateDestinations != null) {
-      json['intermediateDestinations'] = intermediateDestinations!
-          .map(
-            (LatLng l) => l.toJson(),
-          )
-          .toList();
+      json['intermediateDestinations'] =
+          intermediateDestinations!.map((LatLng l) => l.toJson()).toList();
     }
 
     return json;
@@ -498,10 +503,14 @@ class ODRDTrip {
       name: json['name'] as String,
       vehicleId: json['vehicleId'] as String,
       tripStatus: ODRDTripStatusJsonConversion.fromJsonString(
-          json['tripStatus'] as String),
-      waypoints: (json['waypoints'] as List<dynamic>)
-          .map((dynamic e) => ODRDWaypoint.fromJson(e as Map<String, dynamic>))
-          .toList(),
+        json['tripStatus'] as String,
+      ),
+      waypoints:
+          (json['waypoints'] as List<dynamic>)
+              .map(
+                (dynamic e) => ODRDWaypoint.fromJson(e as Map<String, dynamic>),
+              )
+              .toList(),
     );
   }
 

@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit
 
 abstract class GoogleMapsBaseDriver(
   private val messenger: BinaryMessenger,
-  private val _authTokenEventApi: AuthTokenEventApi = AuthTokenEventApi(messenger)
+  private val _authTokenEventApi: AuthTokenEventApi = AuthTokenEventApi(messenger),
 ) {
 
   protected var driverContext: DriverContext? = null
@@ -68,7 +68,7 @@ abstract class GoogleMapsBaseDriver(
   abstract fun initialize(
     providerId: String,
     vehicleId: String,
-    abnormalTerminationReportingEnabled: Boolean
+    abnormalTerminationReportingEnabled: Boolean,
   )
 
   abstract fun isInitialized(): Boolean

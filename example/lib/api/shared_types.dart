@@ -22,10 +22,11 @@ class TokenResponse {
   /// [creationTimestampMs] - The Unix timestamp at which the token was created (in milliseconds).
   /// [expirationTimestampMs] - The Unix timestamp at which time the token will expire (in milliseconds).
   /// [token] - The token in base-64 encoded format.
-  const TokenResponse(
-      {required this.creationTimestampMs,
-      required this.expirationTimestampMs,
-      required this.token});
+  const TokenResponse({
+    required this.creationTimestampMs,
+    required this.expirationTimestampMs,
+    required this.token,
+  });
 
   /// Factory constructor for LMFS API JSON response
   factory TokenResponse.fromLMFSJson(Map<String, dynamic> json) {
@@ -61,6 +62,6 @@ abstract class Vehicle {
   /// The ID of the vehicle.
   String get vehicleId;
 
-  /// Converts a Vehicle instance to a Map<String, dynamic> for JSON serialization.
+  /// Converts a Vehicle instance to a Map`<String, dynamic>` for JSON serialization.
   Map<String, dynamic> toJson();
 }

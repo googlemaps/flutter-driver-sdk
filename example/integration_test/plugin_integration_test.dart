@@ -14,9 +14,14 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:google_driver_flutter/google_driver_flutter.dart';
 import 'package:google_driver_flutter_example/api/lmfs.dart';
 import 'package:google_driver_flutter_example/api/odrd.dart';
+// ignore: depend_on_referenced_packages
+import 'package:google_navigation_flutter/google_navigation_flutter.dart';
+import 'package:patrol/patrol.dart';
+
 import 'shared.dart';
 
 enum TokenBehavior { throwsException, emptyToken, invalidToken, validToken }
@@ -69,8 +74,9 @@ void main() {
           target: const LatLng(latitude: 37.41914, longitude: -122.08845),
         ),
         NavigationWaypoint.withLatLngTarget(
-            title: 'CWF7+748, 1700 Amphitheatre Pkwy, Mountain View, CA 94043',
-            target: const LatLng(latitude: 37.4231613, longitude: -122.087159))
+          title: 'CWF7+748, 1700 Amphitheatre Pkwy, Mountain View, CA 94043',
+          target: const LatLng(latitude: 37.4231613, longitude: -122.087159),
+        ),
       ],
     );
 
@@ -80,8 +86,9 @@ void main() {
     expect(vehicleId, isNotEmpty);
   });
 
-  patrol('Test delivery driver initialization',
-      (PatrolIntegrationTester $) async {
+  patrol('Test delivery driver initialization', (
+    PatrolIntegrationTester $,
+  ) async {
     // Check you can fetch the driver version without initializing the driver.
     expect(await DeliveryDriver.getDriverSdkVersion(), isNotEmpty);
 
@@ -91,17 +98,20 @@ void main() {
     // Trying to initialize driver before navigation should throw an error.
     try {
       await DeliveryDriver.initialize(
-          providerId: providerId,
-          vehicleId: vehicleId,
-          onGetToken: (AuthTokenContext context) {
-            return Future<String>.value('');
-          },
-          abnormalTerminationReportingEnabled: true);
+        providerId: providerId,
+        vehicleId: vehicleId,
+        onGetToken: (AuthTokenContext context) {
+          return Future<String>.value('');
+        },
+        abnormalTerminationReportingEnabled: true,
+      );
       fail('Expected DriverInitializationException');
     } on Exception catch (e) {
       expect(e, const TypeMatcher<DriverInitializationException>());
-      expect((e as DriverInitializationException).code,
-          DriverInitializationError.navigationNotInitialized);
+      expect(
+        (e as DriverInitializationException).code,
+        DriverInitializationError.navigationNotInitialized,
+      );
     }
 
     // Trying to control vehicle reporter should throw
@@ -118,8 +128,9 @@ void main() {
       expect(e, const TypeMatcher<DriverNotInitializedException>());
     }
     try {
-      await reporter
-          .setLocationReportingInterval(const Duration(milliseconds: 6001));
+      await reporter.setLocationReportingInterval(
+        const Duration(milliseconds: 6001),
+      );
     } on Exception catch (e) {
       expect(e, const TypeMatcher<DriverNotInitializedException>());
     }
@@ -151,35 +162,39 @@ void main() {
 
     // Initialize navigation and start the simulation.
     await initializeNavigation($);
-    await GoogleMapsNavigator.simulator
-        .setUserLocation(manifest.vehicle.startLocation!.target);
+    await GoogleMapsNavigator.simulator.setUserLocation(
+      manifest.vehicle.startLocation!.target,
+    );
 
     // Initialize the driver.
     final Completer<void> tokenCompleter = Completer<void>();
     await DeliveryDriver.initialize(
-        providerId: providerId,
-        vehicleId: vehicleId,
-        onGetToken: (AuthTokenContext context) async {
-          if (tokenResponse == null ||
-              DateTime.now().millisecondsSinceEpoch >
-                  tokenResponse!.expirationTimestampMs) {
-            tokenResponse = await getLMFSApi().getToken(
-                LMFSTokenType.deliveryDriver, manifest.vehicle.vehicleId);
-            tokenCompleter.complete();
-          }
+      providerId: providerId,
+      vehicleId: vehicleId,
+      onGetToken: (AuthTokenContext context) async {
+        if (tokenResponse == null ||
+            DateTime.now().millisecondsSinceEpoch >
+                tokenResponse!.expirationTimestampMs) {
+          tokenResponse = await getLMFSApi().getToken(
+            LMFSTokenType.deliveryDriver,
+            manifest.vehicle.vehicleId,
+          );
+          tokenCompleter.complete();
+        }
 
-          switch (tokenBehavior) {
-            case TokenBehavior.throwsException:
-              throw Exception('Token retrieval from the backend failed.');
-            case TokenBehavior.emptyToken:
-              return '';
-            case TokenBehavior.invalidToken:
-              return 'invalid_token';
-            case TokenBehavior.validToken:
-              return tokenResponse!.token;
-          }
-        },
-        abnormalTerminationReportingEnabled: true);
+        switch (tokenBehavior) {
+          case TokenBehavior.throwsException:
+            throw Exception('Token retrieval from the backend failed.');
+          case TokenBehavior.emptyToken:
+            return '';
+          case TokenBehavior.invalidToken:
+            return 'invalid_token';
+          case TokenBehavior.validToken:
+            return tokenResponse!.token;
+        }
+      },
+      abnormalTerminationReportingEnabled: true,
+    );
     await $.pumpAndSettle();
 
     // Now the driver should be initialized.
@@ -196,8 +211,9 @@ void main() {
     expect(await reporter.isLocationTrackingEnabled(), true);
 
     // Force token update.
-    await GoogleMapsNavigator.simulator
-        .setUserLocation(manifest.vehicle.startLocation!.target);
+    await GoogleMapsNavigator.simulator.setUserLocation(
+      manifest.vehicle.startLocation!.target,
+    );
 
     // Check that the token was requested at least once.
     await tokenCompleter.future;
@@ -248,17 +264,20 @@ void main() {
     // an error.
     try {
       await DeliveryDriver.initialize(
-          providerId: providerId,
-          vehicleId: vehicleId,
-          onGetToken: (AuthTokenContext context) {
-            return Future<String>.value('');
-          },
-          abnormalTerminationReportingEnabled: true);
+        providerId: providerId,
+        vehicleId: vehicleId,
+        onGetToken: (AuthTokenContext context) {
+          return Future<String>.value('');
+        },
+        abnormalTerminationReportingEnabled: true,
+      );
       fail('Expected DriverInitializationException');
     } on Exception catch (e) {
       expect(e, const TypeMatcher<DriverInitializationException>());
-      expect((e as DriverInitializationException).code,
-          DriverInitializationError.apiAlreadyInitialized);
+      expect(
+        (e as DriverInitializationException).code,
+        DriverInitializationError.apiAlreadyInitialized,
+      );
     }
 
     await DeliveryDriver.dispose();
@@ -268,31 +287,39 @@ void main() {
   patrol('Test delivery driver tracking', (PatrolIntegrationTester $) async {
     /// Initialize navigation and start the simulation.
     await initializeNavigation($);
-    await GoogleMapsNavigator.simulator
-        .setUserLocation(manifest.vehicle.startLocation!.target);
+    await GoogleMapsNavigator.simulator.setUserLocation(
+      manifest.vehicle.startLocation!.target,
+    );
 
     final Completer<void> successCompleter = Completer<void>();
     final Completer<void> failureCompleter = Completer<void>();
 
     await DeliveryDriver.initialize(
-        providerId: providerId,
-        vehicleId: vehicleId,
-        onGetToken: (AuthTokenContext context) async {
-          if (tokenResponse == null ||
-              DateTime.now().millisecondsSinceEpoch >
-                  tokenResponse!.expirationTimestampMs) {
-            tokenResponse = await getLMFSApi().getToken(
-                LMFSTokenType.deliveryDriver, manifest.vehicle.vehicleId);
-          }
-          if (failTokenRequest) {
-            return 'invalid_token';
-          } else {
-            return tokenResponse!.token;
-          }
-        },
-        onStatusUpdate: Platform.isAndroid
-            ? (DriverStatusLevel level, DriverStatusCode code, String message,
-                DriverException? exception) {
+      providerId: providerId,
+      vehicleId: vehicleId,
+      onGetToken: (AuthTokenContext context) async {
+        if (tokenResponse == null ||
+            DateTime.now().millisecondsSinceEpoch >
+                tokenResponse!.expirationTimestampMs) {
+          tokenResponse = await getLMFSApi().getToken(
+            LMFSTokenType.deliveryDriver,
+            manifest.vehicle.vehicleId,
+          );
+        }
+        if (failTokenRequest) {
+          return 'invalid_token';
+        } else {
+          return tokenResponse!.token;
+        }
+      },
+      onStatusUpdate:
+          Platform.isAndroid
+              ? (
+                DriverStatusLevel level,
+                DriverStatusCode code,
+                String message,
+                DriverException? exception,
+              ) {
                 if (listeningStatus) {
                   reportedLevel = level;
                   reportedCode = code;
@@ -311,8 +338,9 @@ void main() {
                   }
                 }
               }
-            : null,
-        abnormalTerminationReportingEnabled: true);
+              : null,
+      abnormalTerminationReportingEnabled: true,
+    );
     await $.pumpAndSettle();
 
     // Now the driver should be initialized.
@@ -328,12 +356,17 @@ void main() {
     expect(await reporter.isLocationTrackingEnabled(), false);
 
     // Test default reporting interval returns sane values and that it can be overridden
-    expect((await reporter.getLocationReportingInterval()).inMilliseconds,
-        greaterThan(100));
-    await reporter
-        .setLocationReportingInterval(const Duration(milliseconds: 6001));
     expect(
-        (await reporter.getLocationReportingInterval()).inMilliseconds, 6001);
+      (await reporter.getLocationReportingInterval()).inMilliseconds,
+      greaterThan(100),
+    );
+    await reporter.setLocationReportingInterval(
+      const Duration(milliseconds: 6001),
+    );
+    expect(
+      (await reporter.getLocationReportingInterval()).inMilliseconds,
+      6001,
+    );
 
     // Trying to set less than 5 second or more than 60 second location reporting
     // interval throws an assertion.
@@ -386,19 +419,21 @@ void main() {
     // Utilizes VehicleReporterListener, which is iOS-only.
     if (Platform.isIOS) {
       // Start listening to the location status updates.
-      reporter.setListener(VehicleReporterListener(
-        onDidSucceed: (VehicleUpdate vehicleUpdate) {
-          successCount = successCount + 1;
-          successCompleter.complete();
-          reportedVehicleUpdate = vehicleUpdate;
-        },
-        onDidFail: (VehicleUpdate vehicleUpdate, DriverException exception) {
-          failureCount = failureCount + 1;
-          reportedException = exception;
-          reportedVehicleUpdate = vehicleUpdate;
-          failureCompleter.complete();
-        },
-      ));
+      reporter.setListener(
+        VehicleReporterListener(
+          onDidSucceed: (VehicleUpdate vehicleUpdate) {
+            successCount = successCount + 1;
+            successCompleter.complete();
+            reportedVehicleUpdate = vehicleUpdate;
+          },
+          onDidFail: (VehicleUpdate vehicleUpdate, DriverException exception) {
+            failureCount = failureCount + 1;
+            reportedException = exception;
+            reportedVehicleUpdate = vehicleUpdate;
+            failureCompleter.complete();
+          },
+        ),
+      );
       await reporter.setLocationTrackingEnabled(true);
       expect(await reporter.isLocationTrackingEnabled(), true);
 
@@ -411,10 +446,14 @@ void main() {
       expect(failureCount, 0);
       expect(reportedVehicleUpdate, isNotNull);
       expect(reportedVehicleUpdate!.vehicleState, isNull);
-      expect(reportedVehicleUpdate!.location?.latitude,
-          closeTo(manifest.vehicle.startLocation!.target.latitude, 0.1));
-      expect(reportedVehicleUpdate!.location?.longitude,
-          closeTo(manifest.vehicle.startLocation!.target.longitude, 0.1));
+      expect(
+        reportedVehicleUpdate!.location?.latitude,
+        closeTo(manifest.vehicle.startLocation!.target.latitude, 0.1),
+      );
+      expect(
+        reportedVehicleUpdate!.location?.longitude,
+        closeTo(manifest.vehicle.startLocation!.target.longitude, 0.1),
+      );
       reportedVehicleUpdate = null;
 
       failTokenRequest = true;
@@ -438,24 +477,28 @@ void main() {
   patrol('Test vehicle stop handling', (PatrolIntegrationTester $) async {
     /// Initialize navigation and start the simulation.
     await initializeNavigation($);
-    await GoogleMapsNavigator.simulator
-        .setUserLocation(manifest.vehicle.startLocation!.target);
+    await GoogleMapsNavigator.simulator.setUserLocation(
+      manifest.vehicle.startLocation!.target,
+    );
 
     final Completer<void> tokenCompleter = Completer<void>();
     await DeliveryDriver.initialize(
-        providerId: providerId,
-        vehicleId: vehicleId,
-        onGetToken: (AuthTokenContext context) async {
-          if (tokenResponse == null ||
-              DateTime.now().millisecondsSinceEpoch >
-                  tokenResponse!.expirationTimestampMs) {
-            tokenResponse = await getLMFSApi().getToken(
-                LMFSTokenType.deliveryDriver, manifest.vehicle.vehicleId);
-            tokenCompleter.complete();
-          }
-          return tokenResponse!.token;
-        },
-        abnormalTerminationReportingEnabled: true);
+      providerId: providerId,
+      vehicleId: vehicleId,
+      onGetToken: (AuthTokenContext context) async {
+        if (tokenResponse == null ||
+            DateTime.now().millisecondsSinceEpoch >
+                tokenResponse!.expirationTimestampMs) {
+          tokenResponse = await getLMFSApi().getToken(
+            LMFSTokenType.deliveryDriver,
+            manifest.vehicle.vehicleId,
+          );
+          tokenCompleter.complete();
+        }
+        return tokenResponse!.token;
+      },
+      abnormalTerminationReportingEnabled: true,
+    );
     await $.pumpAndSettle();
 
     // Now the driver should be initialized.
@@ -469,8 +512,9 @@ void main() {
     await reporter.setLocationTrackingEnabled(true);
 
     // Force token update.
-    await GoogleMapsNavigator.simulator
-        .setUserLocation(manifest.vehicle.startLocation!.target);
+    await GoogleMapsNavigator.simulator.setUserLocation(
+      manifest.vehicle.startLocation!.target,
+    );
 
     // Check that the token was requested at least once.
     await tokenCompleter.future;
@@ -536,8 +580,9 @@ void main() {
     expect(await DeliveryDriver.isInitialized(), false);
   });
 
-  patrol('Test Ridesharing driver initialization',
-      (PatrolIntegrationTester $) async {
+  patrol('Test Ridesharing driver initialization', (
+    PatrolIntegrationTester $,
+  ) async {
     tokenResponse = null;
     // Check you can fetch the driver version without initializing the driver.
     expect(await RidesharingDriver.getDriverSdkVersion(), isNotEmpty);
@@ -548,17 +593,20 @@ void main() {
     // Trying to initialize driver before navigation should throw an error.
     try {
       await RidesharingDriver.initialize(
-          providerId: providerId,
-          vehicleId: vehicleId,
-          onGetToken: (AuthTokenContext context) {
-            return Future<String>.value('');
-          },
-          abnormalTerminationReportingEnabled: true);
+        providerId: providerId,
+        vehicleId: vehicleId,
+        onGetToken: (AuthTokenContext context) {
+          return Future<String>.value('');
+        },
+        abnormalTerminationReportingEnabled: true,
+      );
       fail('Expected DriverInitializationException');
     } on Exception catch (e) {
       expect(e, const TypeMatcher<DriverInitializationException>());
-      expect((e as DriverInitializationException).code,
-          DriverInitializationError.navigationNotInitialized);
+      expect(
+        (e as DriverInitializationException).code,
+        DriverInitializationError.navigationNotInitialized,
+      );
     }
 
     // Trying to control vehicle reporter should throw
@@ -578,8 +626,9 @@ void main() {
       expect(e, const TypeMatcher<DriverNotInitializedException>());
     }
     try {
-      await reporter
-          .setLocationReportingInterval(const Duration(milliseconds: 6001));
+      await reporter.setLocationReportingInterval(
+        const Duration(milliseconds: 6001),
+      );
       fail('Expected DriverNotInitializedException');
     } on Exception catch (e) {
       expect(e, const TypeMatcher<DriverNotInitializedException>());
@@ -592,25 +641,29 @@ void main() {
 
     /// Initialize navigation and start the simulation.
     await initializeNavigation($);
-    await GoogleMapsNavigator.simulator
-        .setUserLocation(manifest.vehicle.startLocation!.target);
+    await GoogleMapsNavigator.simulator.setUserLocation(
+      manifest.vehicle.startLocation!.target,
+    );
 
     // Initialize the driver.
     final Completer<void> tokenCompleter = Completer<void>();
     await RidesharingDriver.initialize(
-        providerId: providerId,
-        vehicleId: vehicleId,
-        onGetToken: (AuthTokenContext context) async {
-          if (tokenResponse == null ||
-              DateTime.now().millisecondsSinceEpoch >
-                  tokenResponse!.expirationTimestampMs) {
-            tokenResponse = await getODRDApi()
-                .getToken(ODRDTokenType.driver, manifest.vehicle.vehicleId);
-            tokenCompleter.complete();
-          }
-          return tokenResponse!.token;
-        },
-        abnormalTerminationReportingEnabled: true);
+      providerId: providerId,
+      vehicleId: vehicleId,
+      onGetToken: (AuthTokenContext context) async {
+        if (tokenResponse == null ||
+            DateTime.now().millisecondsSinceEpoch >
+                tokenResponse!.expirationTimestampMs) {
+          tokenResponse = await getODRDApi().getToken(
+            ODRDTokenType.driver,
+            manifest.vehicle.vehicleId,
+          );
+          tokenCompleter.complete();
+        }
+        return tokenResponse!.token;
+      },
+      abnormalTerminationReportingEnabled: true,
+    );
     await $.pumpAndSettle();
 
     // Now the driver should be initialized.
@@ -627,8 +680,9 @@ void main() {
     expect(await reporter.isLocationTrackingEnabled(), true);
 
     // Force token update.
-    await GoogleMapsNavigator.simulator
-        .setUserLocation(manifest.vehicle.startLocation!.target);
+    await GoogleMapsNavigator.simulator.setUserLocation(
+      manifest.vehicle.startLocation!.target,
+    );
     await $.pumpAndSettle();
 
     // Check that the token was requested at least once.
@@ -645,17 +699,20 @@ void main() {
     // an error.
     try {
       await RidesharingDriver.initialize(
-          providerId: providerId,
-          vehicleId: vehicleId,
-          onGetToken: (AuthTokenContext context) {
-            return Future<String>.value('');
-          },
-          abnormalTerminationReportingEnabled: true);
+        providerId: providerId,
+        vehicleId: vehicleId,
+        onGetToken: (AuthTokenContext context) {
+          return Future<String>.value('');
+        },
+        abnormalTerminationReportingEnabled: true,
+      );
       fail('Expected DriverInitializationException');
     } on Exception catch (e) {
       expect(e, const TypeMatcher<DriverInitializationException>());
-      expect((e as DriverInitializationException).code,
-          DriverInitializationError.apiAlreadyInitialized);
+      expect(
+        (e as DriverInitializationException).code,
+        DriverInitializationError.apiAlreadyInitialized,
+      );
     }
 
     await RidesharingDriver.dispose();

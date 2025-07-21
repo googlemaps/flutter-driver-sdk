@@ -31,12 +31,15 @@ class LMFSApi extends ApiClient {
     final String typeStr = type.toJsonString();
     final String response = await get('token/$typeStr/${id ?? ''}');
     return TokenResponse.fromLMFSJson(
-        jsonDecode(response) as Map<String, dynamic>);
+      jsonDecode(response) as Map<String, dynamic>,
+    );
   }
 
   /// Method to update the manifest for a given vehicle ID
   Future<LMFSManifest> updateManifest(
-      LMFSManifestUpdate manifestDetails, String? vehicleId) async {
+    LMFSManifestUpdate manifestDetails,
+    String? vehicleId,
+  ) async {
     final String endpoint =
         vehicleId != null ? 'manifest/$vehicleId' : 'manifest';
     final String response = await post(endpoint, manifestDetails.toJson());
@@ -79,8 +82,11 @@ class LMFSApi extends ApiClient {
   Future<List<LMFSTask>> getTasksByVehicleId(String vehicleId) async {
     final String response = await get('tasks?vehicleId=$vehicleId');
     final List<dynamic> responseData = jsonDecode(response) as List<dynamic>;
-    return List<LMFSTask>.from(responseData.map(
-        (dynamic task) => LMFSTask.fromJson(task as Map<String, dynamic>)));
+    return List<LMFSTask>.from(
+      responseData.map(
+        (dynamic task) => LMFSTask.fromJson(task as Map<String, dynamic>),
+      ),
+    );
   }
 
   /// Method to get task information by tracking ID

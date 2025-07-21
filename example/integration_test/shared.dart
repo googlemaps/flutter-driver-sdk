@@ -26,41 +26,35 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_driver_flutter/google_driver_flutter.dart';
+// ignore: depend_on_referenced_packages
 import 'package:google_navigation_flutter/google_navigation_flutter.dart';
 import 'package:patrol/patrol.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-export 'package:flutter_test/flutter_test.dart';
-export 'package:google_navigation_flutter/google_navigation_flutter.dart';
-export 'package:patrol/patrol.dart';
-
 /// Pumps a [navigationView] widget in tester [$] and then waits until it settles.
 Future<void> pumpNavigationView(
-    PatrolIntegrationTester $, GoogleMapsNavigationView navigationView) async {
+  PatrolIntegrationTester $,
+  GoogleMapsNavigationView navigationView,
+) async {
   await $.pumpWidget(wrapNavigationView(navigationView));
   await $.pumpAndSettle();
 }
 
 /// Wraps a [navigationView] in widgets.
 Widget wrapNavigationView(GoogleMapsNavigationView navigationView) {
-  return MaterialApp(
-    home: Scaffold(
-      body: Center(
-        child: navigationView,
-      ),
-    ),
-  );
+  return MaterialApp(home: Scaffold(body: Center(child: navigationView)));
 }
 
 Future<void> checkTermsAndConditionsAcceptance(
-    PatrolIntegrationTester $) async {
+  PatrolIntegrationTester $,
+) async {
   if (!await GoogleMapsNavigator.areTermsAccepted()) {
     /// Request native TOS dialog.
     final Future<bool> tosAccepted =
         GoogleMapsNavigator.showTermsAndConditionsDialog(
-      'test_title',
-      'test_company_name',
-    );
+          'test_title',
+          'test_company_name',
+        );
     await $.pumpAndSettle();
 
     // Tap accept or cancel.
@@ -96,7 +90,8 @@ Future<void> checkLocationDialogAcceptance(PatrolIntegrationTester $) async {
 }
 
 Future<GoogleNavigationViewController> initializeNavigation(
-    PatrolIntegrationTester $) async {
+  PatrolIntegrationTester $,
+) async {
   await checkLocationDialogAcceptance($);
   await checkTermsAndConditionsAcceptance($);
   await GoogleMapsNavigator.initializeNavigationSession();
@@ -150,7 +145,8 @@ void patrol(
   patrolTest(
     description,
     timeout: const Timeout(
-        Duration(seconds: 240)), // Add a 4 minute timeout to tests.
+      Duration(seconds: 240),
+    ), // Add a 4 minute timeout to tests.
     callback,
   );
 }

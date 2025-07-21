@@ -72,39 +72,39 @@ internal class ConvertTest {
   fun convertVehicleStopStateFromDto_returnsExpectedValue() {
     assertEquals(
       VehicleStop.VehicleStopState.UNSPECIFIED,
-      Convert.convertVehicleStopStateFromDto(VehicleStopStateDto.STATEUNSPECIFIED)
+      Convert.convertVehicleStopStateFromDto(VehicleStopStateDto.STATE_UNSPECIFIED),
     )
     assertEquals(
       VehicleStop.VehicleStopState.NEW,
-      Convert.convertVehicleStopStateFromDto(VehicleStopStateDto.NEWSTOP)
+      Convert.convertVehicleStopStateFromDto(VehicleStopStateDto.NEW_STOP),
     )
     assertEquals(
       VehicleStop.VehicleStopState.ENROUTE,
-      Convert.convertVehicleStopStateFromDto(VehicleStopStateDto.ENROUTE)
+      Convert.convertVehicleStopStateFromDto(VehicleStopStateDto.ENROUTE),
     )
     assertEquals(
       VehicleStop.VehicleStopState.ARRIVED,
-      Convert.convertVehicleStopStateFromDto(VehicleStopStateDto.ARRIVED)
+      Convert.convertVehicleStopStateFromDto(VehicleStopStateDto.ARRIVED),
     )
   }
 
   @Test
   fun convertVehicleStopStateToDto_returnsExpectedValue() {
     assertEquals(
-      VehicleStopStateDto.STATEUNSPECIFIED,
-      Convert.convertVehicleStopStateToDto(VehicleStop.VehicleStopState.UNSPECIFIED)
+      VehicleStopStateDto.STATE_UNSPECIFIED,
+      Convert.convertVehicleStopStateToDto(VehicleStop.VehicleStopState.UNSPECIFIED),
     )
     assertEquals(
-      VehicleStopStateDto.NEWSTOP,
-      Convert.convertVehicleStopStateToDto(VehicleStop.VehicleStopState.NEW)
+      VehicleStopStateDto.NEW_STOP,
+      Convert.convertVehicleStopStateToDto(VehicleStop.VehicleStopState.NEW),
     )
     assertEquals(
       VehicleStopStateDto.ENROUTE,
-      Convert.convertVehicleStopStateToDto(VehicleStop.VehicleStopState.ENROUTE)
+      Convert.convertVehicleStopStateToDto(VehicleStop.VehicleStopState.ENROUTE),
     )
     assertEquals(
       VehicleStopStateDto.ARRIVED,
-      Convert.convertVehicleStopStateToDto(VehicleStop.VehicleStopState.ARRIVED)
+      Convert.convertVehicleStopStateToDto(VehicleStop.VehicleStopState.ARRIVED),
     )
   }
 
@@ -112,11 +112,11 @@ internal class ConvertTest {
   fun convertRidesharingVehicleStateFromDto_returnsExpectedValue() {
     assertEquals(
       RidesharingVehicleReporter.VehicleState.OFFLINE,
-      Convert.convertVehicleStateFromDto(VehicleStateDto.OFFLINE)
+      Convert.convertVehicleStateFromDto(VehicleStateDto.OFFLINE),
     )
     assertEquals(
       RidesharingVehicleReporter.VehicleState.ONLINE,
-      Convert.convertVehicleStateFromDto(VehicleStateDto.ONLINE)
+      Convert.convertVehicleStateFromDto(VehicleStateDto.ONLINE),
     )
   }
 
@@ -156,7 +156,7 @@ internal class ConvertTest {
         longitude = 20.0,
         speed = 40.0,
         time = 80L,
-        provider = "provider"
+        provider = "provider",
       )
 
     val location = Convert.convertLocationFromDto(testLocation)
@@ -201,65 +201,65 @@ internal class ConvertTest {
   fun convertStatusLevelToDto_returnsExpectedValue() {
     assertEquals(
       DriverStatusLevelDto.DEBUG,
-      Convert.convertStatusLevelToDto(DriverContext.DriverStatusListener.StatusLevel.DEBUG)
+      Convert.convertStatusLevelToDto(DriverContext.DriverStatusListener.StatusLevel.DEBUG),
     )
     assertEquals(
       DriverStatusLevelDto.INFO,
-      Convert.convertStatusLevelToDto(DriverContext.DriverStatusListener.StatusLevel.INFO)
+      Convert.convertStatusLevelToDto(DriverContext.DriverStatusListener.StatusLevel.INFO),
     )
     assertEquals(
       DriverStatusLevelDto.WARNING,
-      Convert.convertStatusLevelToDto(DriverContext.DriverStatusListener.StatusLevel.WARNING)
+      Convert.convertStatusLevelToDto(DriverContext.DriverStatusListener.StatusLevel.WARNING),
     )
     assertEquals(
       DriverStatusLevelDto.ERROR,
-      Convert.convertStatusLevelToDto(DriverContext.DriverStatusListener.StatusLevel.ERROR)
+      Convert.convertStatusLevelToDto(DriverContext.DriverStatusListener.StatusLevel.ERROR),
     )
   }
 
   @Test
   fun convertStatusCodeToDto_returnsExpectedValue() {
     assertEquals(
-      DriverStatusCodeDto.DEFAULTSTATUS,
-      Convert.convertStatusCodeToDto(DriverContext.DriverStatusListener.StatusCode.DEFAULT)
+      DriverStatusCodeDto.DEFAULT_STATUS,
+      Convert.convertStatusCodeToDto(DriverContext.DriverStatusListener.StatusCode.DEFAULT),
     )
     assertEquals(
-      DriverStatusCodeDto.UNKNOWNERROR,
-      Convert.convertStatusCodeToDto(DriverContext.DriverStatusListener.StatusCode.UNKNOWN_ERROR)
+      DriverStatusCodeDto.UNKNOWN_ERROR,
+      Convert.convertStatusCodeToDto(DriverContext.DriverStatusListener.StatusCode.UNKNOWN_ERROR),
     )
     assertEquals(
-      DriverStatusCodeDto.VEHICLENOTFOUND,
+      DriverStatusCodeDto.VEHICLE_NOT_FOUND,
       Convert.convertStatusCodeToDto(
         DriverContext.DriverStatusListener.StatusCode.VEHICLE_NOT_FOUND
-      )
+      ),
     )
     assertEquals(
-      DriverStatusCodeDto.BACKENDCONNECTIVITYERROR,
+      DriverStatusCodeDto.BACKEND_CONNECTIVITY_ERROR,
       Convert.convertStatusCodeToDto(
         DriverContext.DriverStatusListener.StatusCode.BACKEND_CONNECTIVITY_ERROR
-      )
+      ),
     )
     assertEquals(
-      DriverStatusCodeDto.PERMISSIONDENIED,
+      DriverStatusCodeDto.PERMISSION_DENIED,
       Convert.convertStatusCodeToDto(
         DriverContext.DriverStatusListener.StatusCode.PERMISSION_DENIED
-      )
+      ),
     )
     assertEquals(
-      DriverStatusCodeDto.SERVICEERROR,
-      Convert.convertStatusCodeToDto(DriverContext.DriverStatusListener.StatusCode.SERVICE_ERROR)
+      DriverStatusCodeDto.SERVICE_ERROR,
+      Convert.convertStatusCodeToDto(DriverContext.DriverStatusListener.StatusCode.SERVICE_ERROR),
     )
     assertEquals(
-      DriverStatusCodeDto.FILEACCESSERROR,
+      DriverStatusCodeDto.FILE_ACCESS_ERROR,
       Convert.convertStatusCodeToDto(
         DriverContext.DriverStatusListener.StatusCode.FILE_ACCESS_ERROR
-      )
+      ),
     )
     assertEquals(
-      DriverStatusCodeDto.TRAVELEDROUTEERROR,
+      DriverStatusCodeDto.TRAVELED_ROUTE_ERROR,
       Convert.convertStatusCodeToDto(
         DriverContext.DriverStatusListener.StatusCode.TRAVELED_ROUTE_ERROR
-      )
+      ),
     )
   }
 }

@@ -149,7 +149,7 @@ class ConvertTests: XCTestCase {
           latitude: 55.0,
           longitude: 44.0
         )
-      ),
+      )
     ]
 
     XCTAssertEqual(Convert.convertWaypoints(testWaypoints).count, 1)
@@ -161,7 +161,7 @@ class ConvertTests: XCTestCase {
       .init(
         title: "test",
         placeID: "id"
-      ),
+      )
     ]
 
     XCTAssertEqual(Convert.convertWaypoints(testWaypoints).count, 1)
@@ -180,7 +180,7 @@ class ConvertTests: XCTestCase {
   }
 
   func testConvertTaskInfoToDto() {
-    let testTaskInfo = GMTSTaskInfo(taskID: "taskId", taskDuration: 100)
+    let testTaskInfo = GMTDTaskInfo(taskID: "taskId", taskDuration: 100)
     let taskInfo = Convert.convertTaskInfoToDto(task: testTaskInfo)
 
     XCTAssertEqual(taskInfo.taskId, testTaskInfo.taskID)
@@ -208,7 +208,7 @@ class ConvertTests: XCTestCase {
   }
 
   func testConvertVehicleStopToDto() {
-    let testTaskInfo = GMTSTaskInfo(taskID: "taskId", taskDuration: 100)
+    let testTaskInfo = GMTDTaskInfo(taskID: "taskId", taskDuration: 100)
     let testWaypoint = GMSNavigationWaypoint(placeID: "id", title: "title")
     let testStop = GMTDVehicleStop(
       taskInfoArray: [testTaskInfo],

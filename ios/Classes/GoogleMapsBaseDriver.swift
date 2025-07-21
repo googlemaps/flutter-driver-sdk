@@ -13,8 +13,8 @@
 // limitations under the License.
 
 import Flutter
-import google_navigation_flutter
 import GoogleRidesharingDriver
+import google_navigation_flutter
 
 class GoogleMapsBaseDriver {
   var _accessTokenProvider: AccessTokenProvider
@@ -29,8 +29,10 @@ class GoogleMapsBaseDriver {
     fatalError("Method must be overridden")
   }
 
-  func initialize(providerId: String, vehicleId: String,
-                  abnormalTerminationReportingEnabled: Bool) throws {
+  func initialize(
+    providerId: String, vehicleId: String,
+    abnormalTerminationReportingEnabled: Bool
+  ) throws {
     fatalError("Method must be overridden")
   }
 

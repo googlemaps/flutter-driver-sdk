@@ -75,10 +75,10 @@ extension ConvertVehicleStop on VehicleStop {
   /// Converts Google Driver [VehicleStop] to Pigeon [VehicleStopDto].
   VehicleStopDto toDto() {
     return VehicleStopDto(
-        vehicleStopState: vehicleStopState.toDto(),
-        waypoint: waypoint?.toDto(),
-        taskInfoList:
-            taskInfoList.map((TaskInfo task) => task.toDto()).toList());
+      vehicleStopState: vehicleStopState.toDto(),
+      waypoint: waypoint?.toDto(),
+      taskInfoList: taskInfoList.map((TaskInfo task) => task.toDto()).toList(),
+    );
   }
 }
 
@@ -88,10 +88,12 @@ extension ConvertVehicleStopDto on VehicleStopDto {
   /// Converts Pigeon [VehicleStopDto] to Google Driver [VehicleStop].
   VehicleStop toVehicleStop() {
     return VehicleStop(
-        vehicleStopState: vehicleStopState.toVehicleStopState(),
-        waypoint: waypoint?.toNavigationWaypoint(),
-        taskInfoList: taskInfoList.nonNulls
-            .map((TaskInfoDto task) => task.toTaskInfo())
-            .toList());
+      vehicleStopState: vehicleStopState.toVehicleStopState(),
+      waypoint: waypoint?.toNavigationWaypoint(),
+      taskInfoList:
+          taskInfoList.nonNulls
+              .map((TaskInfoDto task) => task.toTaskInfo())
+              .toList(),
+    );
   }
 }

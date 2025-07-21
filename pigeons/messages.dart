@@ -26,7 +26,6 @@ import 'package:pigeon/pigeon.dart';
     copyrightHeader: 'pigeons/copyright.txt',
   ),
 )
-
 /// Indicates the API type for a driver.
 enum DriverApiTypeDto {
   /// Indicates the API is for a delivery driver.
@@ -37,21 +36,13 @@ enum DriverApiTypeDto {
 }
 
 class TaskInfoDto {
-  TaskInfoDto({
-    required this.taskId,
-    required this.durationSeconds,
-  });
+  TaskInfoDto({required this.taskId, required this.durationSeconds});
 
   final String taskId;
   final int durationSeconds;
 }
 
-enum VehicleStopStateDto {
-  stateUnspecified,
-  newStop,
-  enroute,
-  arrived,
-}
+enum VehicleStopStateDto { stateUnspecified, newStop, enroute, arrived }
 
 class VehicleStopDto {
   VehicleStopDto({
@@ -66,10 +57,7 @@ class VehicleStopDto {
 }
 
 class LatLngDto {
-  const LatLngDto({
-    required this.latitude,
-    required this.longitude,
-  });
+  const LatLngDto({required this.latitude, required this.longitude});
 
   final double latitude;
   final double longitude;
@@ -100,17 +88,18 @@ enum VehicleStateDto {
 }
 
 class LocationDto {
-  LocationDto(
-      {this.accuracy,
-      this.altitude,
-      this.elapsedRealtimeNanos,
-      this.bearing,
-      this.isMock,
-      this.latitude,
-      this.longitude,
-      this.provider,
-      this.speed,
-      this.time});
+  LocationDto({
+    this.accuracy,
+    this.altitude,
+    this.elapsedRealtimeNanos,
+    this.bearing,
+    this.isMock,
+    this.latitude,
+    this.longitude,
+    this.provider,
+    this.speed,
+    this.time,
+  });
   final double? accuracy;
   final double? altitude;
   final int? elapsedRealtimeNanos;
@@ -124,11 +113,12 @@ class LocationDto {
 }
 
 class DeliveryVehicleDto {
-  DeliveryVehicleDto(
-      {required this.providerId,
-      required this.id,
-      required this.name,
-      required this.stops});
+  DeliveryVehicleDto({
+    required this.providerId,
+    required this.id,
+    required this.name,
+    required this.stops,
+  });
   final String providerId;
   final String id;
   final String name;
@@ -137,8 +127,12 @@ class DeliveryVehicleDto {
 
 @HostApi(dartHostTestHandler: 'TestCommonDriverApi')
 abstract class CommonDriverApi {
-  void initialize(DriverApiTypeDto type, String providerId, String vehicleId,
-      bool abnormalTerminationReportingEnabled);
+  void initialize(
+    DriverApiTypeDto type,
+    String providerId,
+    String vehicleId,
+    bool abnormalTerminationReportingEnabled,
+  );
   bool isInitialized(DriverApiTypeDto type);
   String getProviderId(DriverApiTypeDto type);
   String getVehicleId(DriverApiTypeDto type);
@@ -146,7 +140,9 @@ abstract class CommonDriverApi {
   void setLocationTrackingEnabled(DriverApiTypeDto type, bool enabled);
   int getLocationReportingIntervalMillis(DriverApiTypeDto type);
   void setLocationReportingIntervalMillis(
-      DriverApiTypeDto type, int milliseconds);
+    DriverApiTypeDto type,
+    int milliseconds,
+  );
   void dispose(DriverApiTypeDto type);
   String getDriverSdkVersion(DriverApiTypeDto type);
   void setSupplementalLocation(DriverApiTypeDto type, LocationDto location);
@@ -201,7 +197,10 @@ class VehicleUpdateDto {
 abstract class VehicleReporterListenerApi {
   void onDidSucceed(VehicleUpdateDto vehicleUpdate);
   void onDidFail(
-      VehicleUpdateDto vehicleUpdate, String errorCode, String errorMessage);
+    VehicleUpdateDto vehicleUpdate,
+    String errorCode,
+    String errorMessage,
+  );
 }
 
 enum DriverStatusLevelDto { debug, info, warning, error }
@@ -214,11 +213,16 @@ enum DriverStatusCodeDto {
   permissionDenied,
   serviceError,
   fileAccessError,
-  traveledRouteError
+  traveledRouteError,
 }
 
 @FlutterApi()
 abstract class DriverStatusListenerApi {
-  void onStatusUpdate(DriverStatusLevelDto level, DriverStatusCodeDto code,
-      String message, String? errorCode, String? errorMessage);
+  void onStatusUpdate(
+    DriverStatusLevelDto level,
+    DriverStatusCodeDto code,
+    String message,
+    String? errorCode,
+    String? errorMessage,
+  );
 }

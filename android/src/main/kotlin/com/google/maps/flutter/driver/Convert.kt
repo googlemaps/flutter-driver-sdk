@@ -93,7 +93,7 @@ object Convert {
       convertLatLngToDto(waypoint.position),
       waypoint.placeId,
       waypoint.preferSameSideOfRoad,
-      waypoint.preferredHeading.takeIf { it != -1 }?.toLong()
+      waypoint.preferredHeading.takeIf { it != -1 }?.toLong(),
     )
   }
 
@@ -128,8 +128,8 @@ object Convert {
    */
   fun convertVehicleStopStateFromDto(vehicleStopState: VehicleStopStateDto): Int {
     return when (vehicleStopState) {
-      VehicleStopStateDto.STATEUNSPECIFIED -> VehicleStop.VehicleStopState.UNSPECIFIED
-      VehicleStopStateDto.NEWSTOP -> VehicleStop.VehicleStopState.NEW
+      VehicleStopStateDto.STATE_UNSPECIFIED -> VehicleStop.VehicleStopState.UNSPECIFIED
+      VehicleStopStateDto.NEW_STOP -> VehicleStop.VehicleStopState.NEW
       VehicleStopStateDto.ENROUTE -> VehicleStop.VehicleStopState.ENROUTE
       VehicleStopStateDto.ARRIVED -> VehicleStop.VehicleStopState.ARRIVED
     }
@@ -143,12 +143,12 @@ object Convert {
    */
   fun convertVehicleStopStateToDto(googleVehicleStopState: Int): VehicleStopStateDto {
     return when (googleVehicleStopState) {
-      VehicleStop.VehicleStopState.UNSPECIFIED -> VehicleStopStateDto.STATEUNSPECIFIED
-      VehicleStop.VehicleStopState.NEW -> VehicleStopStateDto.NEWSTOP
+      VehicleStop.VehicleStopState.UNSPECIFIED -> VehicleStopStateDto.STATE_UNSPECIFIED
+      VehicleStop.VehicleStopState.NEW -> VehicleStopStateDto.NEW_STOP
       VehicleStop.VehicleStopState.ENROUTE -> VehicleStopStateDto.ENROUTE
       VehicleStop.VehicleStopState.ARRIVED -> VehicleStopStateDto.ARRIVED
       else -> {
-        VehicleStopStateDto.STATEUNSPECIFIED
+        VehicleStopStateDto.STATE_UNSPECIFIED
       }
     }
   }
@@ -165,7 +165,7 @@ object Convert {
       convertWaypointToDto(stop.waypoint),
       Lists.transform<TaskInfo, TaskInfoDto?>(stop.taskInfoList) { task: TaskInfo ->
         convertTaskInfoToDto(task)
-      }
+      },
     )
   }
 
@@ -222,14 +222,14 @@ object Convert {
           "driverException",
           t.message?.replace("java.lang.RuntimeException: Exception: ", "")
             ?: "Token retrieval from the backend failed.",
-          "UNAUTHENTICATED"
+          "UNAUTHENTICATED",
         )
       }
       else -> {
         return FlutterError(
           "driverException",
           extractErrorMessage(t) ?: "Driver API call failed.",
-          extractErrorCode(t) ?: "UNKNOWN"
+          extractErrorCode(t) ?: "UNKNOWN",
         )
       }
     }
@@ -296,7 +296,7 @@ object Convert {
       longitude = location.longitude,
       isMock = isMock,
       speed = location.speed.toDouble(),
-      time = location.time
+      time = location.time,
     )
   }
 
@@ -311,7 +311,7 @@ object Convert {
       providerId = deliveryVehicle.providerId,
       id = deliveryVehicle.vehicleId,
       name = deliveryVehicle.vehicleName,
-      stops = deliveryVehicle.vehicleStops.map { convertVehicleStopToDto(it) }
+      stops = deliveryVehicle.vehicleStops.map { convertVehicleStopToDto(it) },
     )
   }
 
@@ -344,21 +344,21 @@ object Convert {
     statusCode: DriverContext.DriverStatusListener.StatusCode
   ): DriverStatusCodeDto {
     return when (statusCode) {
-      DriverContext.DriverStatusListener.StatusCode.DEFAULT -> DriverStatusCodeDto.DEFAULTSTATUS
+      DriverContext.DriverStatusListener.StatusCode.DEFAULT -> DriverStatusCodeDto.DEFAULT_STATUS
       DriverContext.DriverStatusListener.StatusCode.UNKNOWN_ERROR ->
-        DriverStatusCodeDto.UNKNOWNERROR
+        DriverStatusCodeDto.UNKNOWN_ERROR
       DriverContext.DriverStatusListener.StatusCode.VEHICLE_NOT_FOUND ->
-        DriverStatusCodeDto.VEHICLENOTFOUND
+        DriverStatusCodeDto.VEHICLE_NOT_FOUND
       DriverContext.DriverStatusListener.StatusCode.BACKEND_CONNECTIVITY_ERROR ->
-        DriverStatusCodeDto.BACKENDCONNECTIVITYERROR
+        DriverStatusCodeDto.BACKEND_CONNECTIVITY_ERROR
       DriverContext.DriverStatusListener.StatusCode.PERMISSION_DENIED ->
-        DriverStatusCodeDto.PERMISSIONDENIED
+        DriverStatusCodeDto.PERMISSION_DENIED
       DriverContext.DriverStatusListener.StatusCode.SERVICE_ERROR ->
-        DriverStatusCodeDto.SERVICEERROR
+        DriverStatusCodeDto.SERVICE_ERROR
       DriverContext.DriverStatusListener.StatusCode.FILE_ACCESS_ERROR ->
-        DriverStatusCodeDto.FILEACCESSERROR
+        DriverStatusCodeDto.FILE_ACCESS_ERROR
       DriverContext.DriverStatusListener.StatusCode.TRAVELED_ROUTE_ERROR ->
-        DriverStatusCodeDto.TRAVELEDROUTEERROR
+        DriverStatusCodeDto.TRAVELED_ROUTE_ERROR
     }
   }
 }
