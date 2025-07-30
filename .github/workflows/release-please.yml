@@ -17,6 +17,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
   pull-requests: write
@@ -27,12 +31,6 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: google-github-actions/release-please-action@v4
+      - uses: googleapis/release-please-action@d1a8f221d7723166f48a584aebba00ef3f6febec
         with:
           token: ${{ secrets.SYNCED_GITHUB_TOKEN_REPO }}
-          release-type: dart
-          package-name: "@googlemaps/flutter-driver-sdk"
-          bump-minor-pre-major: true
-          bump-patch-for-minor-pre-major: true
-          prerelease: true
-          prerelease-type: beta
