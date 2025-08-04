@@ -5,7 +5,6 @@
   "include-v-in-tag": false,
   "bump-minor-pre-major": true,
   "bump-patch-for-minor-pre-major": true,
-  "prerelease": true,
   "packages": {
     ".": {
       "package-name": "google_driver_flutter",
