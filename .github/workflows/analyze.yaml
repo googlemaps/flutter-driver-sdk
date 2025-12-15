@@ -50,7 +50,7 @@ jobs:
           distribution: "temurin"
           java-version: "17"
       - name: Restore Cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         id: cache
         with:
           path: /home/linuxbrew/.linuxbrew
@@ -65,7 +65,7 @@ jobs:
           echo 'brew "swift-format.rb"' > Brewfile
           brew bundle
       - name: Save Cache
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         if: steps.cache.outputs.cache-hit != 'true'
         with:
           path: /home/linuxbrew/.linuxbrew
