@@ -50,7 +50,7 @@ android {
         namespace 'com.google.maps.flutter.driver'
     }
 
-    compileSdk 34
+    compileSdk 35
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
@@ -67,7 +67,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 23
+        minSdkVersion 24
     }
 
     dependencies {
