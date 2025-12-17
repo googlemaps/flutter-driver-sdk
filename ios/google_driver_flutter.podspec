@@ -13,7 +13,7 @@ A Google Maps Driver Flutter plugin.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'google_driver_flutter/Sources/google_driver_flutter/**/*.swift'
   s.dependency 'Flutter'
   s.dependency 'GoogleRidesharingDriver', '~> 10.0.0'
   s.dependency 'google_navigation_flutter'
@@ -23,8 +23,5 @@ A Google Maps Driver Flutter plugin.
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'
-  s.xcconfig = {
-    'LD_RUNPATH_SEARCH_PATHS' => '$(inherited) /usr/lib/swift',
-  }
-  s.resource_bundles = {'google_driver_flutter_privacy_info' => ['Resources/PrivacyInfo.xcprivacy']}
+  s.resource_bundles = {'google_driver_flutter_privacy_info' => ['google_driver_flutter/Sources/google_driver_flutter/PrivacyInfo.xcprivacy']}
 end
