@@ -102,32 +102,26 @@ class ODRDVehicle extends Vehicle {
         json['vehicleState'] as String,
       ),
       name: json['name'] as String?,
-      currentTripsIds:
-          (json['currentTripsIds'] as List<dynamic>?)
-              ?.map((dynamic e) => e as String)
-              .toList(),
-      waypoints:
-          (json['waypoints'] as List<dynamic>?)
-              ?.map(
-                (dynamic e) => ODRDWaypoint.fromJson(e as Map<String, dynamic>),
-              )
-              .toList(),
-      supportedTripTypes:
-          (json['supportedTripTypes'] as List<dynamic>?)
-              ?.map(
-                (dynamic e) =>
-                    ODRDTripTypesJsonConversion.fromJsonString(e as String),
-              )
-              .toList(),
+      currentTripsIds: (json['currentTripsIds'] as List<dynamic>?)
+          ?.map((dynamic e) => e as String)
+          .toList(),
+      waypoints: (json['waypoints'] as List<dynamic>?)
+          ?.map((dynamic e) => ODRDWaypoint.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      supportedTripTypes: (json['supportedTripTypes'] as List<dynamic>?)
+          ?.map(
+            (dynamic e) =>
+                ODRDTripTypesJsonConversion.fromJsonString(e as String),
+          )
+          .toList(),
       backToBackEnabled: json['backToBackEnabled'] as bool?,
       maximumCapacity: json['maximumCapacity'] as int?,
-      lastLocation:
-          json['lastLocation'] == null
-              ? null
-              : LatLngJsonConversion.fromJson(
-                (json['lastLocation'] as Map<String, dynamic>)['point']
-                    as Map<String, dynamic>,
-              ),
+      lastLocation: json['lastLocation'] == null
+          ? null
+          : LatLngJsonConversion.fromJson(
+              (json['lastLocation'] as Map<String, dynamic>)['point']
+                  as Map<String, dynamic>,
+            ),
     );
   }
 
@@ -138,10 +132,9 @@ class ODRDVehicle extends Vehicle {
       json['vehicleState'] = vehicleState!.toJsonString();
     }
     if (supportedTripTypes != null) {
-      json['supportedTripTypes'] =
-          supportedTripTypes!
-              .map((ODRDTripType e) => e.toJsonString())
-              .toList();
+      json['supportedTripTypes'] = supportedTripTypes!
+          .map((ODRDTripType e) => e.toJsonString())
+          .toList();
     }
     if (backToBackEnabled != null) {
       json['backToBackEnabled'] = backToBackEnabled;
@@ -475,8 +468,9 @@ class ODRDCreateTrip {
     };
 
     if (intermediateDestinations != null) {
-      json['intermediateDestinations'] =
-          intermediateDestinations!.map((LatLng l) => l.toJson()).toList();
+      json['intermediateDestinations'] = intermediateDestinations!
+          .map((LatLng l) => l.toJson())
+          .toList();
     }
 
     return json;
@@ -505,12 +499,9 @@ class ODRDTrip {
       tripStatus: ODRDTripStatusJsonConversion.fromJsonString(
         json['tripStatus'] as String,
       ),
-      waypoints:
-          (json['waypoints'] as List<dynamic>)
-              .map(
-                (dynamic e) => ODRDWaypoint.fromJson(e as Map<String, dynamic>),
-              )
-              .toList(),
+      waypoints: (json['waypoints'] as List<dynamic>)
+          .map((dynamic e) => ODRDWaypoint.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
   }
 

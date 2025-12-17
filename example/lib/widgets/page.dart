@@ -95,7 +95,10 @@ abstract class ExamplePageState<T extends ExamplePage> extends State<T>
   Widget buildPage(BuildContext context, Widget child) {
     return Stack(
       children: <Widget>[
-        Scaffold(appBar: AppBar(title: Text(widget.title)), body: child),
+        Scaffold(
+          appBar: AppBar(title: Text(widget.title)),
+          body: child,
+        ),
         if (_isOverlayVisible) _buildOverlay(),
       ],
     );
@@ -109,12 +112,9 @@ abstract class ExamplePageState<T extends ExamplePage> extends State<T>
           onTap: hideOverlay,
           child: AnimatedBuilder(
             animation: _controller,
-            builder:
-                (BuildContext context, Widget? child) => Container(
-                  color: Colors.black.withValues(
-                    alpha: _controller.value * 0.5,
-                  ),
-                ),
+            builder: (BuildContext context, Widget? child) => Container(
+              color: Colors.black.withValues(alpha: _controller.value * 0.5),
+            ),
           ),
         ),
         // Overlay content
@@ -187,26 +187,25 @@ abstract class ExamplePageState<T extends ExamplePage> extends State<T>
   }) {
     final OverlayState overlay = Overlay.of(context);
     final OverlayEntry overlayEntry = OverlayEntry(
-      builder:
-          (BuildContext context) => Align(
-            alignment: alignment,
-            child: SizedBox(
-              width: double.infinity,
-              child: Material(
-                elevation: 10.0,
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  color: Theme.of(context).snackBarTheme.backgroundColor,
-                  child: SafeArea(
-                    child: Text(
-                      message,
-                      style: Theme.of(context).snackBarTheme.contentTextStyle,
-                    ),
-                  ),
+      builder: (BuildContext context) => Align(
+        alignment: alignment,
+        child: SizedBox(
+          width: double.infinity,
+          child: Material(
+            elevation: 10.0,
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              color: Theme.of(context).snackBarTheme.backgroundColor,
+              child: SafeArea(
+                child: Text(
+                  message,
+                  style: Theme.of(context).snackBarTheme.contentTextStyle,
                 ),
               ),
             ),
           ),
+        ),
+      ),
     );
 
     overlay.insert(overlayEntry);

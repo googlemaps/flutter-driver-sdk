@@ -96,8 +96,8 @@ void main() {
         when(
           mockedCommonDriverApi.getProviderId(any),
         ).thenAnswer((Invocation _) => providerIdIn);
-        final String providerIdOut =
-            await publicCommonDriverApi.getProviderId();
+        final String providerIdOut = await publicCommonDriverApi
+            .getProviderId();
         final VerificationResult result = verify(
           mockedCommonDriverApi.getProviderId(captureAny),
         );
@@ -122,8 +122,8 @@ void main() {
         when(
           mockedCommonDriverApi.getDriverSdkVersion(any),
         ).thenAnswer((Invocation _) => sdkVersionIn);
-        final String sdkVersionOut =
-            await publicCommonDriverApi.getDriverSdkVersion();
+        final String sdkVersionOut = await publicCommonDriverApi
+            .getDriverSdkVersion();
         final VerificationResult result = verify(
           mockedCommonDriverApi.getDriverSdkVersion(captureAny),
         );
@@ -181,8 +181,8 @@ void main() {
         when(
           mockedCommonDriverApi.getLocationReportingIntervalMillis(any),
         ).thenAnswer((Invocation _) => reportingIntervalIn);
-        final Duration reportingIntervalOut =
-            await vehicleReporter.getLocationReportingInterval();
+        final Duration reportingIntervalOut = await vehicleReporter
+            .getLocationReportingInterval();
         final VerificationResult result = verify(
           mockedCommonDriverApi.getLocationReportingIntervalMillis(captureAny),
         );

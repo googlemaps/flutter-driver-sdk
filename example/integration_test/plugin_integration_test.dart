@@ -312,33 +312,32 @@ void main() {
           return tokenResponse!.token;
         }
       },
-      onStatusUpdate:
-          Platform.isAndroid
-              ? (
-                DriverStatusLevel level,
-                DriverStatusCode code,
-                String message,
-                DriverException? exception,
-              ) {
-                if (listeningStatus) {
-                  reportedLevel = level;
-                  reportedCode = code;
-                  reportedMessage = message;
-                  reportedException = exception;
+      onStatusUpdate: Platform.isAndroid
+          ? (
+              DriverStatusLevel level,
+              DriverStatusCode code,
+              String message,
+              DriverException? exception,
+            ) {
+              if (listeningStatus) {
+                reportedLevel = level;
+                reportedCode = code;
+                reportedMessage = message;
+                reportedException = exception;
 
-                  if (code == DriverStatusCode.defaultStatus) {
-                    if (level == DriverStatusLevel.debug &&
-                        message == 'Successful update.') {
-                      successCount = successCount + 1;
-                      successCompleter.complete();
-                    }
-                  } else {
-                    failureCount = failureCount + 1;
-                    failureCompleter.complete();
+                if (code == DriverStatusCode.defaultStatus) {
+                  if (level == DriverStatusLevel.debug &&
+                      message == 'Successful update.') {
+                    successCount = successCount + 1;
+                    successCompleter.complete();
                   }
+                } else {
+                  failureCount = failureCount + 1;
+                  failureCompleter.complete();
                 }
               }
-              : null,
+            }
+          : null,
       abnormalTerminationReportingEnabled: true,
     );
     await $.pumpAndSettle();

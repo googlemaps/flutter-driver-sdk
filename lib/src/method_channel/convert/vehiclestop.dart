@@ -90,10 +90,9 @@ extension ConvertVehicleStopDto on VehicleStopDto {
     return VehicleStop(
       vehicleStopState: vehicleStopState.toVehicleStopState(),
       waypoint: waypoint?.toNavigationWaypoint(),
-      taskInfoList:
-          taskInfoList.nonNulls
-              .map((TaskInfoDto task) => task.toTaskInfo())
-              .toList(),
+      taskInfoList: taskInfoList.nonNulls
+          .map((TaskInfoDto task) => task.toTaskInfo())
+          .toList(),
     );
   }
 }

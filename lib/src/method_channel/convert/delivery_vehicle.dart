@@ -24,11 +24,10 @@ extension ConvertDeliveryVehicleDto on DeliveryVehicleDto {
       providerId: providerId,
       id: id,
       name: name,
-      stops:
-          stops
-              .whereType<VehicleStopDto>()
-              .map((VehicleStopDto e) => e.toVehicleStop())
-              .toList(),
+      stops: stops
+          .whereType<VehicleStopDto>()
+          .map((VehicleStopDto e) => e.toVehicleStop())
+          .toList(),
     );
   }
 }

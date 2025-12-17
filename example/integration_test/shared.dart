@@ -42,7 +42,9 @@ Future<void> pumpNavigationView(
 
 /// Wraps a [navigationView] in widgets.
 Widget wrapNavigationView(GoogleMapsNavigationView navigationView) {
-  return MaterialApp(home: Scaffold(body: Center(child: navigationView)));
+  return MaterialApp(
+    home: Scaffold(body: Center(child: navigationView)),
+  );
 }
 
 Future<void> checkTermsAndConditionsAcceptance(
@@ -76,8 +78,9 @@ Future<void> checkTermsAndConditionsAcceptance(
 Future<void> checkLocationDialogAcceptance(PatrolIntegrationTester $) async {
   if (!await Permission.locationWhenInUse.isGranted) {
     /// Request native location permission dialog.q
-    final Future<PermissionStatus> locationGranted =
-        Permission.locationWhenInUse.request();
+    final Future<PermissionStatus> locationGranted = Permission
+        .locationWhenInUse
+        .request();
 
     // Grant location permission.
     await $.native.grantPermissionWhenInUse();

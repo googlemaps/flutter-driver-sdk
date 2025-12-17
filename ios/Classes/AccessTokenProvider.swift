@@ -39,9 +39,9 @@ class AccessTokenProvider: NSObject, GMTDAuthorization, ObservableObject {
       vehicleId: authorizationContext?.vehicleID ?? nil
     ) { result in
       switch result {
-      case let .success(data):
+      case .success(let data):
         completion(data, nil)
-      case let .failure(error):
+      case .failure(let error):
         let nsError = NSError(
           domain: "com.google.mapsplatform.transportation.driver.vehiclereporter.ErrorDomain",
           code: 0,

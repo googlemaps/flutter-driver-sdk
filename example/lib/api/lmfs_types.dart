@@ -59,10 +59,9 @@ class LMFSDeliveryConfig {
   factory LMFSDeliveryConfig.fromJson(Map<String, dynamic> json) {
     return LMFSDeliveryConfig(
       description: json['description'] as String,
-      manifests:
-          (json['manifests'] as List<Map<String, dynamic>>)
-              .map((Map<String, dynamic> e) => LMFSManifest.fromJson(e))
-              .toList(),
+      manifests: (json['manifests'] as List<Map<String, dynamic>>)
+          .map((Map<String, dynamic> e) => LMFSManifest.fromJson(e))
+          .toList(),
     );
   }
 
@@ -185,12 +184,11 @@ class LMFSManifest {
     return LMFSManifest(
       vehicle: LMFSVehicle.fromJson(json['vehicle'] as Map<String, dynamic>),
       clientId: json['client_id'] as String?,
-      currentStopState:
-          json['current_stop_state'] != null
-              ? VehicleStopStateJsonConversion.fromJsonString(
-                json['current_stop_state'] as String,
-              )
-              : null,
+      currentStopState: json['current_stop_state'] != null
+          ? VehicleStopStateJsonConversion.fromJsonString(
+              json['current_stop_state'] as String,
+            )
+          : null,
       remainingStopIdList: List<String>.from(
         json['remaining_stop_id_list'] as List<dynamic>,
       ),
@@ -285,12 +283,11 @@ class LMFSVehicle extends Vehicle {
     return LMFSVehicle(
       vehicleId: json['vehicle_id'] as String,
       providerId: json['provider_id'] as String,
-      startLocation:
-          json['start_location'] != null
-              ? LMFSWaypoint.fromJson(
-                json['start_location'] as Map<String, dynamic>,
-              )
-              : null,
+      startLocation: json['start_location'] != null
+          ? LMFSWaypoint.fromJson(
+              json['start_location'] as Map<String, dynamic>,
+            )
+          : null,
     );
   }
 }
@@ -484,12 +481,11 @@ class LMFSTask {
       plannedCompletionTimeRangeSeconds:
           json['planned_completion_time_range_seconds'] as int?,
       durationSeconds: json['duration_seconds'] as int,
-      taskType:
-          json['taskType'] != null
-              ? LMFSTaskTypeJsonConversion.fromJsonString(
-                json['taskType'] as String,
-              )
-              : null,
+      taskType: json['taskType'] != null
+          ? LMFSTaskTypeJsonConversion.fromJsonString(
+              json['taskType'] as String,
+            )
+          : null,
       description: json['description'] as String?,
     );
   }

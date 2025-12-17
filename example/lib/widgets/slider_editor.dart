@@ -49,12 +49,11 @@ class ExampleSlider extends StatelessWidget {
         ),
         Slider(
           value: value,
-          onChanged:
-              onChanged == null
-                  ? null
-                  : (double newValue) {
-                    onChanged!(newValue);
-                  },
+          onChanged: onChanged == null
+              ? null
+              : (double newValue) {
+                  onChanged!(newValue);
+                },
           min: min,
           max: max,
         ),

@@ -46,8 +46,9 @@ LMFSDeliveryConfig? get lmfsDeliveryConfig => _lmfsDeliveryConfig;
 /// Returns the same instance of [LMFSApi] every time.
 LMFSApi getLMFSApi() {
   if (_lmfsApiInstance == null) {
-    final String baseUrl =
-        Platform.isAndroid ? _lmfsAndroidBaseUrl : _lmfsiOSBaseUrl;
+    final String baseUrl = Platform.isAndroid
+        ? _lmfsAndroidBaseUrl
+        : _lmfsiOSBaseUrl;
     _lmfsApiInstance = LMFSApi(baseUrl);
   }
   return _lmfsApiInstance!;
@@ -140,38 +141,36 @@ Future<LMFSManifest> completeFirstLMFSStop(LMFSManifest manifest) async {
     remainingStopIdList: manifest.remainingStopIdList,
   );
   update.remainingStopIdList!.removeAt(0);
-  update.currentStopState =
-      update.remainingStopIdList!.isEmpty ? null : VehicleStopState.newStop;
+  update.currentStopState = update.remainingStopIdList!.isEmpty
+      ? null
+      : VehicleStopState.newStop;
   return getLMFSApi().updateManifest(update, manifest.vehicle.vehicleId);
 }
 
 /// Returns the list of [VehicleStop] objects from the given [LMFSManifest].
 List<VehicleStop> getStopsFromLMFSManifest(LMFSManifest manifest) {
-  final List<VehicleStop> stops =
-      manifest.stops
-          .where(
-            (LMFSStop stop) =>
-                manifest.remainingStopIdList?.contains(stop.stopId) ?? false,
-          )
-          .map(
-            (LMFSStop stop) => VehicleStop(
-              vehicleStopState:
-                  stop.stopId == manifest.remainingStopIdList?.first
-                      ? (manifest.currentStopState ?? VehicleStopState.newStop)
-                      : VehicleStopState.newStop,
-              waypoint: stop.plannedWaypoint.toNavigationWaypoint(),
-              taskInfoList:
-                  stop.taskIds.map((String taskId) {
-                    final LMFSTask task = manifest.tasks.firstWhere(
-                      (LMFSTask task) => task.taskId == taskId,
-                    );
-                    return TaskInfo(
-                      taskId: taskId,
-                      durationSeconds: task.durationSeconds,
-                    );
-                  }).toList(),
-            ),
-          )
-          .toList();
+  final List<VehicleStop> stops = manifest.stops
+      .where(
+        (LMFSStop stop) =>
+            manifest.remainingStopIdList?.contains(stop.stopId) ?? false,
+      )
+      .map(
+        (LMFSStop stop) => VehicleStop(
+          vehicleStopState: stop.stopId == manifest.remainingStopIdList?.first
+              ? (manifest.currentStopState ?? VehicleStopState.newStop)
+              : VehicleStopState.newStop,
+          waypoint: stop.plannedWaypoint.toNavigationWaypoint(),
+          taskInfoList: stop.taskIds.map((String taskId) {
+            final LMFSTask task = manifest.tasks.firstWhere(
+              (LMFSTask task) => task.taskId == taskId,
+            );
+            return TaskInfo(
+              taskId: taskId,
+              durationSeconds: task.durationSeconds,
+            );
+          }).toList(),
+        ),
+      )
+      .toList();
   return stops;
 }

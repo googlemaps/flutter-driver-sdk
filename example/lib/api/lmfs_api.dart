@@ -40,8 +40,9 @@ class LMFSApi extends ApiClient {
     LMFSManifestUpdate manifestDetails,
     String? vehicleId,
   ) async {
-    final String endpoint =
-        vehicleId != null ? 'manifest/$vehicleId' : 'manifest';
+    final String endpoint = vehicleId != null
+        ? 'manifest/$vehicleId'
+        : 'manifest';
     final String response = await post(endpoint, manifestDetails.toJson());
     return LMFSManifest.fromJson(jsonDecode(response) as Map<String, dynamic>);
   }

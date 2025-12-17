@@ -25,6 +25,7 @@ dependencies:
     sdk: flutter
   google_driver_flutter:
     path: ../
+  google_navigation_flutter: ^0.8.0
   http: ^1.1.2
   permission_handler: ^11.3.1
 

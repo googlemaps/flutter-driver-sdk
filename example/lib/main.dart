@@ -148,8 +148,8 @@ class _DriverDemoState extends State<DriverBody> with WidgetsBindingObserver {
   /// Android: Fine and Coarse Location
   /// iOS: CoreLocation (Always and WhenInUse), Notification
   Future<void> _requestPermissions() async {
-    final PermissionStatus locationPermission =
-        await Permission.location.request();
+    final PermissionStatus locationPermission = await Permission.location
+        .request();
 
     PermissionStatus notificationPermission = PermissionStatus.denied;
     if (Platform.isIOS) {
@@ -171,10 +171,9 @@ class _DriverDemoState extends State<DriverBody> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    String buildPermissionsStatus() =>
-        (Platform.isIOS
-            ? 'Location ${_locationPermitted ? 'granted' : 'denied'} • Notifications ${_notificationsPermitted ? 'granted' : 'denied'}'
-            : 'Location ${_locationPermitted ? 'granted' : 'denied'} ');
+    String buildPermissionsStatus() => (Platform.isIOS
+        ? 'Location ${_locationPermitted ? 'granted' : 'denied'} • Notifications ${_notificationsPermitted ? 'granted' : 'denied'}'
+        : 'Location ${_locationPermitted ? 'granted' : 'denied'} ');
 
     return Scaffold(
       appBar: AppBar(title: const Text('Google Maps Driver examples')),

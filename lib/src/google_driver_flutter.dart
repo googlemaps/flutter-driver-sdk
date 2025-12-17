@@ -810,9 +810,9 @@ class _DriverStatusListenerApiImpl implements DriverStatusListenerApi {
       message,
       errorCode != null
           ? DriverException(
-            message: errorMessage ?? 'Unknown error.',
-            code: errorCode,
-          )
+              message: errorMessage ?? 'Unknown error.',
+              code: errorCode,
+            )
           : null,
     );
   }
