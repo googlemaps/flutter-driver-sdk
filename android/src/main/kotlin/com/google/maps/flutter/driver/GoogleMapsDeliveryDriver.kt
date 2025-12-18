@@ -28,7 +28,7 @@ import com.google.common.collect.ImmutableList
 import com.google.common.util.concurrent.FutureCallback
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.MoreExecutors
-import com.google.maps.flutter.navigation.GoogleMapsNavigationSessionManager
+import com.google.maps.flutter.navigation.GoogleMapsNavigatorHolder
 import io.flutter.plugin.common.BinaryMessenger
 
 class GoogleMapsDeliveryDriver(private val messenger: BinaryMessenger) :
@@ -46,13 +46,20 @@ class GoogleMapsDeliveryDriver(private val messenger: BinaryMessenger) :
     abnormalTerminationReportingEnabled: Boolean,
   ) {
     val navigator: Navigator =
-      GoogleMapsNavigationSessionManager.getInstance().getNavigatorWithoutError()
+      GoogleMapsNavigatorHolder.getNavigator()
         ?: throw FlutterError(
           "sessionNotInitialized",
           "Cannot access navigation functionality before the navigation session has been initialized.",
         )
 
     _statusListener = GoogleMapsDriverStatusListener(messenger, getActivity())
+
+    val roadSnappedLocationProvider =
+      NavigationApi.getRoadSnappedLocationProvider(getActivity().application)
+        ?: throw FlutterError(
+          "roadSnappedLocationProviderUnavailable",
+          "Failed to obtain RoadSnappedLocationProvider. Ensure navigation is properly initialized.",
+        )
 
     val driverContext: DriverContext =
       DriverContext.builder(getActivity().application)
@@ -61,9 +68,7 @@ class GoogleMapsDeliveryDriver(private val messenger: BinaryMessenger) :
         .setNavigator(navigator)
         .setAuthTokenFactory(getAuthTokenFactory())
         .setDriverStatusListener(_statusListener)
-        .setRoadSnappedLocationProvider(
-          NavigationApi.getRoadSnappedLocationProvider(getActivity().application)
-        )
+        .setRoadSnappedLocationProvider(roadSnappedLocationProvider)
         .build()
 
     _deliveryDriverApi = NativeDeliveryDriverApi.createInstance(driverContext)

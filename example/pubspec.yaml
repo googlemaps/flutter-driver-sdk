@@ -27,6 +27,7 @@ dependencies:
     path: ../
   google_navigation_flutter: ^0.8.0
   http: ^1.1.2
+  meta: ^1.17.0
   permission_handler: ^11.3.1
 
 dev_dependencies:
@@ -43,6 +44,7 @@ flutter:
   uses-material-design: true
 patrol:
   app_name: Driver Example
+  test_directory: integration_test
   android:
     package_name: com.google.maps.flutter.driver_example
   ios:

@@ -89,8 +89,8 @@ object Convert {
    */
   private fun convertWaypointToDto(waypoint: Waypoint): NavigationWaypointDto {
     return NavigationWaypointDto(
-      waypoint.title,
-      convertLatLngToDto(waypoint.position),
+      waypoint.title ?: "",
+      waypoint.position?.let { convertLatLngToDto(it) },
       waypoint.placeId,
       waypoint.preferSameSideOfRoad,
       waypoint.preferredHeading.takeIf { it != -1 }?.toLong(),

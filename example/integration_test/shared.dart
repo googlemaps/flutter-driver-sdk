@@ -24,6 +24,7 @@ import 'dart:io';
 // https://docs.flutter.dev/cookbook/testing/integration/introduction
 
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_driver_flutter/google_driver_flutter.dart';
 // ignore: depend_on_referenced_packages
@@ -139,6 +140,7 @@ Future<void> cleanup() async {
 }
 
 /// Create a wrapper [patrol] for [patrolTest] with custom options.
+@isTest
 void patrol(
   String description,
   Future<void> Function(PatrolIntegrationTester) callback, {
