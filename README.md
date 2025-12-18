@@ -12,10 +12,10 @@ This repository contains a Flutter plugin that allows users to use the [Google M
 
 ## Requirements
 
-|                                 | Android       | iOS       |
-| ------------------------------- | ------------- | --------- |
-| **Minimum mobile OS supported** | API level 26+ | iOS 16.0+ |
-| **Target SDK**                  | 36            | -         |
+|                                 | Android | iOS       |
+| ------------------------------- | ------- | --------- |
+| **Minimum mobile OS supported** | SDK 26+ | iOS 16.0+ |
+| **Compile/Target SDK**          | SDK 36+ | -         |
 
 * A Flutter project
 * A Google Cloud project with the [Navigation SDK enabled](https://developers.google.com/maps/documentation/navigation/android-sdk/set-up-project), the [Maps SDK for iOS enabled](https://developers.google.com/maps/documentation/navigation/ios-sdk/config) and the [Local Rides and Deliveries API enabled](https://console.developers.google.com/apis/library/fleetengine.googleapis.com)
