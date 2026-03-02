@@ -40,7 +40,7 @@ jobs:
           flutter-version: "3.32.x"
           channel: "stable"
           cache: true
-      - uses: bluefireteam/melos-action@6085791af7036f6366c9a4b9d55105c0ef9c6388
+      - uses: bluefireteam/melos-action@705015c3d2bc4ab94201ac24accb2bbe070cf533
         with:
           melos-version: "6.0.0"
       - name: "Run flutter test"
@@ -62,7 +62,7 @@ jobs:
           flutter-version: "3.32.x"
           channel: "stable"
           cache: true
-      - uses: bluefireteam/melos-action@6085791af7036f6366c9a4b9d55105c0ef9c6388
+      - uses: bluefireteam/melos-action@705015c3d2bc4ab94201ac24accb2bbe070cf533
         with:
           melos-version: "6.0.0"
       - name: "Run Android native unit tests"
@@ -88,7 +88,7 @@ jobs:
           flutter-version: "3.32.x"
           channel: "stable"
           cache: true
-      - uses: bluefireteam/melos-action@6085791af7036f6366c9a4b9d55105c0ef9c6388
+      - uses: bluefireteam/melos-action@705015c3d2bc4ab94201ac24accb2bbe070cf533
         with:
           melos-version: "6.0.0"
       - name: Select XCode 16.1
@@ -119,7 +119,7 @@ jobs:
           flutter-version: "3.32.x"
           channel: "stable"
           cache: true
-      - uses: bluefireteam/melos-action@6085791af7036f6366c9a4b9d55105c0ef9c6388
+      - uses: bluefireteam/melos-action@705015c3d2bc4ab94201ac24accb2bbe070cf533
         with:
           melos-version: "6.0.0"
       - name: "Run build for Android"
@@ -140,7 +140,7 @@ jobs:
           channel: "stable"
           cache: true
           architecture: x64
-      - uses: bluefireteam/melos-action@6085791af7036f6366c9a4b9d55105c0ef9c6388
+      - uses: bluefireteam/melos-action@705015c3d2bc4ab94201ac24accb2bbe070cf533
         with:
           melos-version: "6.0.0"
       - uses: actions/cache@v4
