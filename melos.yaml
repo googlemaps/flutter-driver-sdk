@@ -136,7 +136,7 @@ scripts:
   flutter-build-ios:
     run: |
       if [ -d "example" ]; then cd example; fi && \
-        flutter pub get && flutter build ios --release --no-codesign
+        flutter pub get && flutter build ios --simulator
     exec:
       concurrency: 1
       failFast: true
