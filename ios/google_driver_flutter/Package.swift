@@ -29,7 +29,7 @@ let package = Package(
     .package(
       url: "https://github.com/googlemaps/ios-driver-sdk",
       exact: "10.10.0"
-    ),
+    )
     // .package(
     //   url: "https://github.com/googlemaps/flutter-navigation-sdk/tree/main/ios/google_navigation_flutter",
     //   exact: "0.8.0"
@@ -42,7 +42,7 @@ let package = Package(
         .product(
           name: "GoogleRidesharingDriver",
           package: "ios-driver-sdk"
-        ),
+        )
         // .product(
         //   name: "google-navigation-flutter",
         //   package: "google_navigation_flutter"

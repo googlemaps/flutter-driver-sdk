@@ -169,10 +169,15 @@ scripts:
     run: |
       addlicense -f header_template.txt \
         --ignore "**/Pods/**" \
-        --ignore "**/.dart_tool/flutter_build/**" \
+        --ignore "**/.dart_tool/**" \
         --ignore "**/example/build/**" \
+        --ignore "**/example/integration_test/test_bundle.dart" \
+        --ignore "**/example/ios/Flutter/ephemeral/**" \
+        --ignore "**/example/android/.idea/**" \
+        --ignore "build/**" \
         --ignore "**/GeneratedPluginRegistrant.*" \
         --ignore "**/flutter_export_environment.sh" \
+        --ignore "**/FlutterGeneratedPluginSwiftPackage/**" \
         --ignore "**/pubspec_overrides.yaml" \
         .
     description: Add a license header to all necessary files.
@@ -184,10 +189,15 @@ scripts:
       addlicense -f header_template.txt \
         --check \
         --ignore "**/Pods/**" \
-        --ignore "**/.dart_tool/flutter_build/**" \
+        --ignore "**/.dart_tool/**" \
         --ignore "**/example/build/**" \
+        --ignore "**/example/integration_test/test_bundle.dart" \
+        --ignore "**/example/ios/Flutter/ephemeral/**" \
+        --ignore "**/example/android/.idea/**" \
+        --ignore "build/**" \
         --ignore "**/GeneratedPluginRegistrant.*" \
         --ignore "**/flutter_export_environment.sh" \
+        --ignore "**/FlutterGeneratedPluginSwiftPackage/**" \
         --ignore "**/pubspec_overrides.yaml" \
         .
     description: Add a license header to all necessary files.
