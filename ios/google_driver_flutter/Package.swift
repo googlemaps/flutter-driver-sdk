@@ -28,7 +28,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/googlemaps/ios-driver-sdk",
-      exact: "10.0.0"
+      exact: "10.10.0"
     ),
     // .package(
     //   url: "https://github.com/googlemaps/flutter-navigation-sdk/tree/main/ios/google_navigation_flutter",

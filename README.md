@@ -22,6 +22,7 @@ This repository contains a Flutter plugin that allows users to use the [Google M
 * A Google Maps API key from the project above
 * Project ID for the project above
 * If targeting Android, [Google Play Services](https://developers.google.com/android/guides/overview) installed and enabled
+* If targeting iOS, Xcode 26 or later is required
 * [Attributions and licensing text](https://developers.google.com/maps/documentation/navigation/android-sdk/set-up-project#include_the_required_attributions_in_your_app) added to your app
 
   
