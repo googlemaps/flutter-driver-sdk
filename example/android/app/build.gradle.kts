@@ -110,7 +110,7 @@ flutter {
 }
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs_nio:2.0.4")
     androidTestUtil("androidx.test:orchestrator:1.5.1")
 }
 
