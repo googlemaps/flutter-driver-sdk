@@ -450,6 +450,7 @@ class _DriverPageState extends ExamplePageState<ODRDDriverPage>
         if (status.name.contains('enroute')) {
           if (_waypointIndex > 0 && _navigationRunning) {
             // After arriving to waypoint, continue to next destination.
+            // ignore: deprecated_member_use
             await GoogleMapsNavigator.continueToNextDestination();
           }
           // Simulate the user location to the next waypoint.
