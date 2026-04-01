@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Use an appropriate Java base image
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk-jammy
 
 # Install git
 RUN apt-get update && \

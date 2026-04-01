@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Use an appropriate Java base image
-FROM openjdk:11
+FROM eclipse-temurin:11-jdk-jammy
 
 # Install necessary tools
 RUN apt-get update && \
