@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.5.0](https://github.com/googlemaps/flutter-driver-sdk/compare/0.4.0...0.5.0) (2026-04-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* Minimum Android API level raised from 24 to 26. Updated google_navigation_flutter dependency from 0.6.x to 0.8.x. See google_navigation_flutter releases for additional breaking changes.
+
+### Features
+
+* upgrade google navigation flutter package version to 0.8.4 ([#228](https://github.com/googlemaps/flutter-driver-sdk/issues/228)) ([e5e9881](https://github.com/googlemaps/flutter-driver-sdk/commit/e5e9881ba48bfcdd128731c0e8260f9502321a00))
+
 ## [0.4.0](https://github.com/googlemaps/flutter-driver-sdk/compare/0.3.0...0.4.0) (2025-08-04)
 
 
