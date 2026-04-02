@@ -182,20 +182,19 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
 
             return _tokenResponse!.token;
           },
-          onStatusUpdate:
-              Platform.isAndroid
-                  ? (
-                    DriverStatusLevel level,
-                    DriverStatusCode code,
-                    String message,
-                    DriverException? exception,
-                  ) {
-                    debugPrint(
-                      // ignore: unnecessary_brace_in_string_interps
-                      'Driver status changed: $level - $code - $message, e: ${exception?.code} ${exception?.message}',
-                    );
-                  }
-                  : null,
+          onStatusUpdate: Platform.isAndroid
+              ? (
+                  DriverStatusLevel level,
+                  DriverStatusCode code,
+                  String message,
+                  DriverException? exception,
+                ) {
+                  debugPrint(
+                    // ignore: unnecessary_brace_in_string_interps
+                    'Driver status changed: $level - $code - $message, e: ${exception?.code} ${exception?.message}',
+                  );
+                }
+              : null,
         );
 
         if (Platform.isIOS) {
@@ -206,10 +205,7 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
                   'Vehicle update succeeded - location (${vehicleUpdate.location?.latitude.toStringAsFixed(3) ?? '-'}, ${vehicleUpdate.location?.longitude.toStringAsFixed(3) ?? '-'})',
                 );
               },
-              onDidFail: (
-                VehicleUpdate vehicleUpdate,
-                DriverException exception,
-              ) {
+              onDidFail: (VehicleUpdate vehicleUpdate, DriverException exception) {
                 debugPrint(
                   'Vehicle updated failed - location (${vehicleUpdate.location?.latitude.toStringAsFixed(3) ?? '-'}, ${vehicleUpdate.location?.longitude.toStringAsFixed(3) ?? '-'})',
                 );
@@ -219,8 +215,8 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
           );
         }
 
-        _locationReportingInterval =
-            await DeliveryDriver.vehicleReporter.getLocationReportingInterval();
+        _locationReportingInterval = await DeliveryDriver.vehicleReporter
+            .getLocationReportingInterval();
         await DeliveryDriver.vehicleReporter.setLocationTrackingEnabled(
           _locationTrackingEnabled,
         );
@@ -258,8 +254,8 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
   Future<void> _updateVehicleStopsFromVehicleReporter() async {
     final VehicleStopState prevState =
         _nextStop?.vehicleStopState ?? VehicleStopState.newStop;
-    final List<VehicleStop> stops =
-        await DeliveryDriver.vehicleReporter.getRemainingVehicleStops();
+    final List<VehicleStop> stops = await DeliveryDriver.vehicleReporter
+        .getRemainingVehicleStops();
     _forceUpdateLocalStopState(prevState, stops);
     _updateStops(stops);
   }
@@ -363,8 +359,8 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
   Future<void> _enrouteToNextStop() async {
     if (_stopUpdateMethod == _StopUpdateMethod.driverApi) {
       try {
-        final List<VehicleStop> stops =
-            await DeliveryDriver.vehicleReporter.enrouteToNextStop();
+        final List<VehicleStop> stops = await DeliveryDriver.vehicleReporter
+            .enrouteToNextStop();
         _forceUpdateLocalStopState(VehicleStopState.enroute, stops);
         _updateStops(stops);
       } on DriverException catch (e) {
@@ -384,8 +380,8 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
   Future<void> _arrivedAtStop() async {
     if (_stopUpdateMethod == _StopUpdateMethod.driverApi) {
       try {
-        final List<VehicleStop> stops =
-            await DeliveryDriver.vehicleReporter.arrivedAtStop();
+        final List<VehicleStop> stops = await DeliveryDriver.vehicleReporter
+            .arrivedAtStop();
         _forceUpdateLocalStopState(VehicleStopState.arrived, stops);
         _updateStops(stops);
       } on DriverException catch (e) {
@@ -405,8 +401,8 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
   Future<void> _completedStop() async {
     if (_stopUpdateMethod == _StopUpdateMethod.driverApi) {
       try {
-        final List<VehicleStop> stops =
-            await DeliveryDriver.vehicleReporter.completedStop();
+        final List<VehicleStop> stops = await DeliveryDriver.vehicleReporter
+            .completedStop();
         _forceUpdateLocalStopState(VehicleStopState.newStop, stops);
         _updateStops(stops);
       } on DriverException catch (e) {
@@ -470,8 +466,8 @@ class _DriverPageState extends ExamplePageState<LMFSDriverPage>
   }
 
   Future<void> _showDeliveryVehicle() async {
-    final DeliveryVehicle vehicle =
-        await DeliveryDriver.vehicleReporter.getDeliveryVehicle();
+    final DeliveryVehicle vehicle = await DeliveryDriver.vehicleReporter
+        .getDeliveryVehicle();
     showOverlaySnackBar('''
 Delivery vehicle
 Id: ${vehicle.id}
@@ -546,12 +542,9 @@ Stops: ${vehicle.stops.length}''');
                           ),
                         if (!_driverInitialized && _backendInitialized)
                           ElevatedButton(
-                            onPressed:
-                                () => Clipboard.setData(
-                                  ClipboardData(
-                                    text: _manifest.vehicle.vehicleId,
-                                  ),
-                                ),
+                            onPressed: () => Clipboard.setData(
+                              ClipboardData(text: _manifest.vehicle.vehicleId),
+                            ),
                             child: const Text('Copy vehicle ID'),
                           ),
                         if (_driverInitialized &&
@@ -591,8 +584,9 @@ Stops: ${vehicle.stops.length}''');
                     ),
                   getOverlayOptionsButton(
                     context,
-                    onPressed:
-                        _backendInitialized ? () => toggleOverlay() : null,
+                    onPressed: _backendInitialized
+                        ? () => toggleOverlay()
+                        : null,
                   ),
                 ],
               ),
@@ -616,8 +610,9 @@ Stops: ${vehicle.stops.length}''');
                 spacing: 10,
                 children: <Widget>[
                   ElevatedButton(
-                    onPressed:
-                        _driverInitialized ? _disposeDriver : _initDriver,
+                    onPressed: _driverInitialized
+                        ? _disposeDriver
+                        : _initDriver,
                     child: Text(
                       _driverInitialized
                           ? 'Dispose driver'
@@ -625,19 +620,17 @@ Stops: ${vehicle.stops.length}''');
                     ),
                   ),
                   ElevatedButton(
-                    onPressed:
-                        () => Clipboard.setData(
-                          ClipboardData(text: _manifest.vehicle.vehicleId),
-                        ),
+                    onPressed: () => Clipboard.setData(
+                      ClipboardData(text: _manifest.vehicle.vehicleId),
+                    ),
                     child: const Text('Copy vehicle ID'),
                   ),
                   ElevatedButton(
-                    onPressed:
-                        _driverInitialized
-                            ? _navigationRunning
-                                ? _stopNavigation
-                                : _startNavigation
-                            : null,
+                    onPressed: _driverInitialized
+                        ? _navigationRunning
+                              ? _stopNavigation
+                              : _startNavigation
+                        : null,
                     child: Text(
                       _navigationRunning
                           ? 'Stop navigation'
@@ -700,10 +693,9 @@ Stops: ${vehicle.stops.length}''');
                       child: const Text('Arrived at stop'),
                     ),
                     ElevatedButton(
-                      onPressed:
-                          _driverInitialized && _nextStop != null
-                              ? _completedStop
-                              : null,
+                      onPressed: _driverInitialized && _nextStop != null
+                          ? _completedStop
+                          : null,
                       child: const Text('Completed stop'),
                     ),
                     if (_stopUpdateMethod == _StopUpdateMethod.driverApi)
@@ -753,24 +745,23 @@ Stops: ${vehicle.stops.length}''');
                 max: 60,
                 value: _locationReportingInterval?.inSeconds.toDouble() ?? 5,
                 fractionDigits: 0,
-                onChanged:
-                    _locationTrackingEnabled
-                        ? (double newValue) async {
-                          _locationReportingInterval = Duration(
-                            seconds: newValue.toInt(),
-                          );
-                          if (_driverInitialized) {
-                            await DeliveryDriver.vehicleReporter
-                                .setLocationReportingInterval(
-                                  _locationReportingInterval!,
-                                );
-                            setState(() {
-                              _locationReportingInterval =
-                                  _locationReportingInterval;
-                            });
-                          }
+                onChanged: _locationTrackingEnabled
+                    ? (double newValue) async {
+                        _locationReportingInterval = Duration(
+                          seconds: newValue.toInt(),
+                        );
+                        if (_driverInitialized) {
+                          await DeliveryDriver.vehicleReporter
+                              .setLocationReportingInterval(
+                                _locationReportingInterval!,
+                              );
+                          setState(() {
+                            _locationReportingInterval =
+                                _locationReportingInterval;
+                          });
                         }
-                        : null,
+                      }
+                    : null,
               ),
             ],
           ),
@@ -794,8 +785,9 @@ Stops: ${vehicle.stops.length}''');
                     },
                   ),
                   ElevatedButton(
-                    onPressed:
-                        _driverInitialized ? _setSupplementalLocation : null,
+                    onPressed: _driverInitialized
+                        ? _setSupplementalLocation
+                        : null,
                     child: const Text('Set supplemental location'),
                   ),
                 ],

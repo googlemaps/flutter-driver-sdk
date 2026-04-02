@@ -42,6 +42,24 @@ This key will be specifically used for the Android build, overriding the Dart de
 > [!NOTE]
 > `local.properties` file should always be listed in your .gitignore file to ensure it is not committed to your repository.
 
+#### Android desugaring
+
+If `minSdk` is set to less than 34 (API 34), you need to configure desugaring for your Android app.
+To enable desugaring, add the following configurations to `android/app/build.gradle` file:
+```groovy
+android {
+    ...
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        ...
+    }
+}
+
+dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs_nio:2.0.4'
+}
+```
+
 ### iOS specific API key
 
 For iOS, the app attempts to read the `MAPS_API_KEY` in this order (first match applies):
@@ -99,14 +117,14 @@ If you want to run the example app with a specific API key, see the [Setting up 
 ### Dart defines
 
 Supported dart define values and their default values:
-| Dart define | Description | Default value |
-| ----------- | ----------- | ------------- |
-| `MAPS_API_KEY` | Google Maps API key | `null` |
-| `PROJECT_ID` | Firebase project ID | `null` |
-| `LMFS_ANDROID_HOST_URL` | Android sample backend services base URL for Delivery Driver (LMFS) | [http://10.0.2.2:8091](#) |
-| `LMFS_IOS_HOST_URL` | iOS backend sample services base URL for Delivery Driver (LMFS) | [http://localhost:8091](#) |
-| `ODRD_ANDROID_HOST_URL` | Android backend sample services base URL for Ridesharing Driver (ODRD) | [http://10.0.2.2:8092](#) |
-| `ODRD_IOS_HOST_URL` | iOS backend sample services base URL for Ridesharing Driver (ODRD) | [http://localhost:8092](#) |
+| Dart define             | Description                                                            | Default value              |
+| ----------------------- | ---------------------------------------------------------------------- | -------------------------- |
+| `MAPS_API_KEY`          | Google Maps API key                                                    | `null`                     |
+| `PROJECT_ID`            | Firebase project ID                                                    | `null`                     |
+| `LMFS_ANDROID_HOST_URL` | Android sample backend services base URL for Delivery Driver (LMFS)    | [http://10.0.2.2:8091](#)  |
+| `LMFS_IOS_HOST_URL`     | iOS backend sample services base URL for Delivery Driver (LMFS)        | [http://localhost:8091](#) |
+| `ODRD_ANDROID_HOST_URL` | Android backend sample services base URL for Ridesharing Driver (ODRD) | [http://10.0.2.2:8092](#)  |
+| `ODRD_IOS_HOST_URL`     | iOS backend sample services base URL for Ridesharing Driver (ODRD)     | [http://localhost:8092](#) |
 
 ### Running the example app on physical devices
 

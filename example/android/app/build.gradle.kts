@@ -39,9 +39,11 @@ fun findDartDefineValue(key: String): String? {
 android {
     namespace = "com.google.maps.flutter.driver_example"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = "27.0.12077973"
+    ndkVersion = "28.2.13676358"
 
     compileOptions {        
+        // Flag to enable support for the new language APIs
+        isCoreLibraryDesugaringEnabled = true
         // Sets Java compatibility to Java 11
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -51,12 +53,18 @@ android {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
+    // Set this to the languages you actually use, otherwise you'll include resource strings
+    // for all languages supported by the Navigation SDK.
+    androidResources {
+        localeFilters.add("en")
+    }
+
     defaultConfig {
         // Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.google.maps.flutter.driver_example"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = 23
+        minSdk = 26
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
@@ -70,8 +78,6 @@ android {
         // TODO(jokerttu): Upgrade integration tests to initialize the application state for each
         // test case and uncomment the following line to clear the package data before running tests.
         // testInstrumentationRunnerArguments["clearPackageData"] = "true"
-
-        resourceConfigurations.add("en")
 
         // Extract MAPS_API_KEY from Dart defines or environment variables
         // and use it as manifest placeholder.
@@ -104,6 +110,7 @@ flutter {
 }
 
 dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs_nio:2.0.4")
     androidTestUtil("androidx.test:orchestrator:1.5.1")
 }
 

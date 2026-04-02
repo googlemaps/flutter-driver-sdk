@@ -150,8 +150,9 @@ abstract class TestCommonDriverApi {
     BinaryMessenger? binaryMessenger,
     String messageChannelSuffix = '',
   }) {
-    messageChannelSuffix =
-        messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+    messageChannelSuffix = messageChannelSuffix.isNotEmpty
+        ? '.$messageChannelSuffix'
+        : '';
     {
       final BasicMessageChannel<Object?>
       pigeonVar_channel = BasicMessageChannel<Object?>(
@@ -653,8 +654,9 @@ abstract class TestDeliveryDriverApi {
     BinaryMessenger? binaryMessenger,
     String messageChannelSuffix = '',
   }) {
-    messageChannelSuffix =
-        messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+    messageChannelSuffix = messageChannelSuffix.isNotEmpty
+        ? '.$messageChannelSuffix'
+        : '';
     {
       final BasicMessageChannel<Object?>
       pigeonVar_channel = BasicMessageChannel<Object?>(
@@ -733,8 +735,8 @@ abstract class TestDeliveryDriverApi {
               Object? message,
             ) async {
               try {
-                final List<VehicleStopDto> output =
-                    await api.enrouteToNextStop();
+                final List<VehicleStopDto> output = await api
+                    .enrouteToNextStop();
                 return <Object?>[output];
               } on PlatformException catch (e) {
                 return wrapResponse(error: e);
@@ -765,8 +767,8 @@ abstract class TestDeliveryDriverApi {
               Object? message,
             ) async {
               try {
-                final List<VehicleStopDto> output =
-                    await api.getRemainingVehicleStops();
+                final List<VehicleStopDto> output = await api
+                    .getRemainingVehicleStops();
                 return <Object?>[output];
               } on PlatformException catch (e) {
                 return wrapResponse(error: e);
@@ -841,8 +843,8 @@ abstract class TestDeliveryDriverApi {
               Object? message,
             ) async {
               try {
-                final DeliveryVehicleDto output =
-                    await api.getDeliveryVehicle();
+                final DeliveryVehicleDto output = await api
+                    .getDeliveryVehicle();
                 return <Object?>[output];
               } on PlatformException catch (e) {
                 return wrapResponse(error: e);
@@ -872,8 +874,9 @@ abstract class TestRidesharingDriverApi {
     BinaryMessenger? binaryMessenger,
     String messageChannelSuffix = '',
   }) {
-    messageChannelSuffix =
-        messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+    messageChannelSuffix = messageChannelSuffix.isNotEmpty
+        ? '.$messageChannelSuffix'
+        : '';
     {
       final BasicMessageChannel<Object?>
       pigeonVar_channel = BasicMessageChannel<Object?>(

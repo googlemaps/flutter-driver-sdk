@@ -24,10 +24,9 @@ extension ConvertVehicleUpdateDto on VehicleUpdateDto {
       destinationWaypoint: destinationWaypoint?.toNavigationWaypoint(),
       location: location?.toLatLng(),
       remainingDistanceInMeters: remainingDistanceInMeters?.toInt(),
-      remainingTimeInSeconds:
-          remainingTimeInSeconds != null
-              ? Duration(seconds: remainingTimeInSeconds!.toInt())
-              : null,
+      remainingTimeInSeconds: remainingTimeInSeconds != null
+          ? Duration(seconds: remainingTimeInSeconds!.toInt())
+          : null,
       route: route?.map((LatLngDto? e) => e?.toLatLng()).toList(),
       vehicleState: vehicleState?.toVehicleState(),
     );

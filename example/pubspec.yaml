@@ -17,7 +17,8 @@ description: Demonstrates how to use the google_driver_flutter plugin.
 publish_to: "none"
 
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.8.0
+  flutter: ">=3.32.0"
 
 dependencies:
   cupertino_icons: ^1.0.8
@@ -25,8 +26,9 @@ dependencies:
     sdk: flutter
   google_driver_flutter:
     path: ../
-  google_navigation_flutter: ^0.6.2
+  google_navigation_flutter: ^0.8.4
   http: ^1.1.2
+  meta: ^1.17.0
   permission_handler: ^11.3.1
 
 dev_dependencies:
@@ -43,6 +45,7 @@ flutter:
   uses-material-design: true
 patrol:
   app_name: Driver Example
+  test_directory: integration_test
   android:
     package_name: com.google.maps.flutter.driver_example
   ios:

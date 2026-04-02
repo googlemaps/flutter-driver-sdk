@@ -578,8 +578,9 @@ class CommonDriverApi {
     BinaryMessenger? binaryMessenger,
     String messageChannelSuffix = '',
   }) : pigeonVar_binaryMessenger = binaryMessenger,
-       pigeonVar_messageChannelSuffix =
-           messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+       pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty
+           ? '.$messageChannelSuffix'
+           : '';
   final BinaryMessenger? pigeonVar_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -941,8 +942,9 @@ class DeliveryDriverApi {
     BinaryMessenger? binaryMessenger,
     String messageChannelSuffix = '',
   }) : pigeonVar_binaryMessenger = binaryMessenger,
-       pigeonVar_messageChannelSuffix =
-           messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+       pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty
+           ? '.$messageChannelSuffix'
+           : '';
   final BinaryMessenger? pigeonVar_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -1142,8 +1144,9 @@ class RidesharingDriverApi {
     BinaryMessenger? binaryMessenger,
     String messageChannelSuffix = '',
   }) : pigeonVar_binaryMessenger = binaryMessenger,
-       pigeonVar_messageChannelSuffix =
-           messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+       pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty
+           ? '.$messageChannelSuffix'
+           : '';
   final BinaryMessenger? pigeonVar_binaryMessenger;
 
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
@@ -1188,8 +1191,9 @@ abstract class AuthTokenEventApi {
     BinaryMessenger? binaryMessenger,
     String messageChannelSuffix = '',
   }) {
-    messageChannelSuffix =
-        messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+    messageChannelSuffix = messageChannelSuffix.isNotEmpty
+        ? '.$messageChannelSuffix'
+        : '';
     {
       final BasicMessageChannel<Object?>
       pigeonVar_channel = BasicMessageChannel<Object?>(
@@ -1240,8 +1244,9 @@ abstract class VehicleReporterListenerApi {
     BinaryMessenger? binaryMessenger,
     String messageChannelSuffix = '',
   }) {
-    messageChannelSuffix =
-        messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+    messageChannelSuffix = messageChannelSuffix.isNotEmpty
+        ? '.$messageChannelSuffix'
+        : '';
     {
       final BasicMessageChannel<Object?>
       pigeonVar_channel = BasicMessageChannel<Object?>(
@@ -1345,8 +1350,9 @@ abstract class DriverStatusListenerApi {
     BinaryMessenger? binaryMessenger,
     String messageChannelSuffix = '',
   }) {
-    messageChannelSuffix =
-        messageChannelSuffix.isNotEmpty ? '.$messageChannelSuffix' : '';
+    messageChannelSuffix = messageChannelSuffix.isNotEmpty
+        ? '.$messageChannelSuffix'
+        : '';
     {
       final BasicMessageChannel<Object?>
       pigeonVar_channel = BasicMessageChannel<Object?>(

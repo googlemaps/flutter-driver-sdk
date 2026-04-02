@@ -338,6 +338,10 @@ class TypedCommonDriverApi {
           throw const DriverInitializationException(
             DriverInitializationError.apiAlreadyInitialized,
           );
+        case 'roadSnappedLocationProviderUnavailable':
+          throw const DriverInitializationException(
+            DriverInitializationError.roadSnappedLocationProviderUnavailable,
+          );
         default:
           rethrow;
       }
@@ -666,6 +670,13 @@ enum DriverInitializationError {
   /// To resolve this error, make sure to call [DeliveryDriver.dispose] or
   /// [RidesharingDriver.dispose] before initializing the driver instance again.
   apiAlreadyInitialized,
+
+  /// Road snapped location provider is unavailable.
+  ///
+  /// This error is thrown when the road snapped location provider could not
+  /// be obtained from the Navigation SDK. This typically indicates that
+  /// navigator is not properly initialized or configured.
+  roadSnappedLocationProviderUnavailable,
 }
 
 /// Exception thrown by [DeliveryDriver.initialize].
@@ -810,9 +821,9 @@ class _DriverStatusListenerApiImpl implements DriverStatusListenerApi {
       message,
       errorCode != null
           ? DriverException(
-            message: errorMessage ?? 'Unknown error.',
-            code: errorCode,
-          )
+              message: errorMessage ?? 'Unknown error.',
+              code: errorCode,
+            )
           : null,
     );
   }

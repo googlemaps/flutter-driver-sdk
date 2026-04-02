@@ -21,7 +21,7 @@ import com.google.android.libraries.mapsplatform.transportation.driver.api.rides
 import com.google.android.libraries.mapsplatform.transportation.driver.api.ridesharing.vehiclereporter.RidesharingVehicleReporter
 import com.google.android.libraries.navigation.NavigationApi
 import com.google.android.libraries.navigation.Navigator
-import com.google.maps.flutter.navigation.GoogleMapsNavigationSessionManager
+import com.google.maps.flutter.navigation.GoogleMapsNavigatorHolder
 import io.flutter.plugin.common.BinaryMessenger
 
 class GoogleMapsRidesharingDriver(private val messenger: BinaryMessenger) :
@@ -39,12 +39,19 @@ class GoogleMapsRidesharingDriver(private val messenger: BinaryMessenger) :
     abnormalTerminationReportingEnabled: Boolean,
   ) {
     val navigator: Navigator =
-      GoogleMapsNavigationSessionManager.getInstance().getNavigatorWithoutError()
+      GoogleMapsNavigatorHolder.getNavigator()
         ?: throw FlutterError(
           "sessionNotInitialized",
           "Cannot access navigation functionality before the navigation session has been initialized.",
         )
     _statusListener = GoogleMapsDriverStatusListener(messenger, getActivity())
+
+    val roadSnappedLocationProvider =
+      NavigationApi.getRoadSnappedLocationProvider(getActivity().application)
+        ?: throw FlutterError(
+          "roadSnappedLocationProviderUnavailable",
+          "Failed to obtain RoadSnappedLocationProvider. Ensure navigation is properly initialized.",
+        )
 
     val driverContext: DriverContext =
       DriverContext.builder(getActivity().application)
@@ -53,9 +60,7 @@ class GoogleMapsRidesharingDriver(private val messenger: BinaryMessenger) :
         .setNavigator(navigator)
         .setAuthTokenFactory(getAuthTokenFactory())
         .setDriverStatusListener(_statusListener)
-        .setRoadSnappedLocationProvider(
-          NavigationApi.getRoadSnappedLocationProvider(getActivity().application)
-        )
+        .setRoadSnappedLocationProvider(roadSnappedLocationProvider)
         .build()
 
     _ridesharingDriverApi = NativeRidesharingDriverApi.createInstance(driverContext)

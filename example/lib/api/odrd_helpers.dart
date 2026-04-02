@@ -41,8 +41,9 @@ ODRDApi? _odrdApiInstance;
 /// Returns the same instance of [ODRDApi] every time.
 ODRDApi getODRDApi() {
   if (_odrdApiInstance == null) {
-    final String baseUrl =
-        Platform.isAndroid ? _odrdAndroidBaseUrl : _odrdiOSBaseUrl;
+    final String baseUrl = Platform.isAndroid
+        ? _odrdAndroidBaseUrl
+        : _odrdiOSBaseUrl;
     _odrdApiInstance = ODRDApi(baseUrl);
   }
   return _odrdApiInstance!;
@@ -71,10 +72,9 @@ Future<ODRDTrip> createODRDTrip({
     triptype: triptype ?? ODRDTripType.exclusive,
     pickup: pickup.target!,
     dropoff: dropoff.target!,
-    intermediateDestinations:
-        intermediateDestinations
-            ?.map((NavigationWaypoint e) => e.target!)
-            .toList(),
+    intermediateDestinations: intermediateDestinations
+        ?.map((NavigationWaypoint e) => e.target!)
+        .toList(),
   );
 
   final ODRDTrip trip = await odrdApi.createTrip(createTrip);

@@ -24,6 +24,7 @@ import 'dart:io';
 // https://docs.flutter.dev/cookbook/testing/integration/introduction
 
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_driver_flutter/google_driver_flutter.dart';
 // ignore: depend_on_referenced_packages
@@ -42,7 +43,9 @@ Future<void> pumpNavigationView(
 
 /// Wraps a [navigationView] in widgets.
 Widget wrapNavigationView(GoogleMapsNavigationView navigationView) {
-  return MaterialApp(home: Scaffold(body: Center(child: navigationView)));
+  return MaterialApp(
+    home: Scaffold(body: Center(child: navigationView)),
+  );
 }
 
 Future<void> checkTermsAndConditionsAcceptance(
@@ -76,8 +79,9 @@ Future<void> checkTermsAndConditionsAcceptance(
 Future<void> checkLocationDialogAcceptance(PatrolIntegrationTester $) async {
   if (!await Permission.locationWhenInUse.isGranted) {
     /// Request native location permission dialog.q
-    final Future<PermissionStatus> locationGranted =
-        Permission.locationWhenInUse.request();
+    final Future<PermissionStatus> locationGranted = Permission
+        .locationWhenInUse
+        .request();
 
     // Grant location permission.
     await $.native.grantPermissionWhenInUse();
@@ -136,6 +140,7 @@ Future<void> cleanup() async {
 }
 
 /// Create a wrapper [patrol] for [patrolTest] with custom options.
+@isTest
 void patrol(
   String description,
   Future<void> Function(PatrolIntegrationTester) callback, {
