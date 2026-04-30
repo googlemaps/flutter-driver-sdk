@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import Flutter
+import GoogleMaps
 import UIKit
 
 public class GoogleMapsDriverPlugin: NSObject, FlutterPlugin {
@@ -21,6 +22,8 @@ public class GoogleMapsDriverPlugin: NSObject, FlutterPlugin {
   private static var _commomApiHandler: GoogleMapsCommonApiHandler?
 
   public static func register(with registrar: FlutterPluginRegistrar) {
+    GMSServices.addInternalUsageAttributionID(SdkVersion.attributionId)
+
     _deliveryDriverApi = GoogleMapsDeliveryDriver(messenger: registrar.messenger())
     _ridesharingDriverApi = GoogleMapsRidesharingDriver(messenger: registrar.messenger())
     _commomApiHandler = GoogleMapsCommonApiHandler(

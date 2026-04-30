@@ -8,7 +8,11 @@
   "packages": {
     ".": {
       "package-name": "google_driver_flutter",
-      "changelog-path": "CHANGELOG.md"
+      "changelog-path": "CHANGELOG.md",
+      "extra-files": [
+        "android/src/main/kotlin/com/google/maps/flutter/driver/SdkVersion.kt",
+        "ios/google_driver_flutter/Sources/google_driver_flutter/SdkVersion.swift"
+      ]
     }
   }
 }

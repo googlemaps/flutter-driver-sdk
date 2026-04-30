@@ -104,11 +104,11 @@ class GoogleMapsDeliveryDriver: GoogleMapsBaseDriver, DeliveryDriverApi {
   }
 
   override func dispose() throws {
-    _deliveryDriverAPI = nil
-    _driverContext = nil
     if let vehicleReporter = _deliveryDriverAPI?.vehicleReporter {
       _roadSnappedLocationProvider?.remove(vehicleReporter)
     }
+    _deliveryDriverAPI = nil
+    _driverContext = nil
     _roadSnappedLocationProvider = nil
   }
 
