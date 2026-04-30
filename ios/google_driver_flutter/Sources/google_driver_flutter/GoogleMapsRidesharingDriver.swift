@@ -88,11 +88,11 @@ class GoogleMapsRidesharingDriver: GoogleMapsBaseDriver, RidesharingDriverApi {
   }
 
   override func dispose() throws {
-    _ridesharingDriverAPI = nil
-    _driverContext = nil
     if let vehicleReporter = _ridesharingDriverAPI?.vehicleReporter {
       _roadSnappedLocationProvider?.remove(vehicleReporter)
     }
+    _ridesharingDriverAPI = nil
+    _driverContext = nil
     _roadSnappedLocationProvider = nil
   }
 

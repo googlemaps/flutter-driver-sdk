@@ -23,6 +23,7 @@ import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 
 /** GoogleMapsDriverPlugin */
 class GoogleMapsDriverPlugin : FlutterPlugin, ActivityAware {
+
   private var _deliveryDriverApi: GoogleMapsDeliveryDriver? = null
   private var _ridesharingDriverApi: GoogleMapsRidesharingDriver? = null
   private var _commonDriverApiHandler: GoogleMapsCommonDriverApiHandler? = null
