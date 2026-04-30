@@ -52,6 +52,9 @@ Future<void> checkTermsAndConditionsAcceptance(
   PatrolIntegrationTester $,
 ) async {
   if (!await GoogleMapsNavigator.areTermsAccepted()) {
+    // Reset terms to ensure the dialog is always shown.
+    await GoogleMapsNavigator.resetTermsAccepted();
+
     /// Request native TOS dialog.
     final Future<bool> tosAccepted =
         GoogleMapsNavigator.showTermsAndConditionsDialog(
@@ -59,6 +62,12 @@ Future<void> checkTermsAndConditionsAcceptance(
           'test_company_name',
         );
     await $.pumpAndSettle();
+
+    // On Android wait a bit after showing the TOS dialog, as it can take a
+    // moment to appear and be ready for interaction.
+    if (Platform.isAndroid) {
+      await $.tester.runAsync(() => Future.delayed(const Duration(seconds: 1)));
+    }
 
     // Tap accept or cancel.
     if (Platform.isAndroid) {
@@ -68,6 +77,7 @@ Future<void> checkTermsAndConditionsAcceptance(
     } else {
       fail('Unsupported platform: ${Platform.operatingSystem}');
     }
+
     // Verify the TOS was accepted
     await tosAccepted.then((bool accept) {
       expect(accept, true);
@@ -145,7 +155,7 @@ void patrol(
   String description,
   Future<void> Function(PatrolIntegrationTester) callback, {
   bool? skip,
-  NativeAutomatorConfig? nativeAutomatorConfig,
+  PlatformAutomatorConfig? platformAutomatorConfig,
 }) {
   patrolTest(
     description,
