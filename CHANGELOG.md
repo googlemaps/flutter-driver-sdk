@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/googlemaps/flutter-driver-sdk/compare/0.5.0...0.5.1) (2026-04-30)
+
+
+### Features
+
+* internal usage attribution ID ([#236](https://github.com/googlemaps/flutter-driver-sdk/issues/236)) ([b785afe](https://github.com/googlemaps/flutter-driver-sdk/commit/b785afefffd77d4c22776a41deec6af298ecc481))
+
 ## [0.5.0](https://github.com/googlemaps/flutter-driver-sdk/compare/0.4.0...0.5.0) (2026-04-02)
 
 
