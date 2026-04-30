@@ -71,9 +71,9 @@ Future<void> checkTermsAndConditionsAcceptance(
 
     // Tap accept or cancel.
     if (Platform.isAndroid) {
-      await $.native.tap(Selector(text: 'Yes, I am in'));
+      await $.native.tap(Selector(text: 'Got It'));
     } else if (Platform.isIOS) {
-      await $.native.tap(Selector(text: "YES, I'M IN"));
+      await $.native.tap(Selector(text: 'OK'));
     } else {
       fail('Unsupported platform: ${Platform.operatingSystem}');
     }
