@@ -18,7 +18,7 @@ package com.google.maps.flutter.driver
 
 /** SDK version constants for internal usage attribution. */
 object SdkVersion {
-  const val VERSION = "0.5.0" // {x-release-please-version}
+  const val VERSION = "0.5.1" // {x-release-please-version}
 
   const val ATTRIBUTION_ID = "gmp_git_flutterdriversdk_v${VERSION}_android"
 }
