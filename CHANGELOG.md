@@ -5,7 +5,7 @@
 
 ### ⚠ BREAKING CHANGES
 
-* upgrade to the latest google_navigation_flutter version 0.9.x ([#254](https://github.com/googlemaps/flutter-driver-sdk/issues/254))
+* Updated google_navigation_flutter dependency from 0.8.x to 0.9.x. See google_navigation_flutter releases for additional breaking changes. ([#254](https://github.com/googlemaps/flutter-driver-sdk/issues/254))
 
 ### Features
 
