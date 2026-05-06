@@ -17,7 +17,7 @@ FROM eclipse-temurin:17-jdk-jammy
 
 # Install git
 RUN apt-get update && \
-    apt-get install -y git python3 && \
+    apt-get install -y git python3 python3-six && \
     rm -rf /var/lib/apt/lists/*
 
 # Create a directory for the backend
