@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.6.0](https://github.com/googlemaps/flutter-driver-sdk/compare/0.5.0...0.6.0) (2026-05-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* upgrade to the latest google_navigation_flutter version 0.9.x ([#254](https://github.com/googlemaps/flutter-driver-sdk/issues/254))
+
+### Features
+
+* internal usage attribution ID ([#236](https://github.com/googlemaps/flutter-driver-sdk/issues/236)) ([b785afe](https://github.com/googlemaps/flutter-driver-sdk/commit/b785afefffd77d4c22776a41deec6af298ecc481))
+* upgrade to the latest google_navigation_flutter version 0.9.x ([#254](https://github.com/googlemaps/flutter-driver-sdk/issues/254)) ([f900ea5](https://github.com/googlemaps/flutter-driver-sdk/commit/f900ea5285b728365fdad7248d6e7d8d2a00ec1b))
+
 ## [0.5.0](https://github.com/googlemaps/flutter-driver-sdk/compare/0.4.0...0.5.0) (2026-04-02)
 
 
