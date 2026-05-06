@@ -265,7 +265,7 @@ class ConvertTests: XCTestCase {
     XCTAssertEqual(Convert.convertGRPCErrorCodes(errorCode: 10), "ABORTED")
     XCTAssertEqual(Convert.convertGRPCErrorCodes(errorCode: 11), "OUT_OF_RANGE")
     XCTAssertEqual(Convert.convertGRPCErrorCodes(errorCode: 12), "UNIMPLEMENTED")
-    XCTAssertEqual(Convert.convertGRPCErrorCodes(errorCode: 13), "UNKNOWN")
+    XCTAssertEqual(Convert.convertGRPCErrorCodes(errorCode: 13), "INTERNAL")
     XCTAssertEqual(Convert.convertGRPCErrorCodes(errorCode: 14), "UNAVAILABLE")
     XCTAssertEqual(Convert.convertGRPCErrorCodes(errorCode: 15), "DATA_LOSS")
     XCTAssertEqual(Convert.convertGRPCErrorCodes(errorCode: 16), "UNAUTHENTICATED")

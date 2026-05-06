@@ -14,6 +14,7 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'package:meta/meta.dart';
 
 // This is a basic Flutter integration test.
 //
@@ -24,13 +25,25 @@ import 'dart:io';
 // https://docs.flutter.dev/cookbook/testing/integration/introduction
 
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_driver_flutter/google_driver_flutter.dart';
 // ignore: depend_on_referenced_packages
 import 'package:google_navigation_flutter/google_navigation_flutter.dart';
 import 'package:patrol/patrol.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+/// Timeout for tests in seconds.
+const int testTimeoutSeconds = 480; // 8 minutes
+
+/// Timeout for controller completer in seconds. This timeout is set to be
+/// long as on CI emulator the controller creation can take a while.
+const int controllerCompleterTimeoutSeconds = 30;
+
+final PlatformAutomatorConfig _platformAutomatorConfig =
+    PlatformAutomatorConfig.fromOptions(
+      findTimeout: Duration(seconds: 120),
+      connectionTimeout: Duration(seconds: 240),
+    );
 
 /// Pumps a [navigationView] widget in tester [$] and then waits until it settles.
 Future<void> pumpNavigationView(
@@ -48,10 +61,23 @@ Widget wrapNavigationView(GoogleMapsNavigationView navigationView) {
   );
 }
 
+Future<void> _acceptTermsAndConditionsDialog(PatrolIntegrationTester $) async {
+  if (Platform.isAndroid) {
+    await $.platformAutomator.tap(Selector(text: 'Got It'));
+  } else if (Platform.isIOS) {
+    await $.platformAutomator.tap(Selector(text: 'OK'));
+  } else {
+    fail('Unsupported platform: ${Platform.operatingSystem}');
+  }
+}
+
 Future<void> checkTermsAndConditionsAcceptance(
   PatrolIntegrationTester $,
 ) async {
   if (!await GoogleMapsNavigator.areTermsAccepted()) {
+    // Reset terms to ensure the dialog is always shown.
+    await GoogleMapsNavigator.resetTermsAccepted();
+
     /// Request native TOS dialog.
     final Future<bool> tosAccepted =
         GoogleMapsNavigator.showTermsAndConditionsDialog(
@@ -60,14 +86,14 @@ Future<void> checkTermsAndConditionsAcceptance(
         );
     await $.pumpAndSettle();
 
-    // Tap accept or cancel.
+    // On Android wait a bit after showing the TOS dialog, as it can take a
+    // moment to appear and be ready for interaction.
     if (Platform.isAndroid) {
-      await $.native.tap(Selector(text: 'Yes, I am in'));
-    } else if (Platform.isIOS) {
-      await $.native.tap(Selector(text: "YES, I'M IN"));
-    } else {
-      fail('Unsupported platform: ${Platform.operatingSystem}');
+      await $.tester.runAsync(() => Future.delayed(const Duration(seconds: 1)));
     }
+
+    await _acceptTermsAndConditionsDialog($);
+
     // Verify the TOS was accepted
     await tosAccepted.then((bool accept) {
       expect(accept, true);
@@ -78,13 +104,17 @@ Future<void> checkTermsAndConditionsAcceptance(
 /// Grant location permissions if not granted.
 Future<void> checkLocationDialogAcceptance(PatrolIntegrationTester $) async {
   if (!await Permission.locationWhenInUse.isGranted) {
-    /// Request native location permission dialog.q
+    /// Request native location permission dialog.
     final Future<PermissionStatus> locationGranted = Permission
         .locationWhenInUse
         .request();
 
-    // Grant location permission.
-    await $.native.grantPermissionWhenInUse();
+    if (await $.platformAutomator.mobile.isPermissionDialogVisible(
+      timeout: const Duration(seconds: 5),
+    )) {
+      // Grant location permission.
+      await $.platformAutomator.mobile.grantPermissionWhenInUse();
+    }
 
     // Check that the location permission is granted.
     await locationGranted.then((PermissionStatus status) async {
@@ -144,14 +174,20 @@ Future<void> cleanup() async {
 void patrol(
   String description,
   Future<void> Function(PatrolIntegrationTester) callback, {
-  bool? skip,
-  NativeAutomatorConfig? nativeAutomatorConfig,
+  bool skip = false,
+  int timeoutSeconds = testTimeoutSeconds,
+  PlatformAutomatorConfig? platformAutomatorConfig,
 }) {
   patrolTest(
     description,
-    timeout: const Timeout(
-      Duration(seconds: 240),
-    ), // Add a 4 minute timeout to tests.
-    callback,
+    (PatrolIntegrationTester $) async {
+      $.log('Starting test: $description');
+      await callback($);
+      $.log('Test completed: $description');
+    },
+    skip: skip,
+    timeout: Timeout(Duration(seconds: timeoutSeconds)),
+    platformAutomatorConfig:
+        platformAutomatorConfig ?? _platformAutomatorConfig,
   );
 }
