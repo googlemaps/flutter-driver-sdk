@@ -73,7 +73,7 @@ scripts:
     run: |
       if [ -d "example" ]; then cd example; fi && \
         if [ ! -f android/gradlew ]; then flutter build apk --config-only; fi &&
-        cd android && ./gradlew ktfmtFormat
+        cd android && ./gradlew -Pktfmt ktfmtFormat
     exec:
       concurrency: 1
       failFast: true
