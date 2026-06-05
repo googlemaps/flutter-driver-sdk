@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/googlemaps/flutter-driver-sdk/compare/0.6.0...0.6.1) (2026-06-05)
+
+
+### Features
+
+* modernize Android build toolchain ([#271](https://github.com/googlemaps/flutter-driver-sdk/issues/271)) ([38ca898](https://github.com/googlemaps/flutter-driver-sdk/commit/38ca898df1ae6ed5b06842c89a910dc37450ce7f))
+
 ## [0.6.0](https://github.com/googlemaps/flutter-driver-sdk/compare/0.5.0...0.6.0) (2026-05-06)
 
 
