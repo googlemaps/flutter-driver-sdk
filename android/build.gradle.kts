@@ -1,4 +1,4 @@
-// Copyright 2023 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,23 +12,35 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-group 'com.google.maps.flutter.driver'
-version '1.0-SNAPSHOT'
-
 buildscript {
-    ext.kotlin_version = '2.1.0'
+    val kotlinVersion = "2.3.20"
     repositories {
         google()
         mavenCentral()
-        maven { url "https://plugins.gradle.org/m2/" }  
+        // Only needed to resolve ktfmt below (development/CI-only, gated by -Pktfmt).
+        if (providers.gradleProperty("ktfmt").isPresent) {
+            maven { url = uri("https://plugins.gradle.org/m2/") }
+        }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.8.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.ncorti.ktfmt.gradle:plugin:0.21.0'
+        classpath("com.android.tools.build:gradle:8.8.1")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+        // ktfmt (Kotlin formatter) is a development/CI-only tool. Pulling it onto the classpath
+        // (and applying it below) is gated behind -Pktfmt so it is never forced on apps that
+        // depend on this plugin. Enabled by `melos run format:android`.
+        if (providers.gradleProperty("ktfmt").isPresent) {
+            classpath("com.ncorti.ktfmt.gradle:plugin:0.21.0")
+        }
     }
 }
+
+plugins {
+    id("com.android.library")
+}
+
+group = "com.google.maps.flutter.driver"
+version = "1.0-SNAPSHOT"
 
 allprojects {
     repositories {
@@ -37,58 +49,76 @@ allprojects {
     }
 }
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'com.ncorti.ktfmt.gradle'
+// Apply the Kotlin Gradle Plugin (KGP) only when consumed by AGP < 9. AGP 9+ ships built-in Kotlin,
+// so applying KGP there is unnecessary and triggers a Flutter deprecation warning. Keeping it
+// conditional preserves compatibility for apps still on AGP 8.
+// https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors#supporting-flutter-versions-earlier-than-3-44
+val agpMajor = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.substringBefore('.').toInt()
+if (agpMajor < 9) {
+    apply(plugin = "org.jetbrains.kotlin.android")
+}
 
-ktfmt {
-    googleStyle()
+// ktfmt is applied only for development/CI formatting (-Pktfmt), so it is never forced on apps
+// that depend on this plugin. Run via `melos run format:android` (which passes -Pktfmt).
+if (providers.gradleProperty("ktfmt").isPresent) {
+    apply(plugin = "com.ncorti.ktfmt.gradle")
+    // Configured dynamically (no compile-time type reference) so this script still compiles when
+    // ktfmt is absent from the classpath, i.e. for apps that depend on this plugin.
+    extensions.getByName("ktfmt").withGroovyBuilder { "googleStyle"() }
 }
 
 android {
-    if (project.android.hasProperty("namespace")) {
-        namespace 'com.google.maps.flutter.driver'
-    }
+    namespace = "com.google.maps.flutter.driver"
 
-    compileSdk 36
+    compileSdk = 36
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
-
-    kotlinOptions {
-        jvmTarget = '11'
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-        test.java.srcDirs += 'src/test/kotlin'
+        getByName("main") {
+            java.srcDirs("src/main/kotlin")
+        }
+        getByName("test") {
+            java.srcDirs("src/test/kotlin")
+        }
     }
 
     defaultConfig {
-        minSdkVersion 26
-    }
-
-    dependencies {
-        implementation 'com.google.android.libraries.mapsplatform.transportation:transportation-driver:7.0.0'
-        implementation 'androidx.startup:startup-runtime:1.2.0'
-        testImplementation 'org.jetbrains.kotlin:kotlin-test'
-        testImplementation 'io.mockk:mockk:1.13.9'
-        testImplementation 'junit:junit:4.13.2'
-        testImplementation 'org.robolectric:robolectric:4.11.1'
+        minSdk = 26
     }
 
     testOptions {
         unitTests {
-            includeAndroidResources = true
-        }
-        unitTests.all {
-            testLogging {
-                events "passed", "skipped", "failed", "standardOut", "standardError"
-                outputs.upToDateWhen {false}
-                showStandardStreams = true
+            isIncludeAndroidResources = true
+            all {
+                it.testLogging {
+                    events("passed", "skipped", "failed", "standardOut", "standardError")
+                    showStandardStreams = true
+                }
+                it.outputs.upToDateWhen { false }
             }
         }
     }
+}
+
+// Configure the Kotlin JVM target via the compilerOptions DSL (replaces the deprecated
+// android.kotlinOptions block). Configured through the extension so it works whether the Kotlin
+// plugin is applied conditionally (AGP < 9) or provided by AGP's built-in Kotlin (AGP 9+). The
+// static `kotlin { }` accessor is not generated for imperatively-applied plugins.
+project.extensions.configure(org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension::class.java) {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+    }
+}
+
+dependencies {
+    implementation("com.google.android.libraries.mapsplatform.transportation:transportation-driver:7.0.0")
+    implementation("androidx.startup:startup-runtime:1.2.0")
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    testImplementation("io.mockk:mockk:1.13.9")
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.robolectric:robolectric:4.11.1")
 }
