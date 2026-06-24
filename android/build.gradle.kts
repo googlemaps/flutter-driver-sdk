@@ -13,7 +13,7 @@
 // limitations under the License.
 
 buildscript {
-    val kotlinVersion = "2.3.20"
+    val kotlinVersion = "2.4.0"
     repositories {
         google()
         mavenCentral()
@@ -24,13 +24,13 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:8.8.1")
+        classpath("com.android.tools.build:gradle:9.2.1")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         // ktfmt (Kotlin formatter) is a development/CI-only tool. Pulling it onto the classpath
         // (and applying it below) is gated behind -Pktfmt so it is never forced on apps that
         // depend on this plugin. Enabled by `melos run format:android`.
         if (providers.gradleProperty("ktfmt").isPresent) {
-            classpath("com.ncorti.ktfmt.gradle:plugin:0.21.0")
+            classpath("com.ncorti.ktfmt.gradle:plugin:0.26.0")
         }
     }
 }
@@ -115,10 +115,10 @@ project.extensions.configure(org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjec
 }
 
 dependencies {
-    implementation("com.google.android.libraries.mapsplatform.transportation:transportation-driver:7.0.0")
+    implementation("com.google.android.libraries.mapsplatform.transportation:transportation-driver:7.1.0")
     implementation("androidx.startup:startup-runtime:1.2.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
-    testImplementation("io.mockk:mockk:1.13.9")
+    testImplementation("io.mockk:mockk:1.14.11")
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.robolectric:robolectric:4.11.1")
+    testImplementation("org.robolectric:robolectric:4.16.1")
 }
