@@ -29,9 +29,9 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout code
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
       - name: Setup go
-        uses: actions/setup-go@4dc6199c7b1a012772edbd06daecab0f50c9053c
+        uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16
         with:
           go-version: "^1.13.1"
       # Go is used by addlicense command (addlicense is used in melos run
@@ -45,7 +45,7 @@ jobs:
           channel: "stable"
           cache: true
       - name: Install Melos
-        uses: bluefireteam/melos-action@6085791af7036f6366c9a4b9d55105c0ef9c6388
+        uses: bluefireteam/melos-action@32cdd07de9761c0ab24b07a1c9913d2a56f51433
         with:
           # Running `melos bootstrap` is not needed because we use Melos just
           # for the `check-license-header` script.
