@@ -15,6 +15,12 @@
 name: Run test and build
 on:
   pull_request:
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+      - '.github/workflows/analyze.yaml'
+      - '.github/workflows/licence-check.yaml'
+      - '.github/workflows/release-please.yml'
   push:
     branches:
       - main
@@ -80,6 +86,7 @@ jobs:
 
   test-ios:
     name: Run iOS native unit tests
+    if: github.actor != 'dependabot[bot]'
     timeout-minutes: 45
     runs-on:
       labels: macos-26-xlarge
@@ -147,7 +154,7 @@ jobs:
   build-ios:
     name: Build iOS
     needs: [test-dart, test-ios]
-    if: contains(github.base_ref, 'main')
+    if: contains(github.base_ref, 'main') && github.actor != 'dependabot[bot]'
     timeout-minutes: 90
     runs-on: macos-26-xlarge
     env:
