@@ -40,7 +40,9 @@ This repository contains a Flutter plugin that allows users to use the [Google M
         url: git@github.com:googlemaps/flutter-driver-sdk.git
 ```
 
-2. Follow the instructions at the `google_navigation_flutter` plugin Readme to add your API key to the appropriate files in your Flutter project.
+2. On iOS, this plugin requires Swift Package Manager; CocoaPods is not supported. Enable SwiftPM by following Flutter's [Swift Package Manager guide for app developers](https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-app-developers).
+
+3. Follow the instructions at the `google_navigation_flutter` plugin Readme to add your API key to the appropriate files in your Flutter project.
    
    [Google Maps Navigation Installation](https://github.com/googlemaps/flutter-navigation-sdk/blob/main/README.md#installation)
 
