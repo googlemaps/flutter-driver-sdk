@@ -34,11 +34,8 @@ build/
 **/doc/api/
 
 # iOS
-Podfile.lock
-Pods/
 .symlinks/
 **/Flutter/ephemeral/
-**/Flutter/Flutter.podspec
 **/Flutter/App.framework/
 **/Flutter/Flutter.framework/
 **/Flutter/Generated.xcconfig

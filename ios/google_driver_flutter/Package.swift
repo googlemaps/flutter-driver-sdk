@@ -26,27 +26,29 @@ let package = Package(
     .library(name: "google-driver-flutter", targets: ["google_driver_flutter"])
   ],
   dependencies: [
+    .package(name: "FlutterFramework", path: "../FlutterFramework"),
     .package(
       url: "https://github.com/googlemaps/ios-driver-sdk",
-      exact: "10.10.0"
-    )
-    // .package(
-    //   url: "https://github.com/googlemaps/flutter-navigation-sdk/tree/main/ios/google_navigation_flutter",
-    //   exact: "0.8.0"
-    // ),
+      exact: "10.10.1"
+    ),
+    .package(
+      name: "google_navigation_flutter",
+      path: "../google_navigation_flutter"
+    ),
   ],
   targets: [
     .target(
       name: "google_driver_flutter",
       dependencies: [
+        .product(name: "FlutterFramework", package: "FlutterFramework"),
         .product(
           name: "GoogleRidesharingDriver",
           package: "ios-driver-sdk"
-        )
-        // .product(
-        //   name: "google-navigation-flutter",
-        //   package: "google_navigation_flutter"
-        // ),
+        ),
+        .product(
+          name: "google-navigation-flutter",
+          package: "google_navigation_flutter"
+        ),
       ],
       resources: [
         .process("PrivacyInfo.xcprivacy")

@@ -115,7 +115,7 @@ project.extensions.configure(org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjec
 }
 
 dependencies {
-    implementation("com.google.android.libraries.mapsplatform.transportation:transportation-driver:7.0.0")
+    implementation("com.google.android.libraries.mapsplatform.transportation:transportation-driver:7.1.0")
     implementation("androidx.startup:startup-runtime:1.2.0")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("io.mockk:mockk:1.13.9")
