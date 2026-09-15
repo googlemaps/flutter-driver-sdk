@@ -17,7 +17,7 @@ This repository contains a Flutter plugin that allows users to use the [Google M
 | **Minimum mobile OS supported** | SDK 26+ | iOS 16.0+ |
 | **Compile/Target SDK**          | SDK 36+ | -         |
 
-* A Flutter project
+* A Flutter project using Flutter 3.44 or later
 * A Google Cloud project with the [Navigation SDK enabled](https://developers.google.com/maps/documentation/navigation/android-sdk/set-up-project), the [Maps SDK for iOS enabled](https://developers.google.com/maps/documentation/navigation/ios-sdk/config) and the [Local Rides and Deliveries API enabled](https://console.developers.google.com/apis/library/fleetengine.googleapis.com)
 * A Google Maps API key from the project above
 * Project ID for the project above
@@ -28,6 +28,35 @@ This repository contains a Flutter plugin that allows users to use the [Google M
   
 > [!IMPORTANT]
 > Project ID need to be allowlisted before using this plugin. Please contact your Google representative to get your Project ID allowlisted.
+
+### Android build requirements
+
+The Android Navigation SDK used by `google_navigation_flutter` 0.10.0 requires:
+
+* Android Gradle Plugin (AGP) 8.13.2 or newer.
+* Core library desugaring enabled, using `com.android.tools:desugar_jdk_libs_nio:2.1.5` or newer.
+
+Update the existing AGP declaration in `android/settings.gradle.kts`:
+
+```kotlin
+plugins {
+    id("com.android.application") version "8.13.2" apply false
+}
+```
+
+Enable desugaring and update its dependency in `android/app/build.gradle.kts`, retaining your other build settings:
+
+```kotlin
+android {
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+    }
+}
+
+dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs_nio:2.1.5")
+}
+```
 
 ## Installation
 
