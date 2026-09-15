@@ -33,7 +33,7 @@ let package = Package(
     ),
     .package(
       name: "google_navigation_flutter",
-      path: "../google_navigation_flutter-0.10.0"
+      path: "../google_navigation_flutter"
     ),
   ],
   targets: [
