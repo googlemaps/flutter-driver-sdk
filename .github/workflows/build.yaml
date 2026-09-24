@@ -25,9 +25,6 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -42,7 +39,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       - name: Setup java
-        uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4
+        uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: "17"
@@ -50,7 +47,7 @@ jobs:
       - name: Setup flutter
         uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2
         with:
-          flutter-version: "3.44.x"
+          flutter-version: "3.38.x"
           channel: "stable"
           cache: true
       - name: Setup melos
@@ -69,7 +66,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       - name: Setup java
-        uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4
+        uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: "17"
@@ -77,7 +74,7 @@ jobs:
       - name: Setup flutter
         uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2
         with:
-          flutter-version: "3.44.x"
+          flutter-version: "3.38.x"
           channel: "stable"
           cache: true
       - name: Setup melos
@@ -101,7 +98,7 @@ jobs:
       - name: Setup flutter
         uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2
         with:
-          flutter-version: "3.44.x"
+          flutter-version: "3.38.x"
           channel: "stable"
           cache: true
       - name: Setup melos
@@ -109,7 +106,7 @@ jobs:
         with:
           melos-version: "6.3.2"
       - name: Cache podfiles
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        uses: actions/cache@v4
         with:
           path: "**/Pods"
           key: ${{ runner.os }}-pods-${{ hashFiles('**/*.podspec') }}
@@ -136,7 +133,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       - name: Setup java
-        uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4
+        uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: "17"
@@ -144,7 +141,7 @@ jobs:
       - name: Setup flutter
         uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2
         with:
-          flutter-version: "3.44.x"
+          flutter-version: "3.38.x"
           channel: "stable"
           cache: true
       - name: Setup melos
@@ -168,7 +165,7 @@ jobs:
       - name: Setup flutter
         uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2
         with:
-          flutter-version: "3.44.x"
+          flutter-version: "3.38.x"
           channel: "stable"
           cache: true
           architecture: x64
@@ -177,7 +174,7 @@ jobs:
         with:
           melos-version: "6.3.2"
       - name: Cache podfiles
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        uses: actions/cache@v4
         with:
           path: "**/Pods"
           key: ${{ runner.os }}-pods-${{ hashFiles('**/*.podspec') }}

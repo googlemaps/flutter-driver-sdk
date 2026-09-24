@@ -132,10 +132,8 @@ Specify the device you want to run the tests on with the DEVICE env variable.
 Integration tests are responsible for ensuring that the plugin works against the native Driver SDK for both Android and iOS platforms. Patrol is used for the integration tests to simplify interactions with native elements. To use patrol, you first need to activate the patrol_cli.  
 
 ```bash
-flutter pub global activate patrol_cli 4.7.0
+flutter pub global activate patrol_cli 4.4.0
 ```
-
-Patrol 4.9.0 requires Patrol CLI 4.7.0 or later, which supports this project's Swift Package Manager setup. See the [Patrol compatibility table](https://patrol.leancode.co/documentation/compatibility-table) when updating either dependency.
 
 To ensure that all necessary dependencies for patrol are properly set up, run the following command:
 
