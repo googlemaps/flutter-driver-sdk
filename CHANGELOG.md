@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.7.0](https://github.com/googlemaps/flutter-driver-sdk/compare/0.6.1...0.7.0) (2026-09-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* CocoaPods is no longer supported for iOS.
+* Apps using this plugin must use Flutter 3.44+.
+* iOS apps using this plugin must enable Swift Package Manager.
+* google_navigation_flutter is now pinned to 0.10.0.
+* Android apps using this plugin must use Android Gradle Plugin 8.13.2+ and enable core library desugaring with com.android.tools:desugar_jdk_libs_nio:2.1.5 or newer.
+
+### Features
+
+* upgrade Driver SDKs and migrate iOS to Swift Package Manager ([#295](https://github.com/googlemaps/flutter-driver-sdk/issues/295)) ([7ffa0d2](https://github.com/googlemaps/flutter-driver-sdk/commit/7ffa0d22d6e7f6b33707ab1d2b5dcc68fc5600d2))
+
 ## [0.6.1](https://github.com/googlemaps/flutter-driver-sdk/compare/0.6.0...0.6.1) (2026-06-05)
 
 
