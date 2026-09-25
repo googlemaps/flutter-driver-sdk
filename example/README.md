@@ -107,13 +107,6 @@ To run the example app, follow these steps:
     ```
 If you want to run the example app with a specific API key, see the [Setting up API Keys](#setting-up-api-keys) section.
 
-> [!TIP](Pod-related issues on iOS)
-> If you encounter pod-related issues when running the example code on iOS, you can try running the following commands from the `example/ios` folder:
->  - pod repo update
->  - pod install
-> 
-> These commands will update and install the required pod files specifically for iOS.
-
 ### Dart defines
 
 Supported dart define values and their default values:
