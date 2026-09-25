@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.7.0](https://github.com/googlemaps/flutter-driver-sdk/compare/0.6.1...0.7.0) (2026-09-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* upgrade Driver SDKs and migrate iOS to Swift Package Manager ([#295](https://github.com/googlemaps/flutter-driver-sdk/issues/295))
+
+### Features
+
+* upgrade Driver SDKs and migrate iOS to Swift Package Manager ([#289](https://github.com/googlemaps/flutter-driver-sdk/issues/289)) ([a3e7c86](https://github.com/googlemaps/flutter-driver-sdk/commit/a3e7c860b87441f3bd77527fe187f28a4dcf6d49))
+* upgrade Driver SDKs and migrate iOS to Swift Package Manager ([#295](https://github.com/googlemaps/flutter-driver-sdk/issues/295)) ([7ffa0d2](https://github.com/googlemaps/flutter-driver-sdk/commit/7ffa0d22d6e7f6b33707ab1d2b5dcc68fc5600d2))
+
 ## [0.6.1](https://github.com/googlemaps/flutter-driver-sdk/compare/0.6.0...0.6.1) (2026-06-05)
 
 
