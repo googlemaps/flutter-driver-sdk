@@ -6,10 +6,10 @@
 ### ⚠ BREAKING CHANGES
 
 * CocoaPods is no longer supported for iOS.
-* All consumers must use Flutter 3.44+.
-* iOS consumers must enable Swift Package Manager.
+* Apps using this plugin must use Flutter 3.44+.
+* iOS apps using this plugin must enable Swift Package Manager.
 * google_navigation_flutter is now pinned to 0.10.0.
-* Android consumers must use Android Gradle Plugin 8.13.2+ and enable core library desugaring with com.android.tools:desugar_jdk_libs_nio:2.1.5 or newer.
+* Android apps using this plugin must use Android Gradle Plugin 8.13.2+ and enable core library desugaring with com.android.tools:desugar_jdk_libs_nio:2.1.5 or newer.
 
 ### Features
 
